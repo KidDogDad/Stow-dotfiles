@@ -1,0 +1,6 @@
+[flavor]
+dark = "catppuccin-mocha"
+light = "catppuccin-latte"
+
+[mgr]
+syntect_theme = "~/.config/bat/themes/Catppuccin Mocha.tmTheme"
