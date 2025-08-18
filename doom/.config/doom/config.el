@@ -313,27 +313,6 @@
 (setq-default vterm-shell "/usr/bin/fish")
 (setq-default explicit-shell-file-name "/usr/bin/fish")
 
-(use-package! chezmoi
-  :config
-  ;; Enable chezmoi mode for dotfiles
-  (setq chezmoi-use-magit t)
-
-  ;; Auto-enable for chezmoi managed files
-  (add-hook 'find-file-hook
-            (lambda ()
-              (when (and buffer-file-name
-                         (string-match-p "/\\.local/share/chezmoi/" buffer-file-name))
-                (chezmoi-mode 1))))
-
-  ;; Key bindings
-  (map! :leader
-        (:prefix ("z" . "chezmoi")
-         :desc "Edit file" "e" #'chezmoi-find
-         :desc "Write buffer" "w" #'chezmoi-write
-         :desc "Diff" "d" #'chezmoi-diff
-         :desc "Apply" "a" #'chezmoi-apply))
-)
-
 (after! dirvish
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
@@ -366,6 +345,7 @@
 (custom-set-faces!
   ;; Font sizes
   '(org-document-title :height 1.5 :weight black)
+  '(org-date :inherit org-meta-line)
   '(org-level-1 :height 1.4 :weight bold)
   '(org-level-2 :height 1.3 :weight bold)
   '(org-level-3 :height 1.2 :weight bold)
@@ -384,7 +364,7 @@
         org-auto-align-tags nil
         org-cycle-separator-lines 1
         org-pretty-entities t
-        org-startup-indented nil
+        org-startup-indented t
         org-startup-truncated nil
         org-adapt-indentation t
         org-special-ctrl-a/e nil
@@ -503,8 +483,7 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      )))
-           ((org-agenda-compact-blocks t)
-            (org-agenda-remove-tags t)))
+           ((org-agenda-remove-tags t)))
           ("T" "This Week"
            ((agenda ""
                     (
@@ -514,10 +493,9 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "ThisWeek"
+            (tags-todo "thisweek"
                        ((org-agenda-overriding-header "\nThis Week"))))
-           ((org-agenda-compact-blocks t)
-            (org-agenda-remove-tags t)))
+            ((org-agenda-remove-tags t)))
           ("W" "Weekend"
            ((agenda ""
                     (
@@ -529,8 +507,7 @@
                      ))
             (tags-todo "Weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
-           ((org-agenda-compact-blocks t)
-            (org-agenda-remove-tags t)))
+            ((org-agenda-remove-tags t)))
           ("A" "Main agenda"
            ((agenda ""
                     (
@@ -545,25 +522,24 @@
                        ((org-agenda-overriding-header "\nThis Week")))
             (tags-todo "Weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
-           ((org-agenda-compact-blocks t)
-            (org-agenda-remove-tags t)))
+            ((org-agenda-remove-tags t)))
           )
 
-        org-agenda-sorting-strategy '((agenda urgency-down time-up ts-up
-                                       priority-down category-keep)
-                                      (todo priority-down category-keep)
-                                      (tags priority-down category-keep)
+        org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
+                                      (todo priority-down)
+                                      (tags priority-down)
                                       (search category-keep))
         )
 
   (custom-set-faces!
-    '(org-agenda-structure :inherit org-level-3 :foreground "#b4befe")
-    '(org-agenda-date :inherit org-level-3 :foreground "#b4befe" :weight bold)
-    '(org-agenda-date-weekend-today :inherit org-level-3 :foreground "#b4befe")
+    `(org-agenda-structure :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
+    `(org-agenda-date :inherit org-level-2 :foreground ,(catppuccin-color 'lavender) :weight bold)
+    `(org-agenda-date-weekend-today :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
+    `(org-agenda-date-today :inherit org-level-3 :foreground ,(catppuccin-color 'mauve))
     '(org-scheduled-today :inherit default :foreground nil :weight regular)
     '(org-scheduled :inherit default :foreground nil :weight regular)
-    '(org-scheduled-previously :inherit default :weight bold :foreground "#f38ba8")
-    '(org-upcoming-deadline :inherit default :foreground "#fab387")
+    `(org-scheduled-previously :inherit default :weight bold :foreground ,(catppuccin-color 'red))
+    `(org-upcoming-deadline :inherit default :foreground ,(catppuccin-color 'peach))
     '(org-agenda-current-time :inherit org-meta-line)
     )
   )
@@ -602,14 +578,6 @@
 ;;   :config
 ;;   (setq org-auto-tangle-default nil))
 
-(use-package! org-ql
-  :after org
-  :config
-  ;; (require 'org-ql)            ;; provides org-dblock-write:org-ql
-  ;; (require 'org-ql-view)       ;; (safe) also loads views
-  ;; (require 'org-ql-block)
-  )
-
 (use-package! denote
   :ensure t
   :hook
@@ -620,6 +588,7 @@
   (dirvish-setup-hook . denote-dired-mode)
   :config
   (setq denote-directory (expand-file-name "~/org/"))
+  (setq denote-file-type 'org)
   (setq denote-dired-directories-include-subdirectories t)
   (setq denote-save-buffers t)
   (setq denote-infer-keywords t)
@@ -671,8 +640,9 @@
                (:prefix ("d" . "denote")
                         (:prefix ("d" . "dynamic blocks")
                          :desc "Backlinks" "b" #'denote-org-dblock-insert-backlinks
-                         :desc "Backlinks" "f" #'denote-org-dblock-insert-files
-                         :desc "Backlinks" "b" #'denote-org-dblock-insert-links
+                         :desc "Files" "f" #'denote-org-dblock-insert-files
+                         :desc "Links" "l" #'denote-org-dblock-insert-links
+                         :desc "Update" "u" #'org-dblock-update
                          ))))
 
 (use-package! denote-journal
@@ -713,6 +683,15 @@
                   :desc "Convert links to denote" "C" #'denote-org-convert-links-to-denote-type
                   )))
   )
+
+(use-package denote-markdown
+  :ensure t
+  ;; Bind these commands to key bindings of your choice.
+  ;; :commands ( denote-markdown-convert-links-to-file-paths
+  ;;             denote-markdown-convert-links-to-denote-type
+  ;;             denote-markdown-convert-links-to-obsidian-type
+  ;;             denote-markdown-convert-obsidian-links-to-denote-type )
+)
 
 ;; (setq org-gcal-client-id "your-id-foo.apps.googleusercontent.com"
 ;;       org-gcal-client-secret "your-secret"

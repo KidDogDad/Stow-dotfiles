@@ -15,7 +15,6 @@
 ;; Org
 (package! org-web-tools)
 (package! org-transclusion)
-(package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
 (package! org-super-agenda)
 
 ;; Denote
@@ -44,3 +43,4 @@
 ;; (package! spacious-padding)
 ;; (package! org-auto-tangle)
 ;; (package! org-padding :recipe (:host github :repo "TonCherAmi/org-padding"))
+;; (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
