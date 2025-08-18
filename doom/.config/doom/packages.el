@@ -16,6 +16,7 @@
 (package! org-web-tools)
 (package! org-transclusion)
 (package! org-super-agenda)
+(package! org-appear)
 
 ;; Denote
 (package! denote)

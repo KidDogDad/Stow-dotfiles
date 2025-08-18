@@ -779,6 +779,13 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
 ;;   (setq org-auto-tangle-default nil))
 #+end_src
 
+** Org Appear
+
+#+begin_src emacs-lisp
+(use-package! org-appear
+  :hook (org-mode . org-appear-mode))
+#+end_src
+
 * Denote
 
 ** Denote Base Package

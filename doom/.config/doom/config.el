@@ -578,6 +578,9 @@
 ;;   :config
 ;;   (setq org-auto-tangle-default nil))
 
+(use-package! org-appear
+  :hook (org-mode . org-appear-mode))
+
 (use-package! denote
   :ensure t
   :hook
