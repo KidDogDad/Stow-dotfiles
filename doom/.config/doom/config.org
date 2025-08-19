@@ -4,7 +4,6 @@
 #+property: header-args :tangle config.el
 #+auto_tangle: t
 #+startup: show2levels
-#+startup: noindent
 
 * Lexical Binding
 
