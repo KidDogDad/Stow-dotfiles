@@ -10,7 +10,7 @@
 #   qute://help/configuring.html
 #   qute://help/settings.html
 
-# Feeding my Catppuccin addiction
+###### Feeding my Catppuccin addiction ######
 import catppuccin
 
 # set the flavor you'd like to use
@@ -19,7 +19,7 @@ import catppuccin
 catppuccin.setup(c, "mocha", True)
 
 # Change the argument to True to still load settings configured via autoconfig.yml
-config.load_autoconfig(True)
+config.load_autoconfig(False)
 
 # Default search engines
 c.url.searchengines = {
@@ -40,7 +40,23 @@ c.url.searchengines = {
     "!yt": "https://www.youtube.com/results?search_query={}",
 }
 
+# Keybindings
+config.bind("xb", "config-cycle statusbar.show always never")
+config.bind("xt", "config-cycle tabs.show always never")
+config.bind(
+    "xx",
+    "config-cycle statusbar.show always never;; config-cycle tabs.show always never",
+)
+config.bind("M", "spawn --userscript view_in_mpv")
+config.bind("Z", "hint links spawn st -e youtube-dl {hint-url}")
+config.bind("zk", "cmd-run-with-count 15 scroll up")
+config.bind("zK", "cmd-run-with-count 50 scroll up")
+config.bind("zj", "cmd-run-with-count 15 scroll down")
+config.bind("zJ", "cmd-run-with-count 50 scroll down")
+
+###########################################
 ### Qutebrowser-generated configs below ###
+###########################################
 
 # Always restore open sites when qutebrowser is reopened. Without this
 # option set, `:wq` (`:quit --save`) needs to be used to save open tabs
@@ -559,4 +575,4 @@ c.colors.webpage.preferred_color_scheme = "dark"
 # `colors.webpage.darkmode.policy.images` to `never`.  - "With selective
 # image inversion": qutebrowser default settings.
 # Type: Bool
-c.colors.webpage.darkmode.enabled = True
+# c.colors.webpage.darkmode.enabled = True

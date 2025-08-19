@@ -398,9 +398,9 @@
           ("o" "bin/org-capture Todo" entry (file "~/org/agenda/20250814T155838--inbox.org")
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
           ("e" "Emacs Todo" entry (file "~/org/agenda/20250811T110445--emacs-todos__agenda_emacs.org")
-           "* TODO %? :Emacs:\n")
+           "* TODO %? :emacs:\n")
           ("y" "Yiyi Todo" entry (file "~/org/agenda/20250814T095858--yiyi-todos__agenda_yiyi.org")
-           "* TODO %? :Yiyi:\n"))
+           "* TODO Yiyi: %? :yiyi:\n"))
         )
   )
 
@@ -467,23 +467,13 @@
 
         org-agenda-custom-commands
         '(("y" "Yiyi Tasks"
-           ((tags-todo "Yiyi")))
+           ((tags-todo "yiyi")))
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/20250814T155838--inbox.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
           ("e" "Emacs"
-           ((tags-todo "+Emacs"
+           ((tags-todo "+emacs"
                        ((org-agenda-overriding-header "Emacs Tasks 🤓")))))
-          ("d" "Today"
-           ((agenda ""
-                    (
-                     (org-agenda-remove-tags t)
-                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
-                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
-                     (org-agenda-overriding-header "Calendar")
-                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
-                     )))
-           ((org-agenda-remove-tags t)))
           ("T" "This Week"
            ((agenda ""
                     (
@@ -505,7 +495,7 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "Weekend"
+            (tags-todo "weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
             ((org-agenda-remove-tags t)))
           ("A" "Main agenda"
@@ -518,9 +508,9 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "ThisWeek"
+            (tags-todo "thisWeek"
                        ((org-agenda-overriding-header "\nThis Week")))
-            (tags-todo "Weekend"
+            (tags-todo "weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
             ((org-agenda-remove-tags t)))
           )
@@ -647,6 +637,8 @@
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
                          ))))
+
+(use-package! denote-menu)
 
 (use-package! denote-journal
   :ensure t

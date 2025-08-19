@@ -45,28 +45,57 @@ argument_parser = argparse.ArgumentParser(
     usage=USAGE,
     epilog=EPILOG,
 )
-argument_parser.add_argument('url', nargs='?', default=os.getenv('QUTE_URL'))
-argument_parser.add_argument('--dmenu-invocation', '-d', default='rofi -dmenu -i -p Bitwarden',
-                             help='Invocation used to execute a dmenu-provider')
-argument_parser.add_argument('--password-prompt-invocation', '-p', default='rofi -dmenu -p "Master Password" -password -lines 0',
-                             help='Invocation used to prompt the user for their Bitwarden password')
-argument_parser.add_argument('--no-insert-mode', '-n', dest='insert_mode', action='store_false',
-                             help="Don't automatically enter insert mode")
-argument_parser.add_argument('--totp', '-t', action='store_true',
-                             help="Copy TOTP key to clipboard")
-argument_parser.add_argument('--io-encoding', '-i', default='UTF-8',
-                             help='Encoding used to communicate with subprocesses')
-argument_parser.add_argument('--merge-candidates', '-m', action='store_true',
-                             help='Merge pass candidates for fully-qualified and registered domain name')
-argument_parser.add_argument('--auto-lock', type=int, default=900,
-                             help='Automatically lock the vault after this many seconds')
+argument_parser.add_argument("url", nargs="?", default=os.getenv("QUTE_URL"))
+argument_parser.add_argument(
+    "--dmenu-invocation",
+    "-d",
+    default="rofi -dmenu -i -p Bitwarden",
+    help="Invocation used to execute a dmenu-provider",
+)
+argument_parser.add_argument(
+    "--password-prompt-invocation",
+    "-p",
+    default='rofi -dmenu -p "Master Password" -password -lines 0',
+    help="Invocation used to prompt the user for their Bitwarden password",
+)
+argument_parser.add_argument(
+    "--no-insert-mode",
+    "-n",
+    dest="insert_mode",
+    action="store_false",
+    help="Don't automatically enter insert mode",
+)
+argument_parser.add_argument(
+    "--totp", "-t", action="store_true", help="Copy TOTP key to clipboard"
+)
+argument_parser.add_argument(
+    "--io-encoding",
+    "-i",
+    default="UTF-8",
+    help="Encoding used to communicate with subprocesses",
+)
+argument_parser.add_argument(
+    "--merge-candidates",
+    "-m",
+    action="store_true",
+    help="Merge pass candidates for fully-qualified and registered domain name",
+)
+argument_parser.add_argument(
+    "--auto-lock",
+    type=int,
+    default=900,
+    help="Automatically lock the vault after this many seconds",
+)
 group = argument_parser.add_mutually_exclusive_group()
-group.add_argument('--username-only', '-e',
-                   action='store_true', help='Only insert username')
-group.add_argument('--password-only', '-w',
-                   action='store_true', help='Only insert password')
-group.add_argument('--totp-only', '-T',
-                   action='store_true', help='Only insert totp code')
+group.add_argument(
+    "--username-only", "-e", action="store_true", help="Only insert username"
+)
+group.add_argument(
+    "--password-only", "-w", action="store_true", help="Only insert password"
+)
+group.add_argument(
+    "--totp-only", "-T", action="store_true", help="Only insert totp code"
+)
 
 stderr = functools.partial(print, file=sys.stderr)
 
@@ -81,8 +110,8 @@ class ExitCodes(enum.IntEnum):
 
 
 def qute_command(command):
-    with open(os.environ['QUTE_FIFO'], 'w') as fifo:
-        fifo.write(command + '\n')
+    with open(os.environ["QUTE_FIFO"], "w") as fifo:
+        fifo.write(command + "\n")
         fifo.flush()
 
 
@@ -93,22 +122,22 @@ def ask_password(password_prompt_invocation):
         stdout=subprocess.PIPE,
     )
     if process.returncode > 0:
-        raise Exception('Could not unlock vault')
+        raise Exception("Could not unlock vault")
     master_pass = process.stdout.strip()
     return subprocess.check_output(
-        ['bw', 'unlock', '--raw', '--passwordenv', 'BW_MASTERPASS'],
-        env={**os.environ, 'BW_MASTERPASS': master_pass},
+        ["bw", "unlock", "--raw", "--passwordenv", "BW_MASTERPASS"],
+        env={**os.environ, "BW_MASTERPASS": master_pass},
         text=True,
     ).strip()
 
 
 def get_session_key(auto_lock, password_prompt_invocation):
     if auto_lock == 0:
-        subprocess.call(['keyctl', 'purge', 'user', 'bw_session'])
+        subprocess.call(["keyctl", "purge", "user", "bw_session"])
         return ask_password(password_prompt_invocation)
     else:
         process = subprocess.run(
-            ['keyctl', 'request', 'user', 'bw_session'],
+            ["keyctl", "request", "user", "bw_session"],
             text=True,
             stdout=subprocess.PIPE,
         )
@@ -116,16 +145,16 @@ def get_session_key(auto_lock, password_prompt_invocation):
         if process.returncode > 0:
             session = ask_password(password_prompt_invocation)
             if not session:
-                raise Exception('Could not unlock vault')
+                raise Exception("Could not unlock vault")
             key_id = subprocess.check_output(
-                ['keyctl', 'add', 'user', 'bw_session', session, '@u'],
+                ["keyctl", "add", "user", "bw_session", session, "@u"],
                 text=True,
             ).strip()
 
         if auto_lock > 0:
-            subprocess.call(['keyctl', 'timeout', str(key_id), str(auto_lock)])
+            subprocess.call(["keyctl", "timeout", str(key_id), str(auto_lock)])
         return subprocess.check_output(
-            ['keyctl', 'pipe', str(key_id)],
+            ["keyctl", "pipe", str(key_id)],
             text=True,
         ).strip()
 
@@ -133,13 +162,22 @@ def get_session_key(auto_lock, password_prompt_invocation):
 def pass_(domain, encoding, auto_lock, password_prompt_invocation):
     session_key = get_session_key(auto_lock, password_prompt_invocation)
     process = subprocess.run(
-        ['bw', 'list', 'items', '--nointeraction', '--session', session_key, '--url', domain],
+        [
+            "bw",
+            "list",
+            "items",
+            "--nointeraction",
+            "--session",
+            session_key,
+            "--url",
+            domain,
+        ],
         capture_output=True,
     )
 
     err = process.stderr.decode(encoding).strip()
     if err:
-        msg = 'Bitwarden CLI returned for {:s} - {:s}'.format(domain, err)
+        msg = "Bitwarden CLI returned for {:s} - {:s}".format(domain, err)
         stderr(msg)
 
         if "Vault is locked" in err:
@@ -147,32 +185,44 @@ def pass_(domain, encoding, auto_lock, password_prompt_invocation):
             return pass_(domain, encoding, 0, password_prompt_invocation)
 
     if process.returncode:
-        return '[]'
+        return "[]"
 
     out = process.stdout.decode(encoding).strip()
 
     return out
 
 
-def get_totp_code(selection_id, domain_name, encoding, auto_lock, password_prompt_invocation):
+def get_totp_code(
+    selection_id, domain_name, encoding, auto_lock, password_prompt_invocation
+):
     session_key = get_session_key(auto_lock, password_prompt_invocation)
     process = subprocess.run(
-        ['bw', 'get', 'totp', '--nointeraction', '--session', session_key, selection_id],
+        [
+            "bw",
+            "get",
+            "totp",
+            "--nointeraction",
+            "--session",
+            session_key,
+            selection_id,
+        ],
         capture_output=True,
     )
 
     err = process.stderr.decode(encoding).strip()
     if err:
         # domain_name instead of selection_id to make it more user-friendly
-        msg = 'Bitwarden CLI returned for {:s} - {:s}'.format(domain_name, err)
+        msg = "Bitwarden CLI returned for {:s} - {:s}".format(domain_name, err)
         stderr(msg)
 
         if "Vault is locked" in err:
             stderr("Bitwarden Vault got locked, trying again with clean session")
-            return get_totp_code(selection_id, domain_name, encoding, 0, password_prompt_invocation)
+            return get_totp_code(
+                selection_id, domain_name, encoding, 0, password_prompt_invocation
+            )
 
     if process.returncode:
-        return '[]'
+        return "[]"
 
     out = process.stdout.decode(encoding).strip()
 
@@ -181,16 +231,17 @@ def get_totp_code(selection_id, domain_name, encoding, auto_lock, password_promp
 
 def dmenu(items, invocation, encoding):
     command = shlex.split(invocation)
-    process = subprocess.run(command, input='\n'.join(
-        items).encode(encoding), stdout=subprocess.PIPE)
+    process = subprocess.run(
+        command, input="\n".join(items).encode(encoding), stdout=subprocess.PIPE
+    )
     return process.stdout.decode(encoding).strip()
 
 
 def fake_key_raw(text):
     for character in text:
         # Escape all characters by default, space requires special handling
-        sequence = '" "' if character == ' ' else r'\{}'.format(character)
-        qute_command('fake-key {}'.format(sequence))
+        sequence = '" "' if character == " " else r"\{}".format(character)
+        qute_command("fake-key {}".format(sequence))
 
 
 def main(arguments):
@@ -234,30 +285,36 @@ def main(arguments):
             break
     else:
         if not candidates:
-            stderr('No pass candidates for URL {!r} found!'.format(
-                arguments.url))
+            stderr("No pass candidates for URL {!r} found!".format(arguments.url))
             return ExitCodes.NO_PASS_CANDIDATES
 
     if len(candidates) == 1:
         selection = candidates.pop()
     else:
-        choices = ['{:s} | {:s}'.format(c['name'], c['login']['username']) for c in candidates]
+        choices = [
+            "{:s} | {:s}".format(c["name"], c["login"]["username"]) for c in candidates
+        ]
         choice = dmenu(choices, arguments.dmenu_invocation, arguments.io_encoding)
-        choice_tokens = choice.split('|')
+        choice_tokens = choice.split("|")
         choice_name = choice_tokens[0].strip()
         choice_username = choice_tokens[1].strip()
-        selection = next((c for (i, c) in enumerate(candidates)
-                          if c['name'] == choice_name
-                          and c['login']['username'] == choice_username),
-                         None)
+        selection = next(
+            (
+                c
+                for (i, c) in enumerate(candidates)
+                if c["name"] == choice_name
+                and c["login"]["username"] == choice_username
+            ),
+            None,
+        )
 
     # Nothing was selected, simply return
     if not selection:
         return ExitCodes.SUCCESS
 
-    username = selection['login']['username']
-    password = selection['login']['password']
-    totp = selection['login']['totp']
+    username = selection["login"]["username"]
+    password = selection["login"]["password"]
+    totp = selection["login"]["totp"]
 
     if arguments.username_only:
         fake_key_raw(username)
@@ -267,8 +324,8 @@ def main(arguments):
         # No point in moving it to the clipboard in this case
         fake_key_raw(
             get_totp_code(
-                selection['id'],
-                selection['name'],
+                selection["id"],
+                selection["name"],
                 arguments.io_encoding,
                 arguments.auto_lock,
                 arguments.password_prompt_invocation,
@@ -279,21 +336,22 @@ def main(arguments):
         # back into insert-mode, so the form can be directly submitted by
         # hitting enter afterwards
         fake_key_raw(username)
-        qute_command('fake-key <Tab>')
+        qute_command("fake-key <Tab>")
         fake_key_raw(password)
 
     if arguments.insert_mode:
-        qute_command('mode-enter insert')
+        qute_command("mode-enter insert")
 
     # If it finds a TOTP code, it copies it to the clipboard,
     # which is the same behavior as the Firefox add-on.
     if not arguments.totp_only and totp and arguments.totp:
         # The import is done here, to make pyperclip an optional dependency
         import pyperclip
+
         pyperclip.copy(
             get_totp_code(
-                selection['id'],
-                selection['name'],
+                selection["id"],
+                selection["name"],
                 arguments.io_encoding,
                 arguments.auto_lock,
                 arguments.password_prompt_invocation,
@@ -303,6 +361,6 @@ def main(arguments):
     return ExitCodes.SUCCESS
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     arguments = argument_parser.parse_args()
     sys.exit(main(arguments))
