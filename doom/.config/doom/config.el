@@ -117,37 +117,37 @@
 (setq scroll-conservatively 5)
 (pixel-scroll-precision-mode 1)
 
-(use-package! scroll-on-jump
-  :config
-  (setq scroll-on-jump-duration 0.2)
-  ;; Stop scroll-on-jump from touching comment ops
-  (dolist (fn '(evilnc-comment-or-uncomment-lines
-                evilnc-comment-operator
-                comment-line
-                comment-dwim))
-    (ignore-errors (scroll-on-jump-advice-remove fn)))
-  )
+;; (use-package! scroll-on-jump
+;;   :config
+;;   (setq scroll-on-jump-duration 0.2)
+;;   ;; Stop scroll-on-jump from touching comment ops
+;;   (dolist (fn '(evilnc-comment-or-uncomment-lines
+;;                 evilnc-comment-operator
+;;                 comment-line
+;;                 comment-dwim))
+;;     (ignore-errors (scroll-on-jump-advice-remove fn)))
+;;   )
 
-(after! evil
-  (scroll-on-jump-advice-add evil-undo)
-  (scroll-on-jump-advice-add evil-redo)
-  (scroll-on-jump-advice-add evil-jump-item)
-  (scroll-on-jump-advice-add evil-jump-forward)
-  (scroll-on-jump-advice-add evil-jump-backward)
-  (scroll-on-jump-advice-add evil-ex-search-next)
-  (scroll-on-jump-advice-add evil-ex-search-previous)
-  (scroll-on-jump-advice-add evil-forward-paragraph)
-  (scroll-on-jump-advice-add evil-backward-paragraph)
-  (scroll-on-jump-advice-add evil-goto-mark)
+;; (after! evil
+;;   (scroll-on-jump-advice-add evil-undo)
+;;   (scroll-on-jump-advice-add evil-redo)
+;;   (scroll-on-jump-advice-add evil-jump-item)
+;;   (scroll-on-jump-advice-add evil-jump-forward)
+;;   (scroll-on-jump-advice-add evil-jump-backward)
+;;   (scroll-on-jump-advice-add evil-ex-search-next)
+;;   (scroll-on-jump-advice-add evil-ex-search-previous)
+;;   (scroll-on-jump-advice-add evil-forward-paragraph)
+;;   (scroll-on-jump-advice-add evil-backward-paragraph)
+;;   (scroll-on-jump-advice-add evil-goto-mark)
 
-  ;; Actions that themselves scroll.
-  (scroll-on-jump-with-scroll-advice-add evil-goto-line)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
-  (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
-  ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
-  ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
-  ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom)
-  )
+;;   ;; Actions that themselves scroll.
+;;   (scroll-on-jump-with-scroll-advice-add evil-goto-line)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
+;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
+;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
+;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
+;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom)
+;;   )
 
 ;; (setq fcitx-remote-command "fcitx5-remote")
 
@@ -626,6 +626,7 @@
                 :desc "Goto journal" "j" #'denote-journal-new-or-existing-entry
                 :desc "Link or create journal" "J" #'denote-journal-new-or-existing-entry
                 :desc "Search notes (ripgrep)" "s" #'consult-denote-grep
+                :desc "Denote menu" "m" #'denote-menu-list-notes
                 )))
 
 (map! :leader
@@ -638,7 +639,19 @@
                          :desc "Update" "u" #'org-dblock-update
                          ))))
 
-(use-package! denote-menu)
+(after! denote-menu
+  (setq
+   denote-menu-title-column-width 80
+   denote-menu-keywords-column-width 40
+   )
+  (map!  :map denote-menu-mode-map
+         :nv "dr" #'denote-menu-filter
+         :nv "dk" #'denote-menu-filter
+         :nv "do" #'denote-menu-filter
+         :nv "dc" #'denote-menu-clear-filters
+         :nv "de" #'denote-menu-export-to-dired
+         )
+  )
 
 (use-package! denote-journal
   :ensure t
