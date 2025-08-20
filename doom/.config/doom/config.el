@@ -24,6 +24,8 @@
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sky))
   `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
+  `(doom-dashboard-menu-title :foreground ,(catppuccin-color 'mauve))
+  `(doom-dashboard-menu-desc :foreground ,(catppuccin-color 'flamingo))
   )
 
 (setf (alist-get 'width default-frame-alist) '(text-pixels . 1626))
@@ -180,7 +182,7 @@
   :ensure t)
 
 ;; Save my pinkies
-(map! :after evil ;; :map general-override-mode-map
+(map! :after evil :map general-override-mode-map
       :nv "zj" #'evil-scroll-down
       :nv "zk" #'evil-scroll-up
       :nv "E" #'evil-end-of-line

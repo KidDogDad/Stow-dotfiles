@@ -57,6 +57,7 @@ config.bind("zk", "cmd-run-with-count 15 scroll up")
 config.bind("zK", "cmd-run-with-count 50 scroll up")
 config.bind("zj", "cmd-run-with-count 15 scroll down")
 config.bind("zJ", "cmd-run-with-count 50 scroll down")
+config.bind("tt", "tab-focus")
 
 ###########################################
 ### Qutebrowser-generated configs below ###
