@@ -19,7 +19,11 @@ import catppuccin
 catppuccin.setup(c, "mocha", True)
 
 # Change the argument to True to still load settings configured via autoconfig.yml
-config.load_autoconfig(False)
+config.load_autoconfig(True)
+
+# Aliases
+c.aliases["gD"] = "tab-give"
+c.aliases["sl"] = "session-load"
 
 # Default search engines
 c.url.searchengines = {

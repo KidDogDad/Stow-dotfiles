@@ -32,7 +32,7 @@
 (setf (alist-get 'height initial-frame-alist) '(text-pixels . 1016))
 
 (setq
- doom-font (font-spec :family "iA Writer Mono S" :size 11.0 :weight 'regular)
+ doom-font (font-spec :family "iA Writer Mono V" :size 11.0 :weight 'regular)
  doom-variable-pitch-font (font-spec :family "iA Writer Quattro V" :weight 'regular :size 11.0))
 
 (custom-set-faces!
@@ -180,7 +180,7 @@
   :ensure t)
 
 ;; Save my pinkies
-(map! :after evil :map general-override-mode-map
+(map! :after evil ;; :map general-override-mode-map
       :nv "zj" #'evil-scroll-down
       :nv "zk" #'evil-scroll-up
       :nv "E" #'evil-end-of-line
@@ -189,11 +189,17 @@
       )
 
 (map!
- :map general-override-mode-map
  :leader
- :desc "Dirvish" "d" #'dirvish-dwim)
+ (:prefix ("d" . "dirvish")
+  :desc "Dirvish" "d" #'dirvish-dwim))
 
 (setq evil-auto-indent nil)
+
+(map!
+ :leader
+ :desc "Raise popup" "`" #'+popup/raise
+ :desc "Toggle popup" "-" #'+popup/toggle
+ )
 
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files")
@@ -278,8 +284,8 @@
    :desc "Toggle Org Transclusion" "t" #'org-transclusion-mode)
   (map!
    :leader
-   :prefix "n r"
-   :desc "Add Org Transclusion" "t" #'org-transclusion-add)
+   :prefix "n d"
+   :desc "Add Org transclusion" "T" #'org-transclusion-add)
   :hook
   (org-mode . org-transclusion-mode)
   )
@@ -346,7 +352,7 @@
   ;; Font sizes
   '(org-document-title :height 1.5 :weight black)
   '(org-date :inherit org-meta-line)
-  '(org-level-1 :height 1.4 :weight bold)
+  '(org-level-1 :height 1.3 :weight bold)
   '(org-level-2 :height 1.3 :weight bold)
   '(org-level-3 :height 1.2 :weight bold)
   '(org-level-4 :height 1.2 :weight bold)
@@ -354,6 +360,7 @@
   '(org-level-6 :height 1.2 :weight bold)
   '(org-level-7 :height 1.2 :weight bold)
   '(org-level-8 :height 1.2 :weight bold)
+  '(org-indent :height 1.2 :weight bold)
   )
 
 (use-package! org
@@ -400,9 +407,33 @@
           ("e" "Emacs Todo" entry (file "~/org/agenda/20250811T110445--emacs-todos__agenda_emacs.org")
            "* TODO %? :emacs:\n")
           ("y" "Yiyi Todo" entry (file "~/org/agenda/20250814T095858--yiyi-todos__agenda_yiyi.org")
-           "* TODO Yiyi: %? :yiyi:\n"))
-        )
+           "* TODO Yiyi: %? :yiyi:\n")
+          ;; Not working fully yet
+          ;; ("W" "Web Page (With Content)" plain
+          ;;  (file denote-last-path)
+          ;;  #'denote-org-capture
+          ;;  :immediate-finish nil
+          ;;  :kill-buffer t
+          ;;  :jump-to-captured t)
+          ;; ("w" "Web Page (Link Only)" plain
+          ;;  (file denote-last-path)
+          ;;  #'denote-org-capture
+          ;;  :immediate-finish nil
+          ;;  :kill-buffer t
+          ;;  :jump-to-captured t)
+          ))
   )
+
+;; (org-roam-capture-ref-templates
+;;  '(("W" "Web Page (With Content)" plain
+;;     "%(org-web-tools--url-as-readable-org \"${ref}\")"
+;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
+;;     :unnarrowed t)
+;;    ("w" "Web Page (Link Only)" plain
+;;     "[[${ref}][${title}]]\n\n%?"
+;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
+;;     :unnarrowed t)
+;;    ))
 
 (setq org-todo-keywords
       '((sequence
@@ -443,7 +474,7 @@
         org-agenda-inhibit-startup t
         org-agenda-ignore-properties '(stats)
         org-agenda-window-setup 'current-window
-        org-agenda-restore-windows-after-quit t
+        org-agenda-restore-windows-after-quit nil
         org-log-done 'time
         org-log-into-drawer t
         org-agenda-include-deadlines t
@@ -474,7 +505,7 @@
           ("e" "Emacs"
            ((tags-todo "+emacs"
                        ((org-agenda-overriding-header "Emacs Tasks 🤓")))))
-          ("T" "This Week"
+          ("w" "This Week"
            ((agenda ""
                     (
                      (org-agenda-remove-tags t)
@@ -549,16 +580,16 @@
 (customize-set-value
  'org-agenda-category-icon-alist
  `(
-   ("Projects" ,(list (all-the-icons-faicon "tasks" :height 0.9)) nil nil :ascent center)
-   ("Home" ,(list (all-the-icons-faicon "home" :v-adjust 0.9)) nil nil :ascent center)
-   ("Errands" ,(list (all-the-icons-material "drive_eta" :height 0.9)) nil nil :ascent center)
-   ("Inbox" ,(list (all-the-icons-faicon "inbox" :height 0.9)) nil nil :ascent center)
-   ("Computer" ,(list (all-the-icons-fileicon "arch-linux" :height 0.9)) nil nil :ascent center)
-   ("Coding" ,(list (all-the-icons-faicon "code-fork" :height 0.9)) nil nil :ascent center)
-   ("Emacs" ,(list (all-the-icons-fileicon "emacs" :height 0.9)) nil nil :ascent center)
-   ("Routines" ,(list (all-the-icons-faicon "repeat" :height 0.9)) nil nil :ascent center)
-   ("Yiyi" ,(list (all-the-icons-faicon "female" :height 0.9)) nil nil :ascent center)
-   ("Misc" ,(list (all-the-icons-material "widgets" :height 0.9)) nil nil :ascent center)
+   ("Projects" ,(list (all-the-icons-faicon "tasks" :height 0.6)) nil nil :ascent 0)
+   ("Home" ,(list (all-the-icons-faicon "home" :v-adjust 0.6)) nil nil :ascent 0)
+   ("Errands" ,(list (all-the-icons-material "drive_eta" :height 0.6)) nil nil :ascent 0)
+   ("Inbox" ,(list (all-the-icons-faicon "inbox" :height 0.6)) nil nil :ascent 0)
+   ("Computer" ,(list (all-the-icons-fileicon "arch-linux" :height 0.6)) nil nil :ascent 0)
+   ("Coding" ,(list (all-the-icons-faicon "code-fork" :height 0.6)) nil nil :ascent 0)
+   ("Emacs" ,(list (all-the-icons-fileicon "emacs" :height 0.6)) nil nil :ascent 0)
+   ("Routines" ,(list (all-the-icons-faicon "repeat" :height 0.6)) nil nil :ascent 0)
+   ("Yiyi" ,(list (all-the-icons-faicon "heart" :height 0.6)) nil nil :ascent 0)
+   ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
    ))
 
 ;; (use-package! org-auto-tangle
@@ -627,6 +658,7 @@
                 :desc "Link or create journal" "J" #'denote-journal-new-or-existing-entry
                 :desc "Search notes (ripgrep)" "s" #'consult-denote-grep
                 :desc "Denote menu" "m" #'denote-menu-list-notes
+                :desc "Denote template" "t" #'denote-template
                 )))
 
 (map! :leader
@@ -638,6 +670,21 @@
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
                          ))))
+
+(after! denote
+  (setq denote-templates
+        `((Yiyi-Check-In . ,(concat "* Yiyi Check-In"
+                                    "\n"
+                                    "- Time: \n"
+                                    "- Mood: \n"
+                                    "- Connection: \n"
+                                    "- Helpfulness: \n"
+                                    "\n\n"
+                                    "** Notes"
+                                    "\n"
+                                    ))
+          (report . "* Some heading\n\n* Another heading")
+          )))
 
 (after! denote-menu
   (setq
@@ -707,30 +754,30 @@
 ;;                                   ("another-mail@gmail.com" .  "~/task.org")))
 ;; (require 'org-gcal)
 
-(setq +mu4e-gmail-accounts '(("josh@gilliland.cloud" . "~/.mail/gmail")))
+;; (setq +mu4e-gmail-accounts '(("josh@gilliland.cloud" . "~/.mail/gmail")))
 
-;; Each path is relative to the path of the maildir you passed to mu
-(set-email-account! "josh@gilliland.cloud"
-  '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-    (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-    (mu4e-trash-folder      . "/[Gmail]/Trash")
-    (mu4e-refile-folder     . "/[Gmail]/All Mail")
-    )
-  t)
+;; ;; Each path is relative to the path of the maildir you passed to mu
+;; (set-email-account! "josh@gilliland.cloud"
+;;   '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+;;     (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+;;     (mu4e-trash-folder      . "/[Gmail]/Trash")
+;;     (mu4e-refile-folder     . "/[Gmail]/All Mail")
+;;     )
+;;   t)
 
-(after! mu4e
-  (setq sendmail-program (executable-find "msmtp")
-        send-mail-function #'smtpmail-send-it
-        message-sendmail-f-is-evil t
-        message-sendmail-extra-arguments '("--read-envelope-from")
-        message-send-mail-function #'message-send-mail-with-sendmail)
+;; (after! mu4e
+;;   (setq sendmail-program (executable-find "msmtp")
+;;         send-mail-function #'smtpmail-send-it
+;;         message-sendmail-f-is-evil t
+;;         message-sendmail-extra-arguments '("--read-envelope-from")
+;;         message-send-mail-function #'message-send-mail-with-sendmail)
 
-;; don't need to run cleanup after indexing for gmail
-(setq mu4e-index-cleanup nil
-      ;; because gmail uses labels as folders we can use lazy check since
-      ;; messages don't really "move"
-      mu4e-index-lazy-check t)
-  )
+;; ;; don't need to run cleanup after indexing for gmail
+;; (setq mu4e-index-cleanup nil
+;;       ;; because gmail uses labels as folders we can use lazy check since
+;;       ;; messages don't really "move"
+;;       mu4e-index-lazy-check t)
+;;   )
 
 (defun logseq-md-headings-to-org ()
   "Convert Logseq-style headings to Org headings, removing leading dash and indentation."
