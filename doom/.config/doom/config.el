@@ -11,9 +11,9 @@
 
 (custom-theme-set-faces! 'catppuccin
   `(org-document-title :foreground ,(catppuccin-color 'lavender))
-  `(org-level-1 :foreground ,(catppuccin-color 'lavender))
-  `(org-level-2 :foreground ,(catppuccin-color 'mauve))
-  `(org-level-3 :foreground ,(catppuccin-color 'blue))
+  `(org-level-1 :foreground ,(catppuccin-color 'mauve))
+  `(org-level-2 :foreground ,(catppuccin-color 'blue))
+  `(org-level-3 :foreground ,(catppuccin-color 'sapphire))
   `(org-level-4 :foreground ,(catppuccin-color 'teal))
   `(org-level-5 :foreground ,(catppuccin-color 'green))
   `(org-level-6 :foreground ,(catppuccin-color 'yellow))
@@ -22,8 +22,10 @@
   `(org-todo :foreground ,(catppuccin-color 'green))
   `(org-quote :foreground ,(catppuccin-color 'mauve))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
-  `(bold :weight bold :foreground ,(catppuccin-color 'sky))
+  `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
   `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
+  `(org-todo :foreground ,(catppuccin-color 'flamingo))
+  `(org-code :foreground ,(catppuccin-color 'teal))
   `(doom-dashboard-menu-title :foreground ,(catppuccin-color 'mauve))
   `(doom-dashboard-menu-desc :foreground ,(catppuccin-color 'flamingo))
   )
@@ -34,8 +36,8 @@
 (setf (alist-get 'height initial-frame-alist) '(text-pixels . 1016))
 
 (setq
- doom-font (font-spec :family "iA Writer Mono V" :size 11.0 :weight 'regular)
- doom-variable-pitch-font (font-spec :family "iA Writer Quattro V" :weight 'regular :size 11.0))
+ doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 11.0 :weight 'demi-bold)
+ doom-variable-pitch-font (font-spec :family "Inter" :weight 'regular :size 12.0))
 
 (custom-set-faces!
   '(bold :weight bold)
@@ -657,7 +659,7 @@
                 :desc "Denote dired" "D" #'denote-dired
                 :desc "Open or create a note" "n" #'denote-open-or-create
                 :desc "Goto journal" "j" #'denote-journal-new-or-existing-entry
-                :desc "Link or create journal" "J" #'denote-journal-new-or-existing-entry
+                :desc "Link or create journal" "J" #'denote-journal-link-or-create-entry
                 :desc "Search notes (ripgrep)" "s" #'consult-denote-grep
                 :desc "Denote menu" "m" #'denote-menu-list-notes
                 :desc "Denote template" "t" #'denote-template
@@ -675,8 +677,7 @@
 
 (after! denote
   (setq denote-templates
-        `((Yiyi-Check-In . ,(concat "* Yiyi Check-In"
-                                    "\n"
+        `((Yiyi-check-in . ,(concat "* Yiyi Check-In"
                                     "- Time: \n"
                                     "- Mood: \n"
                                     "- Connection: \n"
@@ -685,7 +686,7 @@
                                     "** Notes"
                                     "\n"
                                     ))
-          (report . "* Some heading\n\n* Another heading")
+          (default . "")
           )))
 
 (after! denote-menu

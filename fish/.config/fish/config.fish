@@ -10,10 +10,10 @@ set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
 # Fix weird-looking man pages
 set -x MANROFFOPT -c
 
-# Set nvim as default editor 
-set -gx EDITOR nvim
-set -gx VISUAL nvim
-set -gx SYSTEMD_EDITOR nvim
+# Set emacsclient as default editor
+set -gx EDITOR emacsclient
+set -gx VISUAL emacsclient
+set -gx SYSTEMD_EDITOR emacsclient
 
 # Stop ranger from loading both system and local config
 set -x RANGER_LOAD_DEFAULT_RC FALSE
