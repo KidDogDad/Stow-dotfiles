@@ -11,7 +11,7 @@
 #   qute://help/settings.html
 
 ###### Feeding my Catppuccin addiction ######
-import qutebrowser-catppuccin
+import catppuccin
 
 # set the flavor you'd like to use
 # valid options are 'mocha', 'macchiato', 'frappe', and 'latte'
