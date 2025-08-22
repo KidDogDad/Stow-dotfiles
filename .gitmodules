@@ -1,6 +1,0 @@
-[submodule "qutebrowser/.config/qutebrowser-catppuccin"]
-	path = qutebrowser/.config/qutebrowser-catppuccin
-	url = https://github.com/KidDogDad/qutebrowser-catppuccin
-[submodule "qutebrowser/.config/qutebrowser/qutebrowser-catppuccin"]
-	path = qutebrowser/.config/qutebrowser/qutebrowser-catppuccin
-	url = https://github.com/KidDogDad/qutebrowser-catppuccin

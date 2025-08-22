@@ -11,7 +11,7 @@
 #   qute://help/settings.html
 
 ###### Feeding my Catppuccin addiction ######
-import catppuccin
+import qutebrowser-catppuccin
 
 # set the flavor you'd like to use
 # valid options are 'mocha', 'macchiato', 'frappe', and 'latte'
@@ -58,6 +58,9 @@ config.bind("zK", "cmd-run-with-count 50 scroll up")
 config.bind("zj", "cmd-run-with-count 15 scroll down")
 config.bind("zJ", "cmd-run-with-count 50 scroll down")
 config.bind("tt", "tab-focus")
+
+# Automatically enter insert mode if an editable element is focused after loading the page.
+c.input.insert_mode.auto_load = True
 
 ###########################################
 ### Qutebrowser-generated configs below ###
@@ -427,11 +430,11 @@ c.colors.statusbar.normal.bg = "#1e1e2e"
 
 # Foreground color of the statusbar in insert mode.
 # Type: QssColor
-c.colors.statusbar.insert.fg = "#f5e0dc"
+c.colors.statusbar.insert.fg = "#f5c2e7"
 
 # Background color of the statusbar in insert mode.
 # Type: QssColor
-c.colors.statusbar.insert.bg = "#11111b"
+c.colors.statusbar.insert.bg = "#45475a"
 
 # Foreground color of the statusbar in passthrough mode.
 # Type: QssColor
@@ -439,7 +442,7 @@ c.colors.statusbar.passthrough.fg = "#fab387"
 
 # Background color of the statusbar in passthrough mode.
 # Type: QssColor
-c.colors.statusbar.passthrough.bg = "#1e1e2e"
+c.colors.statusbar.passthrough.bg = "#45475a"
 
 # Foreground color of the statusbar in private browsing mode.
 # Type: QssColor
@@ -534,7 +537,7 @@ c.colors.tabs.odd.fg = "#9399b2"
 
 # Background color of unselected odd tabs.
 # Type: QtColor
-c.colors.tabs.odd.bg = "#45475a"
+c.colors.tabs.odd.bg = "#313244"
 
 # Foreground color of unselected even tabs.
 # Type: QtColor
@@ -542,7 +545,7 @@ c.colors.tabs.even.fg = "#9399b2"
 
 # Background color of unselected even tabs.
 # Type: QtColor
-c.colors.tabs.even.bg = "#585b70"
+c.colors.tabs.even.bg = "#45475a"
 
 # Foreground color of selected odd tabs.
 # Type: QtColor
@@ -559,6 +562,30 @@ c.colors.tabs.selected.even.fg = "#cdd6f4"
 # Background color of selected even tabs.
 # Type: QtColor
 c.colors.tabs.selected.even.bg = "#1e1e2e"
+
+## Background color of unselected & pinned even tabs.
+c.colors.tabs.pinned.even.bg = "#45475a"
+
+## Background color of unselected & pinned odd tabs.
+c.colors.tabs.pinned.odd.bg = "#313244"
+
+## Foreground color of unselected even tabs.
+c.colors.tabs.pinned.even.fg = "#9399b2"
+
+## Foreground color of unselected odd tabs.
+c.colors.tabs.pinned.odd.fg = "#9399b2"
+
+# ## Background color of selected & pinned even tabs.
+c.colors.tabs.pinned.selected.even.bg = "#1e1e2e"
+
+# ## Background color of selected & pinned odd tabs.
+c.colors.tabs.pinned.selected.odd.bg = "#1e1e2e"
+
+# ## Foreground color of selected & pinned even tabs.
+c.colors.tabs.pinned.selected.even.fg = "#cdd6f4"
+
+# ## Foreground color of selected & pinned odd tabs.
+c.colors.tabs.pinned.selected.odd.fg = "#cdd6f4"
 
 # Value to use for `prefers-color-scheme:` for websites. The "light"
 # value is only available with QtWebEngine 5.15.2+. On older versions,

@@ -571,7 +571,6 @@
                 (dedicated . t)
                 (preserve-size . (t . t)))))
 
-
   ;; Pick dates, where relevant, with Org's advanced interface:
   (setq denote-date-prompt-use-org-read-date t)
 
@@ -582,9 +581,22 @@
   (denote-rename-buffer-mode 1)
   )
 
+(setq denote-file-name-components-order '(title keywords signature identifier))
+
+(defun my-denote-rename-all-to-reorder-components ()
+  "Call `denote-dired-rename-files' without any prompts.
+     In other words, preserve the value of each Denote file name component.
+
+     Use this command if you want to modify the user option
+     `denote-file-name-components-order' and then want your files to
+     retroactively follow that order."
+  (interactive)
+  (let ((denote-prompts nil))
+    (call-interactively 'denote-dired-rename-files)))
+
 (custom-set-faces!
-  `(denote-faces-date :foreground ,(doom-color 'text))
-  `(denote-faces-title :foreground ,(catppuccin-color 'lavender))
+  `(denote-faces-date :foreground ,(catppuccin-color 'subtext0))
+  `(denote-faces-title :foreground ,(catppuccin-color 'white))
   `(denote-faces-keywords :foreground ,(catppuccin-color 'red))
   `(denote-faces-link :inherit link :foreground ,(catppuccin-color 'lavender))
   )
