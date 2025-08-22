@@ -26,6 +26,7 @@
   `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
   `(org-todo :foreground ,(catppuccin-color 'flamingo))
   `(org-code :foreground ,(catppuccin-color 'teal))
+  `(org-verbatim :foreground ,(catppuccin-color 'rosewater))
   `(doom-dashboard-menu-title :foreground ,(catppuccin-color 'mauve))
   `(doom-dashboard-menu-desc :foreground ,(catppuccin-color 'flamingo))
   )
@@ -59,43 +60,30 @@
 
 (window-divider-mode -1)
 
-(use-package! olivetti
-  :config
-  (map!
-   :leader
-   :prefix "t"
-   :desc "Toggle Olivetti" "o" #'olivetti-mode
-   )
-  :custom
+(defun my/org-olivetti-maybe ()
+  (let* ((file (or buffer-file-name ""))
+         (in-doom (and (boundp 'doom-emacs-dir)
+                       file
+                       (file-in-directory-p file doom-emacs-dir))))
+    (when (and (derived-mode-p 'org-mode)
+               (not buffer-read-only)
+               (not (string-match-p "config\\.org\\'" file))
+               (not in-doom))
+      (olivetti-mode 1))))
+
+(add-hook 'org-mode-hook #'my/org-olivetti-maybe)
+
+(after! olivetti
   (setq olivetti-body-width 100)
   ;; (setq olivetti-style 'margins)
   (setq olivetti-style 'fancy)
-  :hook
-  (org-mode . olivetti-mode)
   )
 
-;; (use-package! spacious-padding)
-
-;; ;; These are the default values, but I keep them here for visibility.
-;; (setq spacious-padding-widths
-;;       '( :internal-border-width 10
-;;          :header-line-width 4
-;;          :mode-line-width 1
-;;          :tab-width 4
-;;          :right-divider-width 25
-;;          :scroll-bar-width 8
-;;          :fringe-width 10))
-
-;; ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
-;; ;; is very flexible and provides several examples.
-;; (setq spacious-padding-subtle-frame-lines nil)
-;;       ;; `( :mode-line-active 'default
-;;       ;;    :mode-line-inactive vertical-border))
-
-;; (spacious-padding-mode 1)
-
-;; ;; Set a key binding if you need to toggle spacious padding.
-;; (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
+(map!
+ :leader
+ :prefix "t"
+ :desc "Toggle Olivetti" "o" #'olivetti-mode
+ )
 
 (defun my/org-hex-face ()
   (let* ((hex (match-string-no-properties 0))
@@ -114,44 +102,16 @@
   (font-lock-flush))
 (add-hook 'org-mode-hook #'my/org-colorize-hex)
 
+(setq garbage-collection-messages t) ;; show when garbage collection is happening
+
+(setq gc-cons-percentage 0.1)
+
 (add-hook 'text-mode-hook (lambda () (electric-indent-local-mode -1)))
 
 ;; (dired-hide-details-mode 1)
 
 (setq scroll-conservatively 5)
 (pixel-scroll-precision-mode 1)
-
-;; (use-package! scroll-on-jump
-;;   :config
-;;   (setq scroll-on-jump-duration 0.2)
-;;   ;; Stop scroll-on-jump from touching comment ops
-;;   (dolist (fn '(evilnc-comment-or-uncomment-lines
-;;                 evilnc-comment-operator
-;;                 comment-line
-;;                 comment-dwim))
-;;     (ignore-errors (scroll-on-jump-advice-remove fn)))
-;;   )
-
-;; (after! evil
-;;   (scroll-on-jump-advice-add evil-undo)
-;;   (scroll-on-jump-advice-add evil-redo)
-;;   (scroll-on-jump-advice-add evil-jump-item)
-;;   (scroll-on-jump-advice-add evil-jump-forward)
-;;   (scroll-on-jump-advice-add evil-jump-backward)
-;;   (scroll-on-jump-advice-add evil-ex-search-next)
-;;   (scroll-on-jump-advice-add evil-ex-search-previous)
-;;   (scroll-on-jump-advice-add evil-forward-paragraph)
-;;   (scroll-on-jump-advice-add evil-backward-paragraph)
-;;   (scroll-on-jump-advice-add evil-goto-mark)
-
-;;   ;; Actions that themselves scroll.
-;;   (scroll-on-jump-with-scroll-advice-add evil-goto-line)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-down)
-;;   (scroll-on-jump-with-scroll-advice-add evil-scroll-up)
-;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-center)
-;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-top)
-;;   ;; (scroll-on-jump-with-scroll-advice-add evil-scroll-line-to-bottom)
-;;   )
 
 ;; (setq fcitx-remote-command "fcitx5-remote")
 
@@ -171,17 +131,12 @@
 (setq evil-escape-key-sequence "jk")
 (setq evil-escape-unordered-key-sequence t)
 
-(use-package! gptel
- :config
+(after! gptel
  (setq! gptel-api-key
         (auth-source-pick-first-password :host "api.openai.com"))
  (setq gptel-default-mode 'org-mode)
- :hook
- (gptel-mode . (lambda () (olivetti-mode -1)))
+ (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
  )
-
-(use-package! info+
-  :ensure t)
 
 ;; Save my pinkies
 (map! :after evil :map general-override-mode-map
@@ -191,6 +146,10 @@
       :nv "B" #'evil-first-non-blank
       :nv "ga" #'evil-avy-goto-line
       )
+
+;; Give me the universal argument in insert mode
+(setq! evil-want-C-u-scroll nil
+       evil-want-C-u-delete nil)
 
 (map!
  :leader
@@ -219,12 +178,7 @@
       :weight bold :height 1.5 :box (:line-width 5 :color "#f38ba8")))
   )
 
-(use-package! windresize
-  :config
-  (map!
-   :leader
-   :prefix "w"
-   :desc "Resize Window" "r" #'windresize)
+(after! windresize
   (setq windresize-modifiers
         '((meta)            ; select window
           (meta control)    ; move the up/left border (instead of bottom/right)
@@ -232,20 +186,22 @@
           (control)))       ; temporarily negate the increment value
   )
 
-(use-package! super-save
-  :config
-  (super-save-mode +1)
-  :custom
-  (super-save-auto-save-when-idle t)
-  (super-save-all-buffers t)
-  (super-save-delete-trailing-whitespace t)
-)
+(map!
+ :leader
+ :prefix "w"
+ :desc "Resize Window" "r" #'windresize)
+
+(super-save-mode +1)
+
+(setq
+ super-save-auto-save-when-idle t
+ super-save-all-buffers t
+ super-save-delete-trailing-whitespace t
+ )
+(add-to-list 'super-save-triggers 'org-agenda-quit)
 
 ;; Turn off default auto-save in favor of super-save
 (setq auto-save-default nil)
-
-(add-to-list 'super-save-hook-triggers 'org-agenda-quit)
-(add-to-list 'super-save-triggers 'org-agenda-quit)
 
 (setq which-key-idle-delay 0.3)
 (setq which-key-idle-secondary-delay 0.05)
@@ -279,9 +235,7 @@
   ;; (push '(?a . evil-surround-after-block) evil-surround-pairs-alist)
   )
 
-(use-package! org-transclusion
-  :after org
-  :init
+(after! org-transclusion
   (map!
    :leader
    :prefix "t"
@@ -290,9 +244,9 @@
    :leader
    :prefix "n d"
    :desc "Add Org transclusion" "T" #'org-transclusion-add)
-  :hook
-  (org-mode . org-transclusion-mode)
   )
+
+(add-hook 'org-mode-hook #'org-transclusion-mode)
 
 (after! evil
   ;; This advice intercepts `evil-delete` and changes the register to `_`.
@@ -367,9 +321,7 @@
   '(org-indent :height 1.2 :weight bold)
   )
 
-(use-package! org
-  :ensure nil
-  :config
+(after! org
   (setq org-directory "~/org"
         org-ellipsis " >"
         org-auto-align-tags nil
@@ -395,9 +347,7 @@
         )
   )
 
-(use-package! org-capture
-  :ensure nil
-  :config
+(after! org-capture
   (add-hook 'org-capture-mode-hook
             (lambda nil
               (setq-local header-line-format nil)))
@@ -461,11 +411,7 @@
 
 (setq org-agenda-files (list (concat org-directory "/agenda")))
 
-(use-package! all-the-icons)
-
-(use-package! org-agenda
-  :ensure nil
-  :config
+(after! org-agenda
   (setq org-agenda-start-day "+0d"
         org-agenda-span 'day
         org-agenda-timegrid-use-ampm t
@@ -581,6 +527,8 @@
       :map org-super-agenda-header-map
       "k" 'org-agenda-previous-line)
 
+(use-package! all-the-icons)
+
 (customize-set-value
  'org-agenda-category-icon-alist
  `(
@@ -596,25 +544,18 @@
    ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
    ))
 
-;; (use-package! org-auto-tangle
-;;   :defer t
-;;   :hook
-;;   (org-mode . org-auto-tangle-mode)
-;;   :config
+;; (after! org-auto-tangle
+;;   (add-hook 'org-mode 'org-auto-tangle-mode)
 ;;   (setq org-auto-tangle-default nil))
 
-(use-package! org-appear
-  :hook (org-mode . org-appear-mode))
+(add-hook 'org-mode-hook #'org-appear-mode)
 
-(use-package! denote
-  :ensure t
-  :hook
+(after! denote
   ;; Make Denote links clickable
-  (text-mode . denote-fontify-links-mode-maybe)
+  (add-hook 'text-mode-hook #'denote-fontify-links-mode-maybe)
   ;; Apply colors to Denote names in Dired
-  (dired-mode . denote-dired-mode)
-  (dirvish-setup-hook . denote-dired-mode)
-  :config
+  (add-hook 'dired-mode-hook #'denote-dired-mode)
+  (add-hook 'dirvish-setup-hook #'denote-dired-mode)
   (setq denote-directory (expand-file-name "~/org/"))
   (setq denote-file-type 'org)
   (setq denote-dired-directories-include-subdirectories t)
@@ -651,8 +592,6 @@
 (map! :leader
       (:prefix ("n" . "notes")
                (:prefix ("d" . "denote")
-                :desc "Rename" "r" #'denote-rename-file
-                :desc "Rename using front matter" "R" #'denote-rename-file-using-front-matter
                 :desc "Link or create a note" "l" #'denote-link-or-create
                 :desc "Add links" "L" #'denote-add-links
                 :desc "Backlinks" "b" #'denote-backlinks
@@ -663,7 +602,20 @@
                 :desc "Search notes (ripgrep)" "s" #'consult-denote-grep
                 :desc "Denote menu" "m" #'denote-menu-list-notes
                 :desc "Denote template" "t" #'denote-template
+                :desc "Create note using date" "N" #'denote-create-note-using-date
                 )))
+
+(map! :leader
+      (:prefix ("n" . "notes")
+               (:prefix ("d" . "denote")
+                        (:prefix ("r" . "rename")
+                         :desc "Rename" "r" #'denote-rename-file
+                         :desc "Rename keywords" "k" #'denote-rename-file-keywords
+                         :desc "Rename title" "t" #'denote-rename-file-title
+                         :desc "Rename date" "d" #'denote-rename-file-date
+                         :desc "Rename identifier" "i" #'denote-rename-file-identifier
+                         :desc "Rename using front matter" "f" #'denote-rename-file-using-front-matter
+                         ))))
 
 (map! :leader
       (:prefix ("n" . "notes")
@@ -694,19 +646,17 @@
    denote-menu-title-column-width 80
    denote-menu-keywords-column-width 40
    )
-  (map!  :map denote-menu-mode-map
-         :nv "dr" #'denote-menu-filter
-         :nv "dk" #'denote-menu-filter
-         :nv "do" #'denote-menu-filter
-         :nv "dc" #'denote-menu-clear-filters
-         :nv "de" #'denote-menu-export-to-dired
-         )
   )
+(map!  :map denote-menu-mode-map
+       :nv "dr" #'denote-menu-filter
+       :nv "dk" #'denote-menu-filter
+       :nv "do" #'denote-menu-filter
+       :nv "dc" #'denote-menu-clear-filters
+       :nv "de" #'denote-menu-export-to-dired
+       )
 
-(use-package! denote-journal
-  :ensure t
-  :hook (calendar-mode . denote-journal-calendar-mode)
-  :config
+(after! denote-journal
+  (add-hook 'calendar-mode-hook #'denote-journal-calendar-mode)
   ;; Use the "journal" subdirectory of the `denote-directory'. Set this
   ;; to nil to use the `denote-directory' instead.
   (setq denote-journal-directory
@@ -718,38 +668,46 @@
   (setq denote-journal-title-format "%Y-%0m-%0d")
   )
 
-(use-package! consult-denote
-  :ensure t
-  :bind
-  (("C-c n f" . consult-denote-find)
-   ("C-c n g" . consult-denote-grep))
-  :config
+(after! consult-denote
   (consult-denote-mode 1)
   (setq consult-denote-grep-command #'consult-ripgrep)
   )
+(map! :leader
+      (:prefix ("n" . "notes")
+       (:prefix "d" . "denote")
+       :desc "Consult Denote Find" "f" #'consult-denote-find
+       :desc "Consult Denote Grep" "g" #'consult-denote-grep
+       )
+      )
 
-(use-package! denote-org
-  :ensure t
-  :config
-  ;; I list the commands here so that you can discover them more
-  ;; easily. You might want to bind the most frequently used ones to
-  ;; the `org-mode-map'.
-  (map! :leader
-        (:prefix ("n" . "notes")
-                 (:prefix ("d" . "denote")
-                  :desc "Extract subtree" "x" #'denote-org-extract-org-subtree
-                  :desc "Convert links to denote" "C" #'denote-org-convert-links-to-denote-type
-                  )))
+(map! :leader
+      (:prefix ("n" . "notes")
+               (:prefix ("d" . "denote")
+                :desc "Extract subtree" "x" #'denote-org-extract-org-subtree
+                :desc "Convert links to denote" "C" #'denote-org-convert-links-to-denote-type
+                )))
+
+(after! notmuch
+  (setq notmuch-show-log nil
+        notmuch-hello-sections `(notmuch-hello-insert-header
+                                 notmuch-hello-insert-saved-searches
+                                 notmuch-hello-insert-alltags
+                                 notmuch-hello-insert-footer)
+        ;; To hide headers while composing an email
+        notmuch-message-headers-visible nil
+        notmuch-archive-tags '("-inbox" "-unread" "-new")
+        )
+
+  (set-popup-rule! "^\\*notmuch" :ignore t)
+  (set-popup-rule! "^\\*notmuch-hello" :ignore t)
+  (set-popup-rule! "^\\*subject:" :size 0.75 :ttl 0)
+
+  ;; (setq +notmuch-home-function (lambda () (notmuch-search "tag:inbox")))
   )
 
-(use-package denote-markdown
-  :ensure t
-  ;; Bind these commands to key bindings of your choice.
-  ;; :commands ( denote-markdown-convert-links-to-file-paths
-  ;;             denote-markdown-convert-links-to-denote-type
-  ;;             denote-markdown-convert-links-to-obsidian-type
-  ;;             denote-markdown-convert-obsidian-links-to-denote-type )
-)
+(map! :map notmuch-common-keymap
+      :n "gh" #'notmuch-hello
+      )
 
 ;; (setq org-gcal-client-id "your-id-foo.apps.googleusercontent.com"
 ;;       org-gcal-client-secret "your-secret"
@@ -807,3 +765,51 @@ Also unwrap URLs like {{video https://...}}."
             (when (string-match "\\`{{video[[:space:]]+\\([^}]+\\)}}\\'" url)
               (setq url (match-string 1 url)))
             (replace-match (concat "[[" url "][" txt "]]") t t)))))))
+
+(defun modi/org-entity-get-name (char)
+  "Return the entity name for CHAR. For example, return \"ast\" for *."
+  (let ((ll (append org-entities-user
+                    org-entities))
+        e name utf8)
+    (catch 'break
+      (while ll
+        (setq e (pop ll))
+        (when (not (stringp e))
+          (setq utf8 (nth 6 e))
+          (when (string= char utf8)
+            (setq name (car e))
+            (throw 'break name)))))))
+
+(defun modi/org-insert-org-entity-maybe (&rest args)
+  "When the universal prefix C-u is used before entering any character,
+    insert the character's `org-entity' name if available.
+
+    If C-u prefix is not used and if `org-entity' name is not available, the
+    returned value `entity-name' will be nil."
+  ;; It would be fine to use just (this-command-keys) instead of
+  ;; (substring (this-command-keys) -1) below in emacs 25+.
+  ;; But if the user pressed "C-u *", then
+  ;;  - in emacs 24.5, (this-command-keys) would return "^U*", and
+  ;;  - in emacs 25.x, (this-command-keys) would return "*".
+  ;; But in both versions, (substring (this-command-keys) -1) will return
+  ;; "*", which is what we want.
+  ;; http://thread.gmane.org/gmane.emacs.orgmode/106974/focus=106996
+  (let ((pressed-key (substring (this-command-keys) -1))
+        entity-name)
+    (when (and (listp args) (eq 4 (car args)))
+      (setq entity-name (modi/org-entity-get-name pressed-key))
+      (when entity-name
+        (setq entity-name (concat "\\" entity-name "{}"))
+        (insert entity-name)
+        (message (concat "Inserted `org-entity' "
+                         (propertize entity-name
+                                     'face 'font-lock-function-name-face)
+                         " for the symbol "
+                         (propertize pressed-key
+                                     'face 'font-lock-function-name-face)
+                         "."))))
+    entity-name))
+
+;; Run `org-self-insert-command' only if `modi/org-insert-org-entity-maybe'
+;; returns nil.
+(advice-add 'org-self-insert-command :before-until #'modi/org-insert-org-entity-maybe)

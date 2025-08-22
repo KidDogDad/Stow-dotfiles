@@ -11,7 +11,7 @@ set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
 set -x MANROFFOPT -c
 
 # Set emacsclient as default editor
-set -gx EDITOR emacsclient
+set -gx EDITOR nvim
 set -gx VISUAL emacsclient
 set -gx SYSTEMD_EDITOR emacsclient
 
@@ -26,12 +26,11 @@ alias clear='clear'
 # alias c='clear' # Stop using this and start hitting ctrl-l
 alias n='nvim'
 alias ccn='clear && nvim'
+# Get fastest mirrors
+alias mirrors="sudo reflector --verbose --country 'United States' --protocol https --age 24 --sort rate --latest 20 --save /etc/pacman.d/mirrorlist"
 
 # Adding zoxide https://github.com/ajeetdsouza/zoxide
 zoxide init fish | source
-
-# Get fastest mirrors
-alias mirrors="sudo reflector --verbose --country 'United States' --protocol https --age 24 --sort rate --latest 20 --save /etc/pacman.d/mirrorlist"
 
 # Set cursor to line
 set fish_cursor_default block

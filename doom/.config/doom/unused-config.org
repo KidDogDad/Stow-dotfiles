@@ -447,3 +447,60 @@ Taken from https://baty.net/2022/searching-org-roam-files/
   ;; (require 'org-ql-block)
   )
 #+end_src
+
+
+* Spacious Padding (Commented Out)
+
+   #+begin_src emacs-lisp
+;; (use-package! spacious-padding)
+
+;; ;; These are the default values, but I keep them here for visibility.
+;; (setq spacious-padding-widths
+;;       '( :internal-border-width 10
+;;          :header-line-width 4
+;;          :mode-line-width 1
+;;          :tab-width 4
+;;          :right-divider-width 25
+;;          :scroll-bar-width 8
+;;          :fringe-width 10))
+
+;; ;; Read the doc string of `spacious-padding-subtle-mode-line' as it
+;; ;; is very flexible and provides several examples.
+;; (setq spacious-padding-subtle-frame-lines nil)
+;;       ;; `( :mode-line-active 'default
+;;       ;;    :mode-line-inactive vertical-border))
+
+;; (spacious-padding-mode 1)
+
+;; ;; Set a key binding if you need to toggle spacious padding.
+;; (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
+#+end_src
+
+* Mu4e (Commented Out)
+
+#+begin_src emacs-lisp
+;; (setq +mu4e-gmail-accounts '(("josh@gilliland.cloud" . "~/.mail/gmail")))
+
+;; ;; Each path is relative to the path of the maildir you passed to mu
+;; (set-email-account! "josh@gilliland.cloud"
+;;   '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
+;;     (mu4e-drafts-folder     . "/[Gmail]/Drafts")
+;;     (mu4e-trash-folder      . "/[Gmail]/Trash")
+;;     (mu4e-refile-folder     . "/[Gmail]/All Mail")
+;;     )
+;;   t)
+
+;; (after! mu4e
+;;   (setq sendmail-program (executable-find "msmtp")
+;;         send-mail-function #'smtpmail-send-it
+;;         message-sendmail-f-is-evil t
+;;         message-sendmail-extra-arguments '("--read-envelope-from")
+;;         message-send-mail-function #'message-send-mail-with-sendmail)
+
+;; ;; don't need to run cleanup after indexing for gmail
+;; (setq mu4e-index-cleanup nil
+;;       ;; because gmail uses labels as folders we can use lazy check since
+;;       ;; messages don't really "move"
+;;       mu4e-index-lazy-check t)
+;;   )
+#+end_src

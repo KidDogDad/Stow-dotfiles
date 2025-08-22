@@ -37,7 +37,7 @@ c.url.searchengines = {
     "!gist": "https://gist.github.com/search?q={}",
     "!gi": "https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1",
     "!gm": "https://www.google.com/maps/search/{}",
-    "!gm": "https://www.google.com/search?q={}&tbs=qdr:y",
+    "!gy": "https://www.google.com/search?q={}&tbs=qdr:y",
     "!r": "https://www.reddit.com/search?q={}",
     "!tw": "https://twitter.com/search?q={}",
     "!w": "https://en.wikipedia.org/wiki/{}",
