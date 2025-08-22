@@ -151,11 +151,6 @@
 (setq! evil-want-C-u-scroll nil
        evil-want-C-u-delete nil)
 
-(map!
- :leader
- (:prefix ("d" . "dirvish")
-  :desc "Dirvish" "d" #'dirvish-dwim))
-
 (setq evil-auto-indent nil)
 
 (map!
@@ -295,6 +290,15 @@
          '(file-size))
         )
   (setq dirvish-override-dired-mode t)
+  (setq dirvish-layout-recipes '((0 0 0.4) (0 0 0.8) (1 0.11 0.55)))
+
+  (map!
+   :leader
+   (:prefix ("d" . "dirvish")
+    :desc "Dirvish" "d" #'dirvish-dwim))
+  (map! :map dirvish-mode-map
+        :n  "l"   #'dirvish-layout-switch
+        )
   )
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)
