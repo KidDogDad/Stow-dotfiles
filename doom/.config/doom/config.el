@@ -276,11 +276,12 @@
 
 (after! dirvish
   (setq! dirvish-quick-access-entries
-         `(("h" "~/"                          "Home")
-           ("e" ,user-emacs-directory         "Emacs user directory")
-           ("c" "~/code/"                     "Code")
-           ("d" "~/Downloads/"                "Downloads")
-           ("m" "/mnt/"                       "Mounted drives")
+         `(("h" "~/" "Home")
+           ("e" ,user-emacs-directory "Emacs user directory")
+           ("o" "~/org/" "Org")
+           ("c" "~/code/" "Code")
+           ("d" "~/Downloads/" "Downloads")
+           ("m" "/mnt/" "Mounted drives")
            ("t" "~/.local/share/Trash/files/" "Trash")))
   (setq dirvish-hide-details t)
   (setq dirvish-attributes
@@ -453,15 +454,15 @@
             (lambda nil
               (setq-local header-line-format nil)))
   (setq org-capture-templates
-        '(("t" "Todo" entry (file "~/org/agenda/20250814T155838--inbox.org")
+        '(("t" "Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
            "* TODO %?")
-          ("c" "Clipboard Todo" entry (file "~/org/agenda/20250814T155838--inbox.org")
+          ("c" "Clipboard Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))")
-          ("o" "bin/org-capture Todo" entry (file "~/org/agenda/20250814T155838--inbox.org")
+          ("o" "bin/org-capture Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
-          ("e" "Emacs Todo" entry (file "~/org/agenda/20250811T110445--emacs-todos__agenda_emacs.org")
+          ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
            "* TODO %? :emacs:\n")
-          ("y" "Yiyi Todo" entry (file "~/org/agenda/20250814T095858--yiyi-todos__agenda_yiyi.org")
+          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda_yiyi@@20250814T095858.org")
            "* TODO Yiyi: %? :yiyi:\n")
           ;; Not working fully yet
           ;; ("W" "Web Page (With Content)" plain
