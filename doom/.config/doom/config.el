@@ -279,6 +279,8 @@
          `(("h" "~/" "Home")
            ("e" ,user-emacs-directory "Emacs user directory")
            ("o" "~/org/" "Org")
+           ("C" "~/.config/" ".config")
+           ("s" "~/stow/" "Stow")
            ("c" "~/code/" "Code")
            ("d" "~/Downloads/" "Downloads")
            ("m" "/mnt/" "Mounted drives")
