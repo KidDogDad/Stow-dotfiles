@@ -159,6 +159,11 @@
  :desc "Toggle popup" "-" #'+popup/toggle
  )
 
+(map!
+ :leader
+ :prefix "o"
+ :desc "re-builder" "B" #'re-builder)
+
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files")
 
@@ -181,10 +186,9 @@
           (control)))       ; temporarily negate the increment value
   )
 
-(map!
- :leader
- :prefix "w"
- :desc "Resize Window" "r" #'windresize)
+(map! :leader
+      :prefix "w"
+      :desc "Resize Window" "r" #'windresize)
 
 (super-save-mode +1)
 
@@ -231,14 +235,12 @@
   )
 
 (after! org-transclusion
-  (map!
-   :leader
-   :prefix "t"
-   :desc "Toggle Org Transclusion" "t" #'org-transclusion-mode)
-  (map!
-   :leader
-   :prefix "n d"
-   :desc "Add Org transclusion" "T" #'org-transclusion-add)
+  (map! :leader
+        :prefix "t"
+        :desc "Toggle Org Transclusion" "t" #'org-transclusion-mode)
+  (map! :leader
+        :prefix "n d"
+        :desc "Add Org transclusion" "T" #'org-transclusion-add)
   )
 
 (add-hook 'org-mode-hook #'org-transclusion-mode)
@@ -292,17 +294,112 @@
   (setq dirvish-override-dired-mode t)
   (setq dirvish-layout-recipes '((0 0 0.4) (0 0 0.8) (1 0.11 0.55)))
 
-  (map!
-   :leader
-   (:prefix ("d" . "dirvish")
-    :desc "Dirvish" "d" #'dirvish-dwim))
-  (map! :map dirvish-mode-map
-        :n  "l"   #'dirvish-layout-switch
+  (map! :after dirvish
+        :map dirvish-mode-map
+        :n  "L"   #'dirvish-layout-switch
         )
   )
+
+(map!
+ :leader
+ (:prefix ("d" . "dirvish")
+  :desc "Dirvish" "d" #'dirvish-dwim))
+
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)
 ;;   )
+
+(beframe-mode 1)
+
+;; (defvar consult-buffer-sources)
+;; (declare-function consult--buffer-state "consult")
+
+;; (with-eval-after-load 'consult
+;;   (defface beframe-buffer
+;;     '((t :inherit font-lock-string-face))
+;;     "Face for `consult' framed buffers.")
+
+;;   (defun my-beframe-buffer-names-sorted (&optional frame)
+;;     "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
+;;      With optional argument FRAME, return the list of buffers of FRAME."
+;;     (beframe-buffer-names frame :sort #'beframe-buffer-sort-visibility))
+
+;;   (defvar beframe-consult-source
+;;     `( :name     "Frame-specific buffers (current frame)"
+;;        :narrow   ?F
+;;        :category buffer
+;;        :face     beframe-buffer
+;;        :history  beframe-history
+;;        :items    ,#'my-beframe-buffer-names-sorted
+;;        :action   ,#'switch-to-buffer
+;;        :state    ,#'consult--buffer-state))
+
+;;   (add-to-list 'consult-buffer-sources 'beframe-consult-source)
+;; )
+
+(defun consult-beframe-buffer-list (&optional frame)
+  "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
+     With optional argument FRAME, return the list of buffers of FRAME."
+  (beframe-buffer-list frame :sort #'beframe-buffer-sort-visibility))
+
+(setq consult-buffer-list-function #'consult-beframe-buffer-list)
+
+(with-eval-after-load 'ibuffer
+  (defun beframe-buffer-in-frame (buf frame)
+    "Return non-nil if BUF is in FRAME."
+    (memq buf (beframe-buffer-list (beframe-frame-object frame))))
+
+  (defun beframe-frame-name-list ()
+    "Return list with frame names."
+    (mapcar #'car (make-frame-names-alist)))
+
+  (defun beframe-generate-ibuffer-filter-groups ()
+    "Create a set of ibuffer filter groups based on the Frame of buffers."
+    (mapcar
+     (lambda (frame)
+       (list (format "%s" frame)
+             (list 'predicate 'beframe-buffer-in-frame '(current-buffer) frame)))
+     (beframe-frame-name-list)))
+
+  (setq ibuffer-saved-filter-groups
+        `(("Frames" ,@(beframe-generate-ibuffer-filter-groups))))
+
+  (define-ibuffer-filter frame
+      "Limit current view to buffers in frames."
+    (:description "frame")
+    (memq buf (beframe-buffer-list))))
+
+(use-package! casual-suite)
+(map! :after calc
+      :map calc-mode-map
+      :n "?" #'casual-calc-tmenu)
+(map! :after dired
+      :map dired-mode-map
+      :n "?" #'casual-dired-tmenu)
+(map! :after isearch
+      :map isearch-mode-map "C-o" #'casual-isearch-tmenu)
+(map! :after ibuffer
+      :map ibuffer-mode-map
+      :n "?" #'casual-ibuffer-tmenu
+      :n "F" #'casual-ibuffer-filter-tmenu
+      :n "s" #'casual-ibuffer-sortby-tmenu)
+(map! :after info
+      :map Info-mode-map
+      :n "?" #'casual-info-tmenu)
+(map! :after re-builder
+      :map reb-mode-map
+      :n "?" #'casual-re-builder-tmenu
+      :map reb-lisp-mode-map
+      :n "?" #'casual-re-builder-tmenu)
+;; (map! :map bookmark-bmenu-mode-map "C-o" #'casual-bookmarks-tmenu)
+(map! :after org-agenda
+      :map org-agenda-mode-map
+      :n "?" #'casual-agenda-tmenu)
+(map! :map general-override-mode-map "M-g" #'casual-avy-tmenu)
+(map! :after symbol-overlay
+      :map symbol-overlay-map
+      :n "?" #'casual-symbol-overlay-tmenu)
+;; (map! :map general-override-mode-map "C-o" #'casual-editkit-main-tmenu)
 
 (require 'org-protocol)
 (require 'org-web-tools)
@@ -519,15 +616,18 @@
     )
   )
 
-(map! :map org-agenda-mode-map
+(map! :after org-super-agenda
+      :map org-agenda-mode-map
       "[" #'org-agenda-earlier
       "]" #'org-agenda-later)
 
-(map! :desc "Next line"
+(map! :after org-super-agenda
+      :desc "Next line"
       :map org-super-agenda-header-map
       "j" 'org-agenda-next-line)
 
-(map! :desc "Next line"
+(map! :after org-super-agenda
+      :desc "Next line"
       :map org-super-agenda-header-map
       "k" 'org-agenda-previous-line)
 
@@ -619,6 +719,8 @@
                 :desc "Denote menu" "m" #'denote-menu-list-notes
                 :desc "Denote template" "t" #'denote-template
                 :desc "Create note using date" "N" #'denote-create-note-using-date
+                :desc "Extract subtree" "x" #'denote-org-extract-org-subtree
+                :desc "Convert links to denote" "C" #'denote-org-convert-links-to-denote-type
                 )))
 
 (map! :leader
@@ -645,7 +747,7 @@
 
 (after! denote
   (setq denote-templates
-        `((Yiyi-check-in . ,(concat "* Yiyi Check-In"
+        `((Yiyi-check-in . ,(concat "* Yiyi Check-In\n"
                                     "- Time: \n"
                                     "- Mood: \n"
                                     "- Connection: \n"
@@ -654,6 +756,17 @@
                                     "** Notes"
                                     "\n"
                                     ))
+          (kickish-video ,(concat "* Notes\n"
+                                   "* Title\n"
+                                   "* Thumbnail\n"
+                                   "* Script\n"
+                                   "** Intro / Hook\n"
+                                   "** Main Idea 1\n"
+                                   "** Main Idea 2\n"
+                                   "** Main Idea 3\n"
+                                   "** Outro\n"
+                                   "* End Screen\n"
+                                   ))
           (default . "")
           )))
 
@@ -663,13 +776,14 @@
    denote-menu-keywords-column-width 40
    )
   )
-(map!  :map denote-menu-mode-map
-       :nv "dr" #'denote-menu-filter
-       :nv "dk" #'denote-menu-filter
-       :nv "do" #'denote-menu-filter
-       :nv "dc" #'denote-menu-clear-filters
-       :nv "de" #'denote-menu-export-to-dired
-       )
+(map! :after denote-menu
+      :map denote-menu-mode-map
+      :nv "dr" #'denote-menu-filter
+      :nv "dk" #'denote-menu-filter
+      :nv "do" #'denote-menu-filter
+      :nv "dc" #'denote-menu-clear-filters
+      :nv "de" #'denote-menu-export-to-dired
+      )
 
 (after! denote-journal
   (add-hook 'calendar-mode-hook #'denote-journal-calendar-mode)
@@ -690,18 +804,11 @@
   )
 (map! :leader
       (:prefix ("n" . "notes")
-       (:prefix "d" . "denote")
+       (:prefix ("d" . "denote")
        :desc "Consult Denote Find" "f" #'consult-denote-find
        :desc "Consult Denote Grep" "g" #'consult-denote-grep
        )
-      )
-
-(map! :leader
-      (:prefix ("n" . "notes")
-               (:prefix ("d" . "denote")
-                :desc "Extract subtree" "x" #'denote-org-extract-org-subtree
-                :desc "Convert links to denote" "C" #'denote-org-convert-links-to-denote-type
-                )))
+      ))
 
 (after! notmuch
   (setq notmuch-show-log nil
@@ -721,7 +828,8 @@
   ;; (setq +notmuch-home-function (lambda () (notmuch-search "tag:inbox")))
   )
 
-(map! :map notmuch-common-keymap
+(map! :after notmuch
+      :map notmuch-common-keymap
       :n "gh" #'notmuch-hello
       )
 

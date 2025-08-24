@@ -29,6 +29,8 @@
 (package! denote-org)
 
 ;; Other
+(package! casual-suite)
+(package! beframe)
 (package! websocket)
 (package! super-save)
 (package! windresize)
