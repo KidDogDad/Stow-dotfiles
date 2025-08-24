@@ -102,9 +102,9 @@
   (font-lock-flush))
 (add-hook 'org-mode-hook #'my/org-colorize-hex)
 
-(setq garbage-collection-messages t) ;; show when garbage collection is happening
+;; (setq garbage-collection-messages t) ;; show when garbage collection is happening
 
-(setq gc-cons-percentage 0.1)
+;; (setq gc-cons-percentage 0.1)
 
 (add-hook 'text-mode-hook (lambda () (electric-indent-local-mode -1)))
 
@@ -812,6 +812,17 @@
        :desc "Consult Denote Grep" "g" #'consult-denote-grep
        )
       ))
+
+(setq rmh-elfeed-org-files '("/home/josh/org/--elfeed-feeds__elfeed@@20250824T113650.org"))
+
+(map!
+ :leader
+ :prefix "o"
+ :desc "Elfeed" "e" #'elfeed)
+
+(add-hook 'elfeed-search-mode-hook #'elfeed-update)
+
+(setq elfeed-goodies/entry-pane-size 0.6)
 
 (after! notmuch
   (setq notmuch-show-log nil
