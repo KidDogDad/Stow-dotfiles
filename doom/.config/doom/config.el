@@ -20,7 +20,7 @@
   `(org-level-7 :foreground ,(catppuccin-color 'peach))
   `(org-level-8 :foreground ,(catppuccin-color 'rosewater))
   `(org-todo :foreground ,(catppuccin-color 'green))
-  `(org-quote :foreground ,(catppuccin-color 'mauve))
+  `(org-quote :foreground ,(catppuccin-color 'peach))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
   `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
@@ -56,6 +56,28 @@
 (set-fontset-font t 'unicode "FontAwesome" nil 'append)
 (set-fontset-font t 'unicode "weathericons" nil 'append)
 
+(after! doom-modeline
+  (setq
+   doom-modeline-buffer-file-name-style 'buffer-name
+   ))
+
+(line-number-mode -1)
+(column-number-mode -1)
+(size-indication-mode -1)
+
+(after! doom-modeline
+  (nyan-mode 1)
+)
+
+(after! nyan-mode
+  (setq
+   nyan-bar-length 48
+   nyan-cat-face-number 1
+   nyan-wavy-trail nil
+   nyan-animate-nyancat t
+   nyan-animation-frame-interval 0.1
+   ))
+
 (scroll-bar-mode -1)
 
 (window-divider-mode -1)
@@ -85,22 +107,11 @@
  :desc "Toggle Olivetti" "o" #'olivetti-mode
  )
 
-(defun my/org-hex-face ()
-  (let* ((hex (match-string-no-properties 0))
-         (rgb (color-name-to-rgb hex))
-         (lum (when rgb (+ (* 0.2126 (nth 0 rgb))
-                           (* 0.7152 (nth 1 rgb))
-                           (* 0.0722 (nth 2 rgb)))))
-         (fg (if (and lum (< lum 0.5)) "white" "black")))
-    `(:background ,hex :foreground ,fg)))
-(defun my/org-colorize-hex ()
-  (font-lock-add-keywords
-   nil
-   `((,(rx "#" (= 6 xdigit))
-      (0 (my/org-hex-face) prepend))) ; apply face to the hex text
-   'append)
-  (font-lock-flush))
-(add-hook 'org-mode-hook #'my/org-colorize-hex)
+(add-hook! 'org-mode-hook #'rainbow-mode)
+
+(add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
+
+(add-hook! 'org-mode-hook (ws-butler-mode -1))
 
 ;; (setq garbage-collection-messages t) ;; show when garbage collection is happening
 
@@ -195,7 +206,7 @@
 (setq
  super-save-auto-save-when-idle t
  super-save-all-buffers t
- super-save-delete-trailing-whitespace t
+ super-save-delete-trailing-whitespace nil
  )
 (add-to-list 'super-save-triggers 'org-agenda-quit)
 

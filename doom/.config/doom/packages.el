@@ -17,6 +17,7 @@
 (package! org-transclusion)
 (package! org-super-agenda)
 (package! org-appear)
+(package! rainbow-delimiters)
 
 ;; Denote
 (package! denote)
@@ -27,6 +28,10 @@
 (package! consult-denote)
 (package! denote-menu)
 (package! denote-org)
+
+;; Fun
+(package! parrot)
+(package! nyan-mode)
 
 ;; Other
 (package! casual-suite)

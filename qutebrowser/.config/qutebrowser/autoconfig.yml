@@ -11,6 +11,7 @@ settings:
     https://github.com: access-paste
     https://grok.com: access-paste
   content.notifications.enabled:
+    https://www.esrtech.com: false
     https://www.shortform.com: false
   content.register_protocol_handler:
     https://calendar.google.com?cid=%25s: true

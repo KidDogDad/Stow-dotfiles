@@ -504,3 +504,26 @@ Taken from https://baty.net/2022/searching-org-roam-files/
 ;;       mu4e-index-lazy-check t)
 ;;   )
 #+end_src
+
+
+* Colorize Hex Values In Org
+ChatGPT helped write this for me, but it turns out that Emacs already has =rainbow-mode= lol.
+
+#+begin_src emacs-lisp
+;; (defun my/org-hex-face ()
+;;   (let* ((hex (match-string-no-properties 0))
+;;          (rgb (color-name-to-rgb hex))
+;;          (lum (when rgb (+ (* 0.2126 (nth 0 rgb))
+;;                            (* 0.7152 (nth 1 rgb))
+;;                            (* 0.0722 (nth 2 rgb)))))
+;;          (fg (if (and lum (< lum 0.5)) "white" "black")))
+;;     `(:background ,hex :foreground ,fg)))
+;; (defun my/org-colorize-hex ()
+;;   (font-lock-add-keywords
+;;    nil
+;;    `((,(rx "#" (= 6 xdigit))
+;;       (0 (my/org-hex-face) prepend))) ; apply face to the hex text
+;;    'append)
+;;   (font-lock-flush))
+;; (add-hook 'org-mode-hook #'my/org-colorize-hex)
+#+end_src
