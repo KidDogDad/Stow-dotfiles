@@ -1,7 +1,7 @@
 #+title: Config
 #+property: header-args :tangle config.el
 #+auto_tangle: t
-#+startup: show2levels
+#+startup: show2levels noindent
 
 * Lexical Binding
 
@@ -91,22 +91,18 @@
 ** Doom Modeline
 
 #+begin_src emacs-lisp
-(after! doom-modeline
-  (setq
-   doom-modeline-buffer-file-name-style 'buffer-name
-   ))
-
-(line-number-mode -1)
-(column-number-mode -1)
-(size-indication-mode -1)
+(after! doom-modeline 
+  (setq doom-modeline-buffer-file-name-style 'buffer-name)
+  (line-number-mode -1)
+  (column-number-mode -1)
+  (size-indication-mode -1)
+  )
 #+end_src
 
 ** Nyan Mode
 
 #+begin_src emacs-lisp
-(after! doom-modeline
-  (nyan-mode 1)
-)
+(after! doom-modeline (nyan-mode 1))
 
 (after! nyan-mode
   (setq
@@ -388,7 +384,7 @@
 (add-hook 'org-mode-hook #'org-transclusion-mode)
 #+end_src
 
-** Make Copy-Paste Sane
+** Make Copy-Paste Sane (V1)
 This configuration replicates the "cutlass" behavior from Neovim.
 
 1. Deletions (`d`, `c`, `x` in normal mode) do NOT go to the kill ring.
@@ -402,11 +398,6 @@ This configuration replicates the "cutlass" behavior from Neovim.
   (defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
     (apply orig-fn beg end type ?_ args))
   (advice-add 'evil-delete :around 'bb/evil-delete)
-
-  ;; I also need to intercept 'evil-org-delete-char'
-  ;; (defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
-  ;;   (apply orig-fn beg end type ?_ args))
-  ;; (advice-add 'evil-delete :around 'bb/evil-delete)
 
   ;; This function first yanks the selection to the kill-ring/clipboard,
   ;; then deletes it. The delete operation will use the black hole register

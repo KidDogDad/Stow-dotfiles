@@ -56,18 +56,14 @@
 (set-fontset-font t 'unicode "FontAwesome" nil 'append)
 (set-fontset-font t 'unicode "weathericons" nil 'append)
 
-(after! doom-modeline
-  (setq
-   doom-modeline-buffer-file-name-style 'buffer-name
-   ))
+(after! doom-modeline 
+  (setq doom-modeline-buffer-file-name-style 'buffer-name)
+  (line-number-mode -1)
+  (column-number-mode -1)
+  (size-indication-mode -1)
+  )
 
-(line-number-mode -1)
-(column-number-mode -1)
-(size-indication-mode -1)
-
-(after! doom-modeline
-  (nyan-mode 1)
-)
+(after! doom-modeline (nyan-mode 1))
 
 (after! nyan-mode
   (setq
@@ -261,11 +257,6 @@
   (defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
     (apply orig-fn beg end type ?_ args))
   (advice-add 'evil-delete :around 'bb/evil-delete)
-
-  ;; I also need to intercept 'evil-org-delete-char'
-  ;; (defun bb/evil-delete (orig-fn beg end &optional type _ &rest args)
-  ;;   (apply orig-fn beg end type ?_ args))
-  ;; (advice-add 'evil-delete :around 'bb/evil-delete)
 
   ;; This function first yanks the selection to the kill-ring/clipboard,
   ;; then deletes it. The delete operation will use the black hole register
