@@ -11,7 +11,7 @@ set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
 set -x MANROFFOPT -c
 
 # Set emacsclient as default editor
-set -gx EDITOR nvim
+set -gx EDITOR emacsclient
 set -gx VISUAL emacsclient
 set -gx SYSTEMD_EDITOR emacsclient
 
