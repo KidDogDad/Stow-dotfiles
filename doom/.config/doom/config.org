@@ -5,9 +5,9 @@
 
 * Lexical Binding
 
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 ;; -*- lexical-binding: t; -*-
-  #+end_src
+#+end_src
 
 
 * Basic Appearance
@@ -432,6 +432,7 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
          `(("h" "~/" "Home")
            ("e" ,user-emacs-directory "Emacs user directory")
            ("o" "~/org/" "Org")
+           ("O" "~/.local/share/omarchy/" "Omarchy")
            ("c" "~/.config/" ".config")
            ("s" "~/stow/" "Stow")
            ("C" "~/code/" "Code")
@@ -458,8 +459,7 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
 
 (map!
  :leader
- (:prefix ("d" . "dirvish")
-  :desc "Dirvish" "d" #'dirvish-dwim))
+ :desc "Dirvish" "d" #'dirvish-dwim)
 
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)

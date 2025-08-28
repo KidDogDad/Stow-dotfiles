@@ -282,6 +282,7 @@
          `(("h" "~/" "Home")
            ("e" ,user-emacs-directory "Emacs user directory")
            ("o" "~/org/" "Org")
+           ("O" "~/.local/share/omarchy/" "Omarchy")
            ("c" "~/.config/" ".config")
            ("s" "~/stow/" "Stow")
            ("C" "~/code/" "Code")
@@ -308,8 +309,7 @@
 
 (map!
  :leader
- (:prefix ("d" . "dirvish")
-  :desc "Dirvish" "d" #'dirvish-dwim))
+ :desc "Dirvish" "d" #'dirvish-dwim)
 
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)

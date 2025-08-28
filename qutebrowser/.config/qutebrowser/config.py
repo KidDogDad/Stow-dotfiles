@@ -25,6 +25,10 @@ config.load_autoconfig(True)
 c.aliases["gD"] = "tab-give"
 c.aliases["sl"] = "session-load"
 
+# Default pages
+c.url.start_pages = "https://www.google.com"
+c.url.default_page = "https://www.google.com"
+
 # Default search engines
 c.url.searchengines = {
     "DEFAULT": "https://google.com/search?hl=en&q={}",

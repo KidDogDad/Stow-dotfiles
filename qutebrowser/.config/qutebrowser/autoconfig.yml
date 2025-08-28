@@ -7,9 +7,11 @@
 config_version: 2
 settings:
   content.javascript.clipboard:
+    https://catppuccin.com: access-paste
     https://chatgpt.com: access-paste
     https://github.com: access-paste
     https://grok.com: access-paste
+    https://htmlcolorcodes.com: access-paste
   content.notifications.enabled:
     https://www.esrtech.com: false
     https://www.shortform.com: false
@@ -19,4 +21,4 @@ settings:
   statusbar.show:
     global: always
   tabs.show:
-    global: never
+    global: always
