@@ -1,0 +1,126 @@
+windows:
+- active: true
+  geometry: !!binary |
+    AdnQywADAAAAAAAAAAAAAAAABmMAAAPyAAAAAAAAAAAAAAZjAAAD8gAAAAAAAAAABocAAAAAAAAA
+    AAAABmMAAAPy
+  tabs:
+  - history:
+    - active: true
+      last_visited: '2025-08-21T20:13:25'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 324
+      title: notmuch
+      url: https://notmuchmail.org/#index5h2
+      zoom: 1.0
+  - history:
+    - active: true
+      last_visited: '2025-08-21T20:13:25'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 2349
+      title: emacstips
+      url: https://notmuchmail.org/emacstips/#index4h2
+      zoom: 1.0
+  - history:
+    - last_visited: '2025-08-21T20:13:25'
+      pinned: false
+      title: Emacs Frontend for Notmuch — notmuch 0.39 documentation
+      url: https://notmuchmail.org/doc/latest/notmuch-emacs.html
+    - active: true
+      last_visited: '2025-08-21T20:44:15'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 0
+      title: Emacs Frontend for Notmuch — notmuch 0.39 documentation
+      url: https://notmuchmail.org/doc/latest/notmuch-emacs.html#sending-mail
+      zoom: 1.0
+  - history:
+    - last_visited: '2025-08-21T20:27:59'
+      pinned: false
+      title: 'marlam/msmtp: SMTP client with sendmail compatible interface'
+      url: https://github.com/marlam/msmtp?tab=readme-ov-file
+    - last_visited: '2025-08-21T20:28:00'
+      original-url: https://marlam.de/msmtp
+      pinned: false
+      title: msmtp - about
+      url: https://marlam.de/msmtp/
+    - last_visited: '2025-08-21T20:28:15'
+      pinned: false
+      title: msmtp - documentation
+      url: https://marlam.de/msmtp/documentation/
+    - last_visited: '2025-08-21T20:28:20'
+      pinned: false
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html
+    - last_visited: '2025-08-21T20:28:35'
+      pinned: false
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html#Configuration-files
+    - last_visited: '2025-08-21T20:39:31'
+      pinned: false
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html#Authentication-commands
+    - last_visited: '2025-08-21T20:39:50'
+      pinned: false
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html#g_t_002d_002dconfigure
+    - active: true
+      last_visited: '2025-08-21T20:42:06'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 1620
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html#Configuration-files
+      zoom: 1.0
+    - last_visited: '2025-08-21T20:41:21'
+      pinned: false
+      title: msmtp 1.8.30
+      url: https://marlam.de/msmtp/msmtp.html#Examples
+  - history:
+    - last_visited: '2025-08-21T20:30:29'
+      pinned: false
+      title: gmail smtp - Google Search
+      url: https://www.google.com/search?hl=en&q=gmail%20smtp
+    - active: true
+      last_visited: '2025-08-21T20:35:29'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 1728
+      title: Send email from a printer, scanner, or app - Google Workspace Admin Help
+      url: https://support.google.com/a/answer/176600?hl=en
+      zoom: 1.0
+  - history:
+    - active: true
+      last_visited: '2025-08-21T20:42:45'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 0
+      title: emacstips
+      url: https://notmuchmail.org/emacstips/#index11h2
+      zoom: 1.0
+  - active: true
+    history:
+    - last_visited: '2025-08-21T20:44:54'
+      pinned: false
+      title: msmtp gmail - Google Search
+      url: https://www.google.com/search?hl=en&q=msmtp%20gmail
+    - last_visited: '2025-08-21T20:45:14'
+      pinned: false
+      title: '!gy msmtp gmail - Google Search'
+      url: https://www.google.com/search?hl=en&q=%21gy%20msmtp%20gmail
+    - active: true
+      last_visited: '2025-08-21T20:45:40'
+      pinned: false
+      scroll-pos:
+        x: 0
+        y: 0
+      title: msmtp gmail - Google Search
+      url: https://www.google.com/search?q=msmtp%20gmail&tbs=qdr:y
+      zoom: 1.0

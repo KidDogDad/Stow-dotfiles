@@ -1,0 +1,11 @@
+[General]
+autoSaveImage=true
+clipboardGroup=PostScreenshotCopyImage
+launchAction=UseLastUsedCapturemode
+
+[ImageSave]
+lastImageSaveLocation=file:///home/josh/Pictures/Screenshots/Screenshot_20250825_130431.png
+translatedScreenshotsFolder=Screenshots
+
+[VideoSave]
+translatedScreencastsFolder=Screencasts

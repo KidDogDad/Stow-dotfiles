@@ -58,21 +58,22 @@
 
 (after! doom-modeline 
   (setq doom-modeline-buffer-file-name-style 'buffer-name)
-  (line-number-mode -1)
-  (column-number-mode -1)
-  (size-indication-mode -1)
   )
 
-(after! doom-modeline (nyan-mode 1))
+(line-number-mode -1)
+(column-number-mode -1)
+(size-indication-mode -1)
 
-(after! nyan-mode
-  (setq
-   nyan-bar-length 48
-   nyan-cat-face-number 1
-   nyan-wavy-trail nil
-   nyan-animate-nyancat t
-   nyan-animation-frame-interval 0.1
-   ))
+;; (after! doom-modeline (nyan-mode 1))
+
+;; (after! nyan-mode
+;;   (setq
+;;    nyan-bar-length 48
+;;    nyan-cat-face-number 1
+;;    nyan-wavy-trail nil
+;;    nyan-animate-nyancat t
+;;    nyan-animation-frame-interval 0.1
+;;    ))
 
 (scroll-bar-mode -1)
 
@@ -281,9 +282,9 @@
          `(("h" "~/" "Home")
            ("e" ,user-emacs-directory "Emacs user directory")
            ("o" "~/org/" "Org")
-           ("C" "~/.config/" ".config")
+           ("c" "~/.config/" ".config")
            ("s" "~/stow/" "Stow")
-           ("c" "~/code/" "Code")
+           ("C" "~/code/" "Code")
            ("d" "~/Downloads/" "Downloads")
            ("m" "/mnt/" "Mounted drives")
            ("t" "~/.local/share/Trash/files/" "Trash")))

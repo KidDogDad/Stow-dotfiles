@@ -1,0 +1,58 @@
+" " General Settings
+set update.lastchecktime 1753276306497
+set update.nag true
+set update.nagwait 7
+set update.lastnaggedversion 1.14.0
+set update.checkintervalsecs 86400
+set configversion 2.0
+set theme catppuccin-macchiato
+set smoothscroll true
+set modeindicator false
+
+" " " Binds
+" " My custom global binds
+bind u scrollline -30
+bind d scrollline 30
+bind x tabclose
+unbind <C-f>
+bind J tabprev
+bind K tabnext
+bind g1 tab 1
+bind g2 tab 2
+bind g3 tab 3
+bind g4 tab 4
+bind g5 tab 5
+bind g6 tab 6
+bind g7 tab 7
+bind g8 tab 8
+bind g9 tab 9
+
+" Allow Ctrl-a to select all in the commandline
+unbind --mode=ex <C-a>
+ 
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+" Control what sites can steal focus 
+set allowautofocus false
+seturl www.google.com/ allowautofocus true
+seturl maps.google.com/ allowautofocus true
+
+" " Make 'gi' on GitHub take you to the search box
+bindurl ^https://github.com gi hint -Vc .AppHeader-searchButton
+ 
+" Gmail binds
+unbindurl mail.google.com j
+unbindurl mail.google.com k
+unbindurl mail.google.com a
+unbindurl mail.google.com r
+unbindurl mail.google.com e
+unbindurl mail.google.com gi
+unbindurl mail.google.com x
+unbindurl www.youtube.com f
+unbindurl www.youtube.com t
+
+" " Google binds
+" Only hint search results on Google and DDG
+bindurl www.google.com f hint -Jc #search a
+bindurl www.google.com F hint -Jbc #search a
