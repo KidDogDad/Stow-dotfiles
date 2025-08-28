@@ -238,12 +238,12 @@
 ** GPTel
 
 #+begin_src emacs-lisp
-(after! gptel
- (setq! gptel-api-key
-        (auth-source-pick-first-password :host "api.openai.com"))
- (setq gptel-default-mode 'org-mode)
- (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
- )
+;; (after! gptel
+;;  (setq! gptel-api-key
+;;         (auth-source-pick-first-password :host "api.openai.com"))
+;;  (setq gptel-default-mode 'org-mode)
+;;  (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
+;;  )
 #+end_src
 
 ** Keybindings & Keyboard
