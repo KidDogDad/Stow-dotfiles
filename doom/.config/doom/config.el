@@ -467,7 +467,7 @@
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
           ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
            "* TODO %? :emacs:\n")
-          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda_yiyi@@20250814T095858.org")
+          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
            "* TODO Yiyi: %? :yiyi:\n")
           ;; Not working fully yet
           ;; ("W" "Web Page (With Content)" plain
@@ -816,6 +816,14 @@
        )
       ))
 
+(use-package! xclip
+  :config
+  (setq xclip-program "wl-copy")
+  (setq xclip-select-enable-clipboard t)
+  (setq xclip-mode t)
+  (setq xclip-method (quote wl-copy))
+  )
+
 (setq rmh-elfeed-org-files '("/home/josh/org/--elfeed-feeds__elfeed@@20250824T113650.org"))
 
 (map!
@@ -855,31 +863,6 @@
 ;;       org-gcal-fetch-file-alist '(("your-mail@gmail.com" .  "~/schedule.org")
 ;;                                   ("another-mail@gmail.com" .  "~/task.org")))
 ;; (require 'org-gcal)
-
-;; (setq +mu4e-gmail-accounts '(("josh@gilliland.cloud" . "~/.mail/gmail")))
-
-;; ;; Each path is relative to the path of the maildir you passed to mu
-;; (set-email-account! "josh@gilliland.cloud"
-;;   '((mu4e-sent-folder       . "/[Gmail]/Sent Mail")
-;;     (mu4e-drafts-folder     . "/[Gmail]/Drafts")
-;;     (mu4e-trash-folder      . "/[Gmail]/Trash")
-;;     (mu4e-refile-folder     . "/[Gmail]/All Mail")
-;;     )
-;;   t)
-
-;; (after! mu4e
-;;   (setq sendmail-program (executable-find "msmtp")
-;;         send-mail-function #'smtpmail-send-it
-;;         message-sendmail-f-is-evil t
-;;         message-sendmail-extra-arguments '("--read-envelope-from")
-;;         message-send-mail-function #'message-send-mail-with-sendmail)
-
-;; ;; don't need to run cleanup after indexing for gmail
-;; (setq mu4e-index-cleanup nil
-;;       ;; because gmail uses labels as folders we can use lazy check since
-;;       ;; messages don't really "move"
-;;       mu4e-index-lazy-check t)
-;;   )
 
 (defun logseq-md-headings-to-org ()
   "Convert Logseq-style headings to Org headings, removing leading dash and indentation."

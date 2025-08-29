@@ -44,6 +44,7 @@
 (package! info+)
 (package! nov)
 (package! scroll-on-jump :recipe (:host github :repo "emacsmirror/scroll-on-jump"))
+(package! xclip)
 
 ;; Things that I gave up on
 ;; (package! org-outer-indent
