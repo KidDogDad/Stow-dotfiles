@@ -11,6 +11,7 @@ settings:
   content.javascript.clipboard:
     https://catppuccin.com: access-paste
     https://chatgpt.com: access-paste
+    https://forum.garudalinux.org: access-paste
     https://github.com: access-paste
     https://grok.com: access-paste
     https://htmlcolorcodes.com: access-paste
@@ -24,4 +25,4 @@ settings:
   statusbar.show:
     global: always
   tabs.show:
-    global: always
+    global: never

@@ -106,6 +106,31 @@
 
 (add-hook! 'org-mode-hook #'rainbow-mode)
 
+(use-package! spacious-padding)
+
+;; These are the default values, but I keep them here for visibility.
+(setq spacious-padding-widths
+      '( :internal-border-width 10
+         :header-line-width 4
+         :mode-line-width 1
+         :tab-width 4
+         :right-divider-width 25
+         :scroll-bar-width 8
+         :fringe-width 10))
+
+;; Read the doc string of `spacious-padding-subtle-mode-line' as it
+;; is very flexible and provides several examples.
+(setq spacious-padding-subtle-frame-lines nil)
+      ;; `( :mode-line-active 'default
+      ;;    :mode-line-inactive vertical-border))
+
+(spacious-padding-mode 1)
+
+(add-hook! 'dired-mode-hook (spacious-padding-mode -1))
+
+;; ;; Set a key binding if you need to toggle spacious padding.
+;; (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
+
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (add-hook! 'org-mode-hook (ws-butler-mode -1))
@@ -500,7 +525,6 @@
       '((sequence
          "TODO(t)"
          "WAIT(w)"
-         "PROJ(p)"
          "SOMEDAY(s)"
          "BACKLOG(b)"
          "SCRIPTING(s)"
@@ -750,6 +774,9 @@
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
                          ))))
+
+(map! :leader
+      :desc "Close other windows" "w D" #'delete-other-windows)
 
 (after! denote
   (setq denote-templates

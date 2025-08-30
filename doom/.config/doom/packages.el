@@ -1,6 +1,5 @@
 ;;;  -*- lexical-binding: t; -*-
 
-
 ;; Appearance ;;
 (package! catppuccin-theme)
 (package! olivetti :recipe (:host github :repo "rnkn/olivetti"))
@@ -8,6 +7,7 @@
 (package! all-the-icons)
 (package! org-modern-indent :recipe (:host github :repo "jdtsmith/org-modern-indent"))
 (package! diredfl :disable t)
+(package! spacious-padding)
 
 
 ;; Functional packages ;;
@@ -49,7 +49,6 @@
 ;; Things that I gave up on
 ;; (package! org-outer-indent
 ;;   :recipe (:host github :repo "rougier/org-outer-indent"))
-;; (package! spacious-padding)
 ;; (package! org-auto-tangle)
 ;; (package! org-padding :recipe (:host github :repo "TonCherAmi/org-padding"))
 ;; (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))

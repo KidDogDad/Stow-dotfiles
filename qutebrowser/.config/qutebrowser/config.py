@@ -226,3 +226,13 @@ c.colors.webpage.preferred_color_scheme = "dark"
 # image inversion": qutebrowser default settings.
 # Type: Bool
 # c.colors.webpage.darkmode.enabled = True
+
+c.colors.webpage.bg = "#555555"
+c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.algorithm = "lightness-cielab"
+c.colors.webpage.darkmode.contrast = 0.0
+c.colors.webpage.darkmode.policy.images = "smart"
+c.colors.webpage.darkmode.policy.page = "smart"
+c.colors.webpage.darkmode.threshold.background = 200
+c.colors.webpage.darkmode.threshold.foreground = 80
+c.colors.webpage.preferred_color_scheme = "dark"

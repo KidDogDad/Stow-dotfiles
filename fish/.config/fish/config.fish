@@ -11,9 +11,9 @@ set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
 set -x MANROFFOPT -c
 
 # Set emacsclient as default editor
-set -gx EDITOR emacsclient
-set -gx VISUAL emacsclient
-set -gx SYSTEMD_EDITOR emacsclient
+set -gx EDITOR emacsclient -nc
+set -gx VISUAL emacsclient -nc
+set -gx SYSTEMD_EDITOR emacsclient -nc
 
 # Stop ranger from loading both system and local config
 set -x RANGER_LOAD_DEFAULT_RC FALSE
