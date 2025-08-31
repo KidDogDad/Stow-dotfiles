@@ -1,0 +1,18 @@
+program_options:
+  notify: true
+  automount: true
+
+device_config:
+  - id_uuid: "3dfbcade-90a6-425e-bc86-53ff06cbedb7"
+    options: [defaults]
+    ignore: false
+    automount: true
+
+  - id_uuid: "c0e6262e-553c-4f78-86bd-23c7d1d9ce1a"
+    options: [defaults]
+    ignore: false
+    automount: true
+
+notifications:
+  timeout: 1.5      # Notification timeout in seconds
+  device_mounted: 3 # How long to show device mounted notifications
