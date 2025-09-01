@@ -307,6 +307,7 @@
          `(("h" "~/" "Home")
            ("e" ,user-emacs-directory "Emacs user directory")
            ("o" "~/org/" "Org")
+           ("h" "~/.config/hypr/" "hypr")
            ("O" "~/.local/share/omarchy/" "Omarchy")
            ("c" "~/.config/" ".config")
            ("s" "~/stow/" "Stow")
@@ -339,66 +340,6 @@
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)
 ;;   )
-
-(beframe-mode 1)
-
-;; (defvar consult-buffer-sources)
-;; (declare-function consult--buffer-state "consult")
-
-;; (with-eval-after-load 'consult
-;;   (defface beframe-buffer
-;;     '((t :inherit font-lock-string-face))
-;;     "Face for `consult' framed buffers.")
-
-;;   (defun my-beframe-buffer-names-sorted (&optional frame)
-;;     "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
-;;      With optional argument FRAME, return the list of buffers of FRAME."
-;;     (beframe-buffer-names frame :sort #'beframe-buffer-sort-visibility))
-
-;;   (defvar beframe-consult-source
-;;     `( :name     "Frame-specific buffers (current frame)"
-;;        :narrow   ?F
-;;        :category buffer
-;;        :face     beframe-buffer
-;;        :history  beframe-history
-;;        :items    ,#'my-beframe-buffer-names-sorted
-;;        :action   ,#'switch-to-buffer
-;;        :state    ,#'consult--buffer-state))
-
-;;   (add-to-list 'consult-buffer-sources 'beframe-consult-source)
-;; )
-
-(defun consult-beframe-buffer-list (&optional frame)
-  "Return the list of buffers from `beframe-buffer-names' sorted by visibility.
-     With optional argument FRAME, return the list of buffers of FRAME."
-  (beframe-buffer-list frame :sort #'beframe-buffer-sort-visibility))
-
-(setq consult-buffer-list-function #'consult-beframe-buffer-list)
-
-(with-eval-after-load 'ibuffer
-  (defun beframe-buffer-in-frame (buf frame)
-    "Return non-nil if BUF is in FRAME."
-    (memq buf (beframe-buffer-list (beframe-frame-object frame))))
-
-  (defun beframe-frame-name-list ()
-    "Return list with frame names."
-    (mapcar #'car (make-frame-names-alist)))
-
-  (defun beframe-generate-ibuffer-filter-groups ()
-    "Create a set of ibuffer filter groups based on the Frame of buffers."
-    (mapcar
-     (lambda (frame)
-       (list (format "%s" frame)
-             (list 'predicate 'beframe-buffer-in-frame '(current-buffer) frame)))
-     (beframe-frame-name-list)))
-
-  (setq ibuffer-saved-filter-groups
-        `(("Frames" ,@(beframe-generate-ibuffer-filter-groups))))
-
-  (define-ibuffer-filter frame
-      "Limit current view to buffers in frames."
-    (:description "frame")
-    (memq buf (beframe-buffer-list))))
 
 (use-package! casual-suite)
 (map! :after calc

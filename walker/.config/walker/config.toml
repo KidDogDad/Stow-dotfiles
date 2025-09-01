@@ -74,9 +74,9 @@ hidden = true
 hidden = true
 
 [builtins.emojis]
-hidden = true
-# name = "Emojis"
-# icon = ""
+hidden = false
+name = "Emojis"
+icon = ""
 # prefix = ":"
 
 [builtins.symbols]
