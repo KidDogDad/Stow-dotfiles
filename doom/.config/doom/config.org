@@ -193,6 +193,42 @@
 
 * Behavior
 
+** Keybindings & Keyboard
+
+ #+begin_src emacs-lisp
+;; Save my pinkies
+(map! :after evil :map general-override-mode-map
+      :nv "zj" #'evil-scroll-down
+      :nv "zk" #'evil-scroll-up
+      :nv "E" #'evil-end-of-line
+      :nv "B" #'evil-first-non-blank
+      :nv "ga" #'evil-avy-goto-line
+      )
+
+;; Give me the universal argument in insert mode
+(setq! evil-want-C-u-scroll nil
+       evil-want-C-u-delete nil)
+
+(setq evil-auto-indent nil)
+
+(map!
+ :leader
+ :desc "Raise popup" "`" #'+popup/raise
+ :desc "Toggle popup" "-" #'+popup/toggle
+ )
+
+(map!
+ :leader
+ :prefix "o"
+ :desc "re-builder" "B" #'re-builder)
+ #+end_src
+
+** Automatically Reload Buffers That Change On Disk
+
+#+begin_src 
+(global-auto-revert-mode 1)
+#+end_src
+
 ** Rainbow Delimiters
 
 #+begin_src emacs-lisp
@@ -274,36 +310,6 @@
 ;;  (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
 ;;  )
 #+end_src
-
-** Keybindings & Keyboard
-
- #+begin_src emacs-lisp
-;; Save my pinkies
-(map! :after evil :map general-override-mode-map
-      :nv "zj" #'evil-scroll-down
-      :nv "zk" #'evil-scroll-up
-      :nv "E" #'evil-end-of-line
-      :nv "B" #'evil-first-non-blank
-      :nv "ga" #'evil-avy-goto-line
-      )
-
-;; Give me the universal argument in insert mode
-(setq! evil-want-C-u-scroll nil
-       evil-want-C-u-delete nil)
-
-(setq evil-auto-indent nil)
-
-(map!
- :leader
- :desc "Raise popup" "`" #'+popup/raise
- :desc "Toggle popup" "-" #'+popup/toggle
- )
-
-(map!
- :leader
- :prefix "o"
- :desc "re-builder" "B" #'re-builder)
- #+end_src
 
 ** Delete To Trash Can
 

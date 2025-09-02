@@ -131,6 +131,32 @@
 ;; ;; Set a key binding if you need to toggle spacious padding.
 ;; (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
 
+;; Save my pinkies
+(map! :after evil :map general-override-mode-map
+      :nv "zj" #'evil-scroll-down
+      :nv "zk" #'evil-scroll-up
+      :nv "E" #'evil-end-of-line
+      :nv "B" #'evil-first-non-blank
+      :nv "ga" #'evil-avy-goto-line
+      )
+
+;; Give me the universal argument in insert mode
+(setq! evil-want-C-u-scroll nil
+       evil-want-C-u-delete nil)
+
+(setq evil-auto-indent nil)
+
+(map!
+ :leader
+ :desc "Raise popup" "`" #'+popup/raise
+ :desc "Toggle popup" "-" #'+popup/toggle
+ )
+
+(map!
+ :leader
+ :prefix "o"
+ :desc "re-builder" "B" #'re-builder)
+
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (add-hook! 'org-mode-hook (ws-butler-mode -1))
@@ -170,32 +196,6 @@
 ;;  (setq gptel-default-mode 'org-mode)
 ;;  (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
 ;;  )
-
-;; Save my pinkies
-(map! :after evil :map general-override-mode-map
-      :nv "zj" #'evil-scroll-down
-      :nv "zk" #'evil-scroll-up
-      :nv "E" #'evil-end-of-line
-      :nv "B" #'evil-first-non-blank
-      :nv "ga" #'evil-avy-goto-line
-      )
-
-;; Give me the universal argument in insert mode
-(setq! evil-want-C-u-scroll nil
-       evil-want-C-u-delete nil)
-
-(setq evil-auto-indent nil)
-
-(map!
- :leader
- :desc "Raise popup" "`" #'+popup/raise
- :desc "Toggle popup" "-" #'+popup/toggle
- )
-
-(map!
- :leader
- :prefix "o"
- :desc "re-builder" "B" #'re-builder)
 
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files")
