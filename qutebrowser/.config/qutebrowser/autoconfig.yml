@@ -7,7 +7,7 @@
 config_version: 2
 settings:
   colors.webpage.darkmode.enabled:
-    global: false
+    global: true
   content.javascript.clipboard:
     https://catppuccin.com: access-paste
     https://chatgpt.com: access-paste
@@ -16,6 +16,7 @@ settings:
     https://github.com: access-paste
     https://grok.com: access-paste
     https://htmlcolorcodes.com: access-paste
+    https://www.google.com: access-paste
   content.notifications.enabled:
     https://www.esrtech.com: false
     https://www.shortform.com: false
