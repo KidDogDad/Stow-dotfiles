@@ -62,6 +62,7 @@ config.bind("zK", "cmd-run-with-count 50 scroll up")
 config.bind("zj", "cmd-run-with-count 15 scroll down")
 config.bind("zJ", "cmd-run-with-count 50 scroll down")
 config.bind("tt", "tab-focus")
+config.bind("sd", "config-cycle colors.webpage.darkmode.enabled")
 
 # Automatically enter insert mode if an editable element is focused after loading the page.
 c.input.insert_mode.auto_load = True

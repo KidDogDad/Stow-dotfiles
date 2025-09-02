@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Weekly Priorities Transclusion
+# key: wkpp
+# --
+#+transclude: [[file:~/org/--weekly-reset-2025-09-01__weekly@@20250901T214227.org]] :lines 6-9
