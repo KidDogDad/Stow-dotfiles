@@ -2,4 +2,5 @@
 .idea
 *.log
 tmp/
-stow/omarchy/.config/omarchy/themes/
+omarchy/.config/omarchy/themes/
+qutebrowser/.config/qutebrowser/autoconfig.yml

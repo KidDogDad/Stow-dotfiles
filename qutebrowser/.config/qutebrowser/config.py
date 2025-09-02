@@ -40,7 +40,7 @@ c.url.searchengines = {
     "!gh": "https://github.com/search?o=desc&q={}&s=stars",
     "!gist": "https://gist.github.com/search?q={}",
     "!gi": "https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1",
-    "!gm": "https://www.google.com/maps/search/{}",
+    "!map": "https://www.google.com/maps/search/{}",
     "!gy": "https://www.google.com/search?q={}&tbs=qdr:y",
     "!r": "https://www.reddit.com/search?q={}",
     "!tw": "https://twitter.com/search?q={}",
@@ -205,6 +205,7 @@ c.hints.border = "1px solid #181825"
 # work with the `:scroll-px` command.
 # Type: Bool
 c.scrolling.smooth = True
+
 # Value to use for `prefers-color-scheme:` for websites. The "light"
 # value is only available with QtWebEngine 5.15.2+. On older versions,
 # it is the same as "auto". The "auto" value is broken on QtWebEngine
@@ -227,8 +228,8 @@ c.colors.webpage.preferred_color_scheme = "dark"
 # Type: Bool
 # c.colors.webpage.darkmode.enabled = True
 
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.bg = "#555555"
-c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.contrast = 0.0
 c.colors.webpage.darkmode.policy.images = "smart"
