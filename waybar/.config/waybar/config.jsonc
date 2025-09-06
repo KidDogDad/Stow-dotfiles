@@ -12,6 +12,7 @@
     "network",
     "pulseaudio",
     "cpu",
+    "idle_inhibitor",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -77,7 +78,14 @@
                 "on-scroll-down": "shift_down"
                 }
   },
-
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "spacing": 1,
+    "format-icons": {
+        "activated": "",
+        "deactivated": "󰾪"
+    }
+  },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",
