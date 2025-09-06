@@ -63,6 +63,10 @@ config.bind("zj", "cmd-run-with-count 15 scroll down")
 config.bind("zJ", "cmd-run-with-count 50 scroll down")
 config.bind("tt", "tab-focus")
 config.bind("sd", "config-cycle colors.webpage.darkmode.enabled")
+config.bind("h", "tab-prev")
+config.bind("l", "tab-next")
+config.bind("J", "cmd-run-with-count 15 scroll down")
+config.bind("K", "cmd-run-with-count 15 scroll up")
 
 # Automatically enter insert mode if an editable element is focused after loading the page.
 c.input.insert_mode.auto_load = True
@@ -79,10 +83,6 @@ c.input.insert_mode.auto_load = True
 # `session.default_name` setting.
 # Type: Bool
 c.auto_save.session = True
-
-# Keybindings
-config.bind("J", "tab-prev")
-config.bind("K", "tab-next")
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
 # other features with tracking capabilities similar to those of cookies;
