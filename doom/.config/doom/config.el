@@ -333,10 +333,6 @@
         )
   )
 
-(map!
- :leader
- :desc "Dirvish" "d" #'dirvish-dwim)
-
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)
 ;;   )

@@ -34,8 +34,7 @@
       "1": [],
       "2": [],
       "3": [],
-      "4": [],
-      "5": []
+      "4": []
     }
   },
   "custom/omarchy": {
@@ -59,9 +58,26 @@
   "clock": {
     "format": "{:%a %m/%d %I:%M %p}",
     "format-alt": "{:%d %B W%V %Y}",
-    "tooltip": false,
-    "on-click-right": "omarchy-cmd-tzupdate"
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+                "mode"          : "month",
+                "mode-mon-col"  : 3,
+                "weeks-pos"     : "",
+                "on-scroll"     : 1,
+                "format": {
+                          "months":     "<span color='#cba6f7'><b>{}</b></span>",
+                          "weekdays":   "<span color='#89b4fa'><b>{}</b></span>",
+                          "days":       "<span color='#cdd6f4'><b>{}</b></span>",
+                          "today":      "<span color='#94e2d5'><b><u>{}</u></b></span>"
+                          }
+                },
+    "actions":  {
+                "on-click-right": "mode",
+                "on-scroll-up": "shift_up",
+                "on-scroll-down": "shift_down"
+                }
   },
+
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format": "{icon}",

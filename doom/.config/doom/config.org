@@ -226,7 +226,7 @@
 ** Automatically Reload Buffers That Change On Disk
 
 #+begin_src 
-(global-auto-revert-mode 1)
+(add-hook! 'doom-first-buffer-hook #'global-auto-revert-mode)
 #+end_src
 
 ** Rainbow Delimiters
@@ -493,10 +493,6 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
         )
   )
 
-(map!
- :leader
- :desc "Dirvish" "d" #'dirvish-dwim)
-
 ;; (custom-set-faces!
 ;;   '(dirvish-hl-line :weight bold)
 ;;   )
@@ -605,9 +601,6 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
         )
   )
 #+end_src
-
-#+RESULTS:
-: ((heading . t) (plain-list-item))
 
 ** Org-Capture
 
