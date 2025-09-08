@@ -43,7 +43,7 @@
   `(org-level-7 :foreground ,(catppuccin-color 'peach))
   `(org-level-8 :foreground ,(catppuccin-color 'rosewater))
   `(org-todo :foreground ,(catppuccin-color 'green))
-  `(org-quote :foreground ,(catppuccin-color 'peach))
+  `(org-quote :foreground ,(catppuccin-color 'lavender))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
   `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
