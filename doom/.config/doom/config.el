@@ -486,6 +486,7 @@
         org-agenda-tags-column 0
         org-agenda-todo-ignore-scheduled 'future
         org-agenda-todo-ignore-deadlines 'far
+        org-deadline-warning-days 2
         org-agenda-tags-todo-honor-ignore-options t
         org-agenda-dim-blocked-tasks nil
         org-agenda-use-tag-inheritance nil
@@ -509,10 +510,10 @@
         org-agenda-time-grid '((today require-timed remove-match) () "      " "──────────────")
 
         org-agenda-prefix-format
-        '((agenda . "    %?-2i%t ")
-          (todo . "  %?-2i%t ")
-          (tags . "  %?-2i%t ")
-          (search . " %i %-12:c"))
+        '((agenda . " %?-12c%t")
+          (todo . " %?-12c ")
+          (tags . " %?-12c ")
+          (search . " %?-12:c "))
 
         org-agenda-custom-commands
         '(("y" "Yiyi Tasks"
@@ -737,7 +738,9 @@
                                    "** Outro\n"
                                    "* End Screen\n"
                                    ))
-          (default . "")
+          (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-07__weekly@@20250907T154411.org]] :lines 12-16"
+                              "#+transclude: [[file:~/org/--financial-life-advice-from-chatgpt__ai@@20250907T151507.org]] :lines 6-14"
+                              ))
           )))
 
 (after! denote-menu
