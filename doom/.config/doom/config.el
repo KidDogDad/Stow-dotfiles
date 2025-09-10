@@ -487,7 +487,7 @@
         org-agenda-todo-ignore-scheduled 'future
         org-agenda-todo-ignore-deadlines 'far
         org-deadline-warning-days 2
-        org-agenda-tags-todo-honor-ignore-options t
+        org-agenda-tags-todo-honor-ignore-options nil
         org-agenda-dim-blocked-tasks nil
         org-agenda-use-tag-inheritance nil
         org-agenda-inhibit-startup t
@@ -507,23 +507,25 @@
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
         org-agenda-current-time-string "<──────── now"
-        org-agenda-time-grid '((today require-timed remove-match) () "      " "──────────────")
+        org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")
 
         org-agenda-prefix-format
-        '((agenda . " %?-12c%t")
+        '((agenda . " %-12:c%?-12t% s")
           (todo . " %?-12c ")
           (tags . " %?-12c ")
           (search . " %?-12:c "))
 
         org-agenda-custom-commands
-        '(("y" "Yiyi Tasks"
-           ((tags-todo "yiyi")))
-          ("i" "Inbox"
-           ((todo "" ((org-agenda-files '("~/org/agenda/20250814T155838--inbox.org"))
-                      (org-agenda-overriding-header "Inbox Items")))))
-          ("e" "Emacs"
-           ((tags-todo "+emacs"
-                       ((org-agenda-overriding-header "Emacs Tasks 🤓")))))
+        '(
+          ("A" "Focused agenda"
+           ((agenda ""
+                    ((org-agenda-remove-tags t)
+                     (org-agenda-todo-keyword-format "")
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+           ((org-agenda-tag-filter-preset '("-yiyi"))))
           ("w" "This Week"
            ((agenda ""
                     (
@@ -535,7 +537,7 @@
                      ))
             (tags-todo "thisweek"
                        ((org-agenda-overriding-header "\nThis Week"))))
-            ((org-agenda-remove-tags t)))
+           ((org-agenda-remove-tags t)))
           ("W" "Weekend"
            ((agenda ""
                     (
@@ -547,22 +549,12 @@
                      ))
             (tags-todo "weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
-            ((org-agenda-remove-tags t)))
-          ("A" "Main agenda"
-           ((agenda ""
-                    (
-                     (org-agenda-remove-tags t)
-                     (org-agenda-todo-keyword-format "")
-                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
-                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
-                     (org-agenda-overriding-header "Calendar")
-                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
-                     ))
-            (tags-todo "thisWeek"
-                       ((org-agenda-overriding-header "\nThis Week")))
-            (tags-todo "weekend"
-                       ((org-agenda-overriding-header "\nWeekend"))))
-            ((org-agenda-remove-tags t)))
+           ((org-agenda-remove-tags t)))
+          ("i" "Inbox"
+           ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
+                      (org-agenda-overriding-header "Inbox Items")))))
+          ("y" "Yiyi Tasks"
+           ((tags-todo "yiyi")))
           )
 
         org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
@@ -581,6 +573,7 @@
     `(org-scheduled-previously :inherit default :weight bold :foreground ,(catppuccin-color 'red))
     `(org-upcoming-deadline :inherit default :foreground ,(catppuccin-color 'peach))
     '(org-agenda-current-time :inherit org-meta-line)
+    '(org-time-grid :inherit org-meta-line)
     )
   )
 
@@ -678,6 +671,9 @@
                (:prefix ("d" . "denote")
                 :desc "Link or create a note" "l" #'denote-link-or-create
                 :desc "Add links" "L" #'denote-add-links
+                :desc "Link to heading" "h" #'denote-org-link-to-heading
+                :desc "Query contents" "q" #'denote-query-contents-link
+                :desc "Query filenames" "Q" #'denote-query-filenames-link
                 :desc "Backlinks" "b" #'denote-backlinks
                 :desc "Denote dired" "D" #'denote-dired
                 :desc "Open or create a note" "n" #'denote-open-or-create
@@ -825,11 +821,9 @@
       :n "gh" #'notmuch-hello
       )
 
-;; (setq org-gcal-client-id "your-id-foo.apps.googleusercontent.com"
-;;       org-gcal-client-secret "your-secret"
-;;       org-gcal-fetch-file-alist '(("your-mail@gmail.com" .  "~/schedule.org")
-;;                                   ("another-mail@gmail.com" .  "~/task.org")))
-;; (require 'org-gcal)
+;; (let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
+;;   (when (file-exists-p private-config)
+;;     (load private-config)))
 
 (defun logseq-md-headings-to-org ()
   "Convert Logseq-style headings to Org headings, removing leading dash and indentation."

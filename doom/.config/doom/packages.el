@@ -18,6 +18,7 @@
 (package! org-super-agenda)
 (package! org-appear)
 (package! rainbow-delimiters)
+;; (package! org-gcal)
 
 ;; Denote
 (package! denote)
