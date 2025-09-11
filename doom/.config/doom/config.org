@@ -1058,6 +1058,15 @@ Other commands to mess around with:
 
 * Apps
 
+** Calendar (=calfw=)
+
+#+begin_src emacs-lisp
+(map!
+ :leader
+ :prefix "o"
+ :desc "Calendar" "c" #'cfw:open-org-calendar)
+#+end_src
+
 ** =xclip= For Hyprland Clipboard
 
 #+begin_src emacs-lisp
@@ -1112,17 +1121,6 @@ Other commands to mess around with:
       )
 #+end_src
 
-
-** Calendar With =org-gcal=
-This isn't working right now. I followed the steps from [[https://joshblais.com/blog/integrate-org-mode-google/][How to integrate org-mode and google calendar - The Universe of Joshua Blais]]. First, I had to set my default browser to Chromium (Firefox won't work). When I call =org-gcal-sync=, it takes me to the Google auth page, I sign in with my account and authorize. It prompts me for a password for Emacs to use to lock this, and I type it in. After that, I got a 404 error in Emacs, and nothing synced.
-
-If I want to try this again, I need to re-enable =org-gcal= in my packages file.
-
-#+begin_src emacs-lisp
-;; (let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
-;;   (when (file-exists-p private-config)
-;;     (load private-config)))
-#+end_src
 
 * Functions
 

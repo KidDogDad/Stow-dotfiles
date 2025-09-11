@@ -779,6 +779,11 @@
        )
       ))
 
+(map!
+ :leader
+ :prefix "o"
+ :desc "Calendar" "c" #'cfw:open-org-calendar)
+
 (use-package! xclip
   :config
   (setq xclip-program "wl-copy")
@@ -820,10 +825,6 @@
       :map notmuch-common-keymap
       :n "gh" #'notmuch-hello
       )
-
-;; (let ((private-config (expand-file-name "private/org-gcal-credentials.el" doom-private-dir)))
-;;   (when (file-exists-p private-config)
-;;     (load private-config)))
 
 (defun logseq-md-headings-to-org ()
   "Convert Logseq-style headings to Org headings, removing leading dash and indentation."
