@@ -157,9 +157,9 @@
  :prefix "o"
  :desc "re-builder" "B" #'re-builder)
 
-(add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
+(add-hook! 'doom-first-buffer-hook #'global-auto-revert-mode)
 
-(add-hook! 'org-mode-hook (ws-butler-mode -1))
+(add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
 
 ;; (setq garbage-collection-messages t) ;; show when garbage collection is happening
 
@@ -414,6 +414,8 @@
         org-startup-with-inline-images t
         org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
         )
+
+  (ws-butler-mode -1)
   )
 
 (after! org-capture
@@ -486,6 +488,7 @@
         org-agenda-tags-column 0
         org-agenda-todo-ignore-scheduled 'future
         org-agenda-todo-ignore-deadlines 'far
+        org-agenda-skip-deadline-prewarning-if-scheduled t
         org-deadline-warning-days 2
         org-agenda-tags-todo-honor-ignore-options nil
         org-agenda-dim-blocked-tasks nil
@@ -510,7 +513,7 @@
         org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")
 
         org-agenda-prefix-format
-        '((agenda . " %-12:c%?-12t% s")
+        '((agenda . " %-12:c%?-16t% s")
           (todo . " %?-12c ")
           (tags . " %?-12c ")
           (search . " %?-12:c "))
@@ -707,6 +710,7 @@
                          :desc "Files" "f" #'denote-org-dblock-insert-files
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
+                         :desc "Files as headings" "h" #'org-dblock-insert-files-as-headings
                          ))))
 
 (map! :leader
@@ -802,29 +806,6 @@
 (add-hook 'elfeed-search-mode-hook #'elfeed-update)
 
 (setq elfeed-goodies/entry-pane-size 0.6)
-
-(after! notmuch
-  (setq notmuch-show-log nil
-        notmuch-hello-sections `(notmuch-hello-insert-header
-                                 notmuch-hello-insert-saved-searches
-                                 notmuch-hello-insert-alltags
-                                 notmuch-hello-insert-footer)
-        ;; To hide headers while composing an email
-        notmuch-message-headers-visible nil
-        notmuch-archive-tags '("-inbox" "-unread" "-new")
-        )
-
-  (set-popup-rule! "^\\*notmuch" :ignore t)
-  (set-popup-rule! "^\\*notmuch-hello" :ignore t)
-  (set-popup-rule! "^\\*subject:" :size 0.75 :ttl 0)
-
-  ;; (setq +notmuch-home-function (lambda () (notmuch-search "tag:inbox")))
-  )
-
-(map! :after notmuch
-      :map notmuch-common-keymap
-      :n "gh" #'notmuch-hello
-      )
 
 (defun logseq-md-headings-to-org ()
   "Convert Logseq-style headings to Org headings, removing leading dash and indentation."
