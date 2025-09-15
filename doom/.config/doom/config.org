@@ -249,6 +249,15 @@
 (add-hook 'text-mode-hook (lambda () (electric-indent-local-mode -1)))
 #+end_src
 
+** Will This Stop =ws-butler='s Madness In Org Files?
+
+#+begin_src emacs-lisp
+(remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
+
+(after! org
+  (ws-butler-mode -1))
+#+end_src
+
 ** Dired
 
 #+begin_src emacs-lisp
@@ -593,8 +602,6 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
         org-startup-with-inline-images t
         org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
         )
-
-  (ws-butler-mode -1)
   )
 #+end_src
 

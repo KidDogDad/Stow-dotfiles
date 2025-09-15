@@ -167,6 +167,11 @@
 
 (add-hook 'text-mode-hook (lambda () (electric-indent-local-mode -1)))
 
+(remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
+
+(after! org
+  (ws-butler-mode -1))
+
 ;; (dired-hide-details-mode 1)
 
 (setq scroll-conservatively 5)
@@ -414,8 +419,6 @@
         org-startup-with-inline-images t
         org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
         )
-
-  (ws-butler-mode -1)
   )
 
 (after! org-capture
