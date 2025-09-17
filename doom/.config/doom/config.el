@@ -418,6 +418,7 @@
         org-hide-emphasis-markers t
         org-startup-with-inline-images t
         org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
+        org-archive-location "~/org/--org-archive@@20250917T103324.org::* From %s"
         )
   )
 
@@ -741,7 +742,7 @@
                                    "** Outro\n"
                                    "* End Screen\n"
                                    ))
-          (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-07__weekly@@20250907T154411.org]] :lines 12-16"
+          (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-15__weekly@@20250915T082550.org]] :lines 12-17"
                               "#+transclude: [[file:~/org/--financial-life-advice-from-chatgpt__ai@@20250907T151507.org]] :lines 6-14"
                               ))
           )))
