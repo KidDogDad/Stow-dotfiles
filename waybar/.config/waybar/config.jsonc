@@ -12,6 +12,7 @@
     "network",
     "pulseaudio",
     "cpu",
+    "idle_inhibitor",
     "battery"
   ],
   "hyprland/workspaces": {
