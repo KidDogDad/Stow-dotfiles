@@ -84,7 +84,7 @@
     "format": "{icon}",
     "spacing": 1,
     "format-icons": {
-        "activated": "",
+        "activated": "󰅶",
         "deactivated": "󰾪"
     }
   },

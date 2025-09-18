@@ -195,12 +195,12 @@
 (setq evil-escape-key-sequence "jk")
 (setq evil-escape-unordered-key-sequence t)
 
-;; (after! gptel
-;;  (setq! gptel-api-key
-;;         (auth-source-pick-first-password :host "api.openai.com"))
-;;  (setq gptel-default-mode 'org-mode)
-;;  (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
-;;  )
+(after! gptel
+ ;; (setq! gptel-api-key
+ ;;        (auth-source-pick-first-password :host "api.openai.com"))
+ (setq gptel-default-mode 'org-mode)
+ (add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
+ )
 
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files")
