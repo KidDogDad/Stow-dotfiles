@@ -12,7 +12,6 @@
     "network",
     "pulseaudio",
     "cpu",
-    "idle_inhibitor",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -59,8 +58,9 @@
     "on-click": "$TERMINAL -e btop"
   },
   "clock": {
-    "format": "{:%a %m/%d %I:%M %p}",
+    "format": "{:L%A %H:%M}",
     "format-alt": "{:L%d %B W%V %Y}",
+<<<<<<< Updated upstream
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
                 "mode"          : "month",
@@ -87,6 +87,10 @@
         "activated": "󰅶",
         "deactivated": "󰾪"
     }
+=======
+    "tooltip": false,
+    "on-click-right": "omarchy-cmd-tzupdate"
+>>>>>>> Stashed changes
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
