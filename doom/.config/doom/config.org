@@ -1070,6 +1070,13 @@ Other commands to mess around with:
 
 * Apps
 
+** =nov.el=
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+(setq nov-text-width 80)
+#+end_src
+
 ** Calendar (=calfw=)
 
 #+begin_src emacs-lisp
