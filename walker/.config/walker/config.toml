@@ -26,7 +26,7 @@ placeholder = " Search..."
 prioritize_new = false
 context_aware = false
 show_sub_when_single = false
-history = false
+history = true
 icon = ""
 hidden = true
 
@@ -66,6 +66,7 @@ time_format = "%d.%m. - %H:%M" # format for the clipboard item date
 click = "copy"
 copy = "enter"
 delete = "ctrl d"
+max_entries = 50
 
 [builtins.commands]
 hidden = true
