@@ -515,7 +515,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp ".*"
+        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "kickish" "linux" "next" "tech"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
@@ -532,7 +532,7 @@
         '(
           ("A" "Focused agenda"
            ((agenda ""
-                    ((org-agenda-remove-tags t)
+                    (
                      (org-agenda-todo-keyword-format "")
                      (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
                      (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
@@ -542,7 +542,6 @@
           ("w" "This Week"
            ((agenda ""
                     (
-                     (org-agenda-remove-tags t)
                      (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
                      (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                      (org-agenda-overriding-header "Calendar")
@@ -550,11 +549,10 @@
                      ))
             (tags-todo "thisweek"
                        ((org-agenda-overriding-header "\nThis Week"))))
-           ((org-agenda-remove-tags t)))
+           )
           ("W" "Weekend"
            ((agenda ""
                     (
-                     (org-agenda-remove-tags t)
                      (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
                      (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                      (org-agenda-overriding-header "Calendar")
@@ -562,7 +560,7 @@
                      ))
             (tags-todo "weekend"
                        ((org-agenda-overriding-header "\nWeekend"))))
-           ((org-agenda-remove-tags t)))
+           )
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
