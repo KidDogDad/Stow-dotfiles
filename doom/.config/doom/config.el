@@ -502,7 +502,7 @@
         org-deadline-warning-days 2
         org-agenda-tags-todo-honor-ignore-options nil
         org-agenda-dim-blocked-tasks nil
-        org-agenda-use-tag-inheritance nil
+        org-agenda-use-tag-inheritance t
         org-agenda-inhibit-startup t
         org-agenda-ignore-properties '(stats)
         org-agenda-window-setup 'current-window
