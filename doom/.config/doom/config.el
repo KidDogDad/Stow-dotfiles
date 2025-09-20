@@ -138,6 +138,7 @@
       :nv "E" #'evil-end-of-line
       :nv "B" #'evil-first-non-blank
       :nv "ga" #'evil-avy-goto-line
+      :nv "g/" #'evil-avy-goto-char-timer
       )
 
 ;; Give me the universal argument in insert mode
@@ -515,7 +516,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "kickish" "linux" "next" "tech"))
+        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
