@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Yiyi Check-In
+# key: yyyck
+# --
+* Yiyi Check-In\n
+- Time:
+- Mood:
+- Connection:
+- Helpfulness:
+
+** Notes
+

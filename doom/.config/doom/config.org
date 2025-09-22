@@ -766,9 +766,11 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "thisweek"
-                       ((org-agenda-overriding-header "\nThis Week"))))
-           )
+            (tags-todo "+thisweek-maybe"
+                       ((org-agenda-overriding-header "\nThis Week")))
+            (tags-todo "+thisweek+maybe"
+                       ((org-agenda-overriding-header "\nMaybe")))
+            ))
           ("W" "Weekend"
            ((agenda ""
                     (
@@ -777,9 +779,11 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "weekend"
-                       ((org-agenda-overriding-header "\nWeekend"))))
-           )
+            (tags-todo "+weekend-maybe"
+                       ((org-agenda-overriding-header "\nWeekend")))
+            (tags-todo "+weekend+maybe"
+                       ((org-agenda-overriding-header "\nMaybe")))
+            ))
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
@@ -980,26 +984,7 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
 #+begin_src emacs-lisp
 (after! denote
   (setq denote-templates
-        `((Yiyi-check-in . ,(concat "* Yiyi Check-In\n"
-                                    "- Time: \n"
-                                    "- Mood: \n"
-                                    "- Connection: \n"
-                                    "- Helpfulness: \n"
-                                    "\n\n"
-                                    "** Notes"
-                                    "\n"
-                                    ))
-          (kickish-video ,(concat "* Notes\n"
-                                   "* Title\n"
-                                   "* Thumbnail\n"
-                                   "* Script\n"
-                                   "** Intro / Hook\n"
-                                   "** Main Idea 1\n"
-                                   "** Main Idea 2\n"
-                                   "** Main Idea 3\n"
-                                   "** Outro\n"
-                                   "* End Screen\n"
-                                   ))
+        `(
           (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-15__weekly@@20250915T082550.org]] :lines 12-17"
                               "#+transclude: [[file:~/org/--financial-life-advice-from-chatgpt__ai@@20250907T151507.org]] :lines 6-14"
                               ))

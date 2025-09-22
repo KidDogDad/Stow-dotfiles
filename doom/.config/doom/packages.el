@@ -44,6 +44,7 @@
 (package! esup)
 (package! info+)
 (package! nov)
+(package! emacs-syncthing :recipe (:host github :repo "KeyWeeUsr/emacs-syncthing"))
 (package! scroll-on-jump :recipe (:host github :repo "emacsmirror/scroll-on-jump"))
 (package! xclip)
 
