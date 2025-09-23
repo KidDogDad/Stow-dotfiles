@@ -692,11 +692,23 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
    #+begin_src emacs-lisp
 (after! org-modern
   (setq org-modern-list '((43 . "•")
-                     (45 . "•")))
+                          (45 . "•")))
   (setq org-modern-star nil)
-  (setq org-modern-hide-stars t)
   )
 #+end_src
+
+** Org-Modern-Indent
+
+    #+begin_src emacs-lisp
+(use-package! org-modern-indent
+  :ensure t
+  :config
+  :hook
+  (org-mode . org-modern-indent-mode)
+  )
+
+;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
+    #+end_src
 
 ** Agenda
 

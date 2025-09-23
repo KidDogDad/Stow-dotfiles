@@ -485,10 +485,18 @@
 
 (after! org-modern
   (setq org-modern-list '((43 . "•")
-                     (45 . "•")))
+                          (45 . "•")))
   (setq org-modern-star nil)
-  (setq org-modern-hide-stars t)
   )
+
+(use-package! org-modern-indent
+  :ensure t
+  :config
+  :hook
+  (org-mode . org-modern-indent-mode)
+  )
+
+;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
 
 (setq org-agenda-files (list (concat org-directory "/agenda")))
 
