@@ -729,14 +729,6 @@
 (map! :leader
       :desc "Close other windows" "w D" #'delete-other-windows)
 
-(after! denote
-  (setq denote-templates
-        `(
-          (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-15__weekly@@20250915T082550.org]] :lines 12-17"
-                              "#+transclude: [[file:~/org/--financial-life-advice-from-chatgpt__ai@@20250907T151507.org]] :lines 6-14"
-                              ))
-          )))
-
 (after! denote-menu
   (setq
    denote-menu-title-column-width 80

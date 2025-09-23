@@ -979,18 +979,6 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
       :desc "Close other windows" "w D" #'delete-other-windows)
 #+end_src
 
-** Denote Templates
-
-#+begin_src emacs-lisp
-(after! denote
-  (setq denote-templates
-        `(
-          (default . ,(concat "#+transclude: [[file:~/org/--weekly-reset-2025-09-15__weekly@@20250915T082550.org]] :lines 12-17"
-                              "#+transclude: [[file:~/org/--financial-life-advice-from-chatgpt__ai@@20250907T151507.org]] :lines 6-14"
-                              ))
-          )))
-#+end_src
-
 ** Denote Menu
 
 #+begin_src emacs-lisp
