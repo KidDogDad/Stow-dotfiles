@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Weekly Priorities
+# key: wkpp
+# --
+#+BEGIN: denote-files :regexp "_priorities.*_thisweek" :no-front-matter t
+#+END:
