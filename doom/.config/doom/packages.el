@@ -45,12 +45,12 @@
 (package! info+)
 (package! nov)
 (package! emacs-syncthing :recipe (:host github :repo "KeyWeeUsr/emacs-syncthing"))
-(package! scroll-on-jump :recipe (:host github :repo "emacsmirror/scroll-on-jump"))
 (package! xclip)
+(package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
 
 ;; Things that I gave up on
 ;; (package! org-outer-indent
 ;;   :recipe (:host github :repo "rougier/org-outer-indent"))
 ;; (package! org-auto-tangle)
+;; (package! scroll-on-jump :recipe (:host github :repo "emacsmirror/scroll-on-jump"))
 ;; (package! org-padding :recipe (:host github :repo "TonCherAmi/org-padding"))
-;; (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
