@@ -543,6 +543,7 @@
            ((agenda ""
                     (
                      (org-agenda-todo-keyword-format "")
+                     (org-deadline-warning-days 0)
                      (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
                      (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
                      (org-agenda-overriding-header "Calendar")
