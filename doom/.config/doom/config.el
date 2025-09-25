@@ -168,10 +168,10 @@
 
 (add-hook 'text-mode-hook (lambda () (electric-indent-local-mode -1)))
 
-(remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
+;; (remove-hook 'doom-first-buffer-hook #'ws-butler-global-mode)
 
-(after! org
-  (ws-butler-mode -1))
+;; (after! org
+;;   (ws-butler-mode -1))
 
 ;; (dired-hide-details-mode 1)
 
@@ -777,6 +777,24 @@
        :desc "Consult Denote Grep" "g" #'consult-denote-grep
        )
       ))
+
+(map! :leader
+      :prefix "s"
+      (:prefix ("q" . "Org QL")
+       :desc "Search" "s" #'org-ql-search
+       :desc "Sidebar" "b" #'org-ql-view-sidebar
+       :desc "View" "v" #'org-ql-view
+       :desc "Find" "f" #'org-ql-find
+       :desc "Save View" "S" #'org-ql-view-save
+       :desc "Delete View" "D" #'org-ql-view-delete
+       :desc "Refresh View" "r" #'org-ql-view-refresh
+       :desc "Find In Agenda" "a" #'org-ql-find-in-agenda
+       :desc "Find In Org Directory" "o" #'org-ql-find-in-org-directory
+       ))
+
+(map! :after org-ql
+      :map org-ql-view-list-map
+      :n [return] #'org-ql-view-switch)
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 (setq nov-text-width 80)
