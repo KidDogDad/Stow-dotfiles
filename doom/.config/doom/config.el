@@ -10,9 +10,9 @@
 (remove-hook 'text-mode-hook #'hl-line-mode)
 
 (custom-theme-set-faces! 'catppuccin
-  `(org-document-title :foreground ,(catppuccin-color 'lavender))
-  `(org-level-1 :foreground ,(catppuccin-color 'mauve))
-  `(org-level-2 :foreground ,(catppuccin-color 'blue))
+  `(org-document-title :weight bold :foreground ,(catppuccin-color 'text))
+  `(org-level-1 :foreground ,(catppuccin-color 'lavender))
+  `(org-level-2 :foreground ,(catppuccin-color 'mauve))
   `(org-level-3 :foreground ,(catppuccin-color 'sapphire))
   `(org-level-4 :foreground ,(catppuccin-color 'teal))
   `(org-level-5 :foreground ,(catppuccin-color 'green))
@@ -38,7 +38,7 @@
 
 (setq
  doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 11.0 :weight 'demi-bold)
- doom-variable-pitch-font (font-spec :family "Inter" :weight 'regular :size 12.0))
+ doom-variable-pitch-font (font-spec :family "Rubik" :weight 'regular :size 12.0))
 
 (custom-set-faces!
   '(bold :weight bold)
@@ -486,9 +486,9 @@
 (after! org-modern
   (setq org-modern-list '((43 . "•")
                           (45 . "•")))
-  ;; (setq org-modern-star 'replace)
-  (setq org-modern-hide-stars t)
+  (setq org-modern-star 'replace)
   (setq org-modern-tag nil)
+  (setq org-modern-block-fringe nil)
   )
 (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
 
