@@ -47,6 +47,7 @@
 (package! emacs-syncthing :recipe (:host github :repo "KeyWeeUsr/emacs-syncthing"))
 (package! xclip)
 (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
+(package! origami)
 
 ;; Things that I gave up on
 ;; (package! org-outer-indent

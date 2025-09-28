@@ -23,7 +23,7 @@
   `(org-quote :foreground ,(catppuccin-color 'lavender))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
-  `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
+  `(org-link :inherit link :foreground ,(catppuccin-color 'sky))
   `(org-todo :foreground ,(catppuccin-color 'flamingo))
   `(org-code :foreground ,(catppuccin-color 'teal))
   `(org-verbatim :foreground ,(catppuccin-color 'rosewater))
@@ -381,27 +381,6 @@
       :n "?" #'casual-symbol-overlay-tmenu)
 ;; (map! :map general-override-mode-map "C-o" #'casual-editkit-main-tmenu)
 
-(require 'org-protocol)
-(require 'org-web-tools)
-
-;; (setq org-stuck-projects
-;;       '("TODO=\"PROJ\"&-TODO=\"DONE\"" ("TODO") nil ""))
-
-(custom-set-faces!
-  ;; Font sizes
-  '(org-document-title :height 1.8 :weight black)
-  '(org-date :inherit org-meta-line)
-  '(org-level-1 :height 1.7 :weight bold)
-  '(org-level-2 :height 1.5 :weight bold)
-  '(org-level-3 :height 1.3 :weight bold)
-  '(org-level-4 :height 1.1 :weight bold)
-  '(org-level-5 :height 1.0 :weight bold)
-  '(org-level-6 :height 1.0 :weight bold)
-  '(org-level-7 :height 1.0 :weight bold)
-  '(org-level-8 :height 1.0 :weight bold)
-  ;; '(org-indent :height 1.2 :weight bold)
-  )
-
 (after! org
   (setq org-directory "~/org"
         org-ellipsis " >"
@@ -429,78 +408,6 @@
         )
   )
 
-(after! org-capture
-  (add-hook 'org-capture-mode-hook
-            (lambda nil
-              (setq-local header-line-format nil)))
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
-           "* TODO %?")
-          ("c" "Clipboard Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
-           "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))")
-          ("o" "bin/org-capture Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
-           "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
-          ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
-           "* TODO %? :emacs:\n")
-          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
-           "* TODO Yiyi: %? :yiyi:\n")
-          ;; Not working fully yet
-          ;; ("W" "Web Page (With Content)" plain
-          ;;  (file denote-last-path)
-          ;;  #'denote-org-capture
-          ;;  :immediate-finish nil
-          ;;  :kill-buffer t
-          ;;  :jump-to-captured t)
-          ;; ("w" "Web Page (Link Only)" plain
-          ;;  (file denote-last-path)
-          ;;  #'denote-org-capture
-          ;;  :immediate-finish nil
-          ;;  :kill-buffer t
-          ;;  :jump-to-captured t)
-          ))
-  )
-
-;; (org-roam-capture-ref-templates
-;;  '(("W" "Web Page (With Content)" plain
-;;     "%(org-web-tools--url-as-readable-org \"${ref}\")"
-;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
-;;     :unnarrowed t)
-;;    ("w" "Web Page (Link Only)" plain
-;;     "[[${ref}][${title}]]\n\n%?"
-;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
-;;     :unnarrowed t)
-;;    ))
-
-(setq org-todo-keywords
-      '((sequence
-         "TODO(t)"
-         "WAIT(w)"
-         "SOMEDAY(s)"
-         "BACKLOG(b)"
-         "SCRIPTING(s)"
-         "|"
-         "DONE(d)"
-         "CANCELED(c)"))
-      )
-
-(after! org-modern
-  (setq org-modern-list '((43 . "•")
-                          (45 . "•")))
-  (setq org-modern-star 'replace)
-  (setq org-modern-tag nil)
-  (setq org-modern-block-fringe nil)
-  )
-(add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
-
-;; (use-package! org-modern-indent
-;;   :ensure t
-;;   :config
-;;   :hook
-;;   (org-mode . org-modern-indent-mode)
-;;   )
-
-;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
-
 (setq org-agenda-files (list (concat org-directory "/agenda")))
 
 (after! org-agenda
@@ -527,7 +434,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
+        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
@@ -542,7 +449,7 @@
 
         org-agenda-custom-commands
         '(
-          ("A" "Focused agenda"
+          ("f" "Focused agenda"
            ((agenda ""
                     (
                      (org-agenda-todo-keyword-format "")
@@ -552,6 +459,17 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
            ((org-agenda-tag-filter-preset '("-yiyi"))))
+          ("t" "Test This Week"
+           ((agenda ""
+                    (
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
+                     ))
+            (tags-todo "+thisweek-maybe"
+                       ((org-agenda-overriding-header nil)))
+            ))
           ("w" "This Week"
            ((agenda ""
                     (
@@ -637,6 +555,147 @@
    ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
    ))
 
+(setq org-super-agenda-groups
+      '(;; Each group has an implicit boolean OR operator between its selectors.
+        (:name "Today"  ; Optionally specify section name
+         :time-grid t  ; Items that appear on the time grid
+         :scheduled today
+         :order 0)  ; Items scheduled for today
+        (:name "Important"
+         :priority "A"
+         :order 1)
+        (:name "Yiyi"
+         :tag "yiyi"
+         :order 2)  ; Set order of this section
+        (:name "Maybe"
+         :tag "maybe"
+         :order 6)
+        (:name "This Week"
+         :tag "thisweek"
+         :order 4)
+        (:name "Weekend"
+         :tag "weekend"
+         :order 4)
+        (:name "Waiting"
+         :todo "WAIT"
+         :order 5)
+        ;; After the last group, the agenda will display items that didn't
+        ;; match any of these groups, with the default order position of 99
+        ))
+
+(map! :after org-super-agenda :map org-super-agenda-header-map "f" #'origami-toggle-node)
+
+;; Automatically fold specific groups in agenda views
+;; This isn't working yet
+(defvar my/org-super-agenda-auto-show-groups
+    '("Today" "Bills" "Yiyi" "Waiting" "Important"))
+
+  (defun my/org-super-agenda-origami-fold-default ()
+    "Fold certain groups by default in Org Super Agenda buffer."
+    (forward-line 3)
+    (cl-loop do (origami-forward-toggle-node (current-buffer) (point))
+             while (origami-forward-fold-same-level (current-buffer) (point)))
+    (--each my/org-super-agenda-auto-show-groups
+      (goto-char (point-min))
+      (when (re-search-forward (rx-to-string `(seq bol " " ,it)) nil t)
+        (origami-show-node (current-buffer) (point)))))
+
+(add-hook! 'org-agenda-mode-hook #'origami-mode)
+(add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
+
+(require 'org-protocol)
+(require 'org-web-tools)
+
+;; (setq org-stuck-projects
+;;       '("TODO=\"PROJ\"&-TODO=\"DONE\"" ("TODO") nil ""))
+
+(custom-set-faces!
+  ;; Font sizes
+  '(org-document-title :height 1.8 :weight black)
+  '(org-date :inherit org-meta-line)
+  '(org-level-1 :height 1.7 :weight bold)
+  '(org-level-2 :height 1.5 :weight bold)
+  '(org-level-3 :height 1.3 :weight bold)
+  '(org-level-4 :height 1.1 :weight bold)
+  '(org-level-5 :height 1.0 :weight bold)
+  '(org-level-6 :height 1.0 :weight bold)
+  '(org-level-7 :height 1.0 :weight bold)
+  '(org-level-8 :height 1.0 :weight bold)
+  ;; '(org-indent :height 1.2 :weight bold)
+  )
+
+(after! org-capture
+  (add-hook 'org-capture-mode-hook
+            (lambda nil
+              (setq-local header-line-format nil)))
+  (setq org-capture-templates
+        '(("t" "Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+           "* TODO %?")
+          ("c" "Clipboard Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+           "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))")
+          ("o" "bin/org-capture Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+           "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
+          ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
+           "* TODO %? :emacs:\n")
+          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
+           "* TODO Yiyi: %? :yiyi:\n")
+          ;; Not working fully yet
+          ;; ("W" "Web Page (With Content)" plain
+          ;;  (file denote-last-path)
+          ;;  #'denote-org-capture
+          ;;  :immediate-finish nil
+          ;;  :kill-buffer t
+          ;;  :jump-to-captured t)
+          ;; ("w" "Web Page (Link Only)" plain
+          ;;  (file denote-last-path)
+          ;;  #'denote-org-capture
+          ;;  :immediate-finish nil
+          ;;  :kill-buffer t
+          ;;  :jump-to-captured t)
+          ))
+  )
+
+;; (org-roam-capture-ref-templates
+;;  '(("W" "Web Page (With Content)" plain
+;;     "%(org-web-tools--url-as-readable-org \"${ref}\")"
+;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
+;;     :unnarrowed t)
+;;    ("w" "Web Page (Link Only)" plain
+;;     "[[${ref}][${title}]]\n\n%?"
+;;     :target (file+head "clips/${slug}.org" "#+title: ${title}\n\n")
+;;     :unnarrowed t)
+;;    ))
+
+(setq org-todo-keywords
+      '((sequence
+         "TODO(t)"
+         "WAIT(w)"
+         "SOMEDAY(s)"
+         "BACKLOG(b)"
+         "SCRIPTING(s)"
+         "|"
+         "DONE(d)"
+         "CANCELED(c)"))
+      )
+
+(after! org-modern
+  (setq org-modern-list '((43 . "•")
+                          (45 . "•")))
+  (setq org-modern-star 'replace)
+  (setq org-modern-tag nil)
+  (setq org-modern-block-fringe nil)
+  )
+(add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
+
+;; (use-package! org-modern-indent
+;;   :ensure t
+;;   :config
+;;   :hook
+;;   (org-mode . org-modern-indent-mode)
+;;   )
+
+;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
+
 ;; (after! org-auto-tangle
 ;;   (add-hook 'org-mode 'org-auto-tangle-mode)
 ;;   (setq org-auto-tangle-default nil))
@@ -691,7 +750,7 @@
   `(denote-faces-date :foreground ,(catppuccin-color 'subtext0))
   `(denote-faces-title :foreground ,(catppuccin-color 'white))
   `(denote-faces-keywords :foreground ,(catppuccin-color 'red))
-  `(denote-faces-link :inherit link :foreground ,(catppuccin-color 'lavender))
+  `(denote-faces-link :inherit link :foreground ,(catppuccin-color 'blue))
   )
 
 (map! :leader

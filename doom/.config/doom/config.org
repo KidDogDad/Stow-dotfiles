@@ -46,7 +46,7 @@
   `(org-quote :foreground ,(catppuccin-color 'lavender))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
-  `(org-link :inherit link :foreground ,(catppuccin-color 'blue))
+  `(org-link :inherit link :foreground ,(catppuccin-color 'sky))
   `(org-todo :foreground ,(catppuccin-color 'flamingo))
   `(org-code :foreground ,(catppuccin-color 'teal))
   `(org-verbatim :foreground ,(catppuccin-color 'rosewater))
@@ -549,6 +549,251 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
 
 * Org
 
+** Org Setup
+
+#+begin_src emacs-lisp
+(after! org
+  (setq org-directory "~/org"
+        org-ellipsis " >"
+        org-auto-align-tags nil
+        org-cycle-separator-lines 1
+        org-pretty-entities t
+        org-startup-indented nil
+        org-startup-truncated nil
+        org-adapt-indentation t
+        org-special-ctrl-a/e nil
+        org-M-RET-may-split-line '((item . nil))
+        org-fold-catch-invisible-edits 'smart
+        org-edit-src-content-indentation 0
+        org-src-preserve-indentation t
+        org-fontify-quote-and-verse-blocks t
+        org-fontify-done-headline nil
+        org-fontify-whole-heading-line t
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t
+        org-edit-src-content-indentation 0
+        org-hide-emphasis-markers t
+        org-startup-with-inline-images t
+        org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
+        org-archive-location "~/org/--org-archive@@20250917T103324.org::* From %s"
+        )
+  )
+#+end_src
+
+** Agenda
+
+*** Agenda Files
+
+#+begin_src emacs-lisp
+(setq org-agenda-files (list (concat org-directory "/agenda")))
+#+end_src
+
+*** Agenda View Settings
+ Some settings taken from [[https:www.youtube.com/watch?v=a_WNtuefREM][this YouTube video]]
+
+#+begin_src emacs-lisp
+(after! org-agenda
+  (setq org-agenda-start-day "+0d"
+        org-agenda-span 'day
+        org-agenda-timegrid-use-ampm t
+        org-agenda-tags-column 0
+        org-agenda-todo-ignore-scheduled 'future
+        org-agenda-todo-ignore-deadlines 'far
+        org-agenda-skip-deadline-prewarning-if-scheduled t
+        org-deadline-warning-days 2
+        org-agenda-tags-todo-honor-ignore-options nil
+        org-agenda-dim-blocked-tasks nil
+        org-agenda-use-tag-inheritance t
+        org-agenda-inhibit-startup t
+        org-agenda-ignore-properties '(stats)
+        org-agenda-window-setup 'current-window
+        org-agenda-restore-windows-after-quit nil
+        org-log-done 'time
+        org-log-into-drawer t
+        org-agenda-include-deadlines t
+        org-agenda-breadcrumbs-separator " ❱ "
+        org-agenda-todo-keyword-format "%-1s"
+        org-agenda-use-time-grid t
+        org-agenda-skip-timestamp-if-done t
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
+        org-agenda-skip-deadline-if-done t
+        org-agenda-show-future-repeats nil
+        org-agenda-block-separator nil
+        org-agenda-current-time-string "<──────── now"
+        org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")
+
+        org-agenda-prefix-format
+        '((agenda . " %-12:c%?-16t% s")
+          (todo . " %?-12c ")
+          (tags . " %?-12c ")
+          (search . " %?-12:c "))
+
+        org-agenda-custom-commands
+        '(
+          ("f" "Focused agenda"
+           ((agenda ""
+                    (
+                     (org-agenda-todo-keyword-format "")
+                     (org-deadline-warning-days 0)
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
+           ((org-agenda-tag-filter-preset '("-yiyi"))))
+          ("t" "Test This Week"
+           ((agenda ""
+                    (
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
+                     ))
+            (tags-todo "+thisweek-maybe"
+                       ((org-agenda-overriding-header nil)))
+            ))
+          ("w" "This Week"
+           ((agenda ""
+                    (
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
+                     ))
+            (tags-todo "+thisweek-maybe"
+                       ((org-agenda-overriding-header "\nThis Week")))
+            (tags-todo "+thisweek+maybe"
+                       ((org-agenda-overriding-header "\nMaybe")))
+            ))
+          ("W" "Weekend"
+           ((agenda ""
+                    (
+                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
+                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
+                     (org-agenda-overriding-header "Calendar")
+                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
+                     ))
+            (tags-todo "+weekend-maybe"
+                       ((org-agenda-overriding-header "\nWeekend")))
+            (tags-todo "+weekend+maybe"
+                       ((org-agenda-overriding-header "\nMaybe")))
+            ))
+          ("i" "Inbox"
+           ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
+                      (org-agenda-overriding-header "Inbox Items")))))
+          ("y" "Yiyi Tasks"
+           ((tags-todo "yiyi")))
+          )
+
+        org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
+                                      (todo priority-down)
+                                      (tags priority-down)
+                                      (search category-keep))
+        )
+
+  (custom-set-faces!
+    `(org-agenda-structure :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
+    `(org-agenda-date :inherit org-level-2 :foreground ,(catppuccin-color 'lavender) :weight bold)
+    `(org-agenda-date-weekend-today :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
+    `(org-agenda-date-today :inherit org-level-3 :foreground ,(catppuccin-color 'mauve))
+    '(org-scheduled-today :inherit default :foreground nil :weight regular)
+    '(org-scheduled :inherit default :foreground nil :weight regular)
+    `(org-scheduled-previously :inherit default :weight bold :foreground ,(catppuccin-color 'red))
+    `(org-upcoming-deadline :inherit default :foreground ,(catppuccin-color 'peach))
+    '(org-agenda-current-time :inherit org-meta-line)
+    '(org-time-grid :inherit org-meta-line)
+    )
+  )
+
+(map! :after org-super-agenda
+      :map org-agenda-mode-map
+      "[" #'org-agenda-earlier
+      "]" #'org-agenda-later)
+
+(map! :after org-super-agenda
+      :desc "Next line"
+      :map org-super-agenda-header-map
+      "j" 'org-agenda-next-line)
+
+(map! :after org-super-agenda
+      :desc "Next line"
+      :map org-super-agenda-header-map
+      "k" 'org-agenda-previous-line)
+#+end_src
+
+*** Category Icons
+
+#+begin_src emacs-lisp
+(use-package! all-the-icons)
+
+(customize-set-value
+ 'org-agenda-category-icon-alist
+ `(
+   ("Projects" ,(list (all-the-icons-faicon "tasks" :height 0.6)) nil nil :ascent 0)
+   ("Home" ,(list (all-the-icons-faicon "home" :v-adjust 0.6)) nil nil :ascent 0)
+   ("Errands" ,(list (all-the-icons-material "drive_eta" :height 0.6)) nil nil :ascent 0)
+   ("Inbox" ,(list (all-the-icons-faicon "inbox" :height 0.6)) nil nil :ascent 0)
+   ("Computer" ,(list (all-the-icons-fileicon "arch-linux" :height 0.6)) nil nil :ascent 0)
+   ("Coding" ,(list (all-the-icons-faicon "code-fork" :height 0.6)) nil nil :ascent 0)
+   ("Emacs" ,(list (all-the-icons-fileicon "emacs" :height 0.6)) nil nil :ascent 0)
+   ("Routines" ,(list (all-the-icons-faicon "repeat" :height 0.6)) nil nil :ascent 0)
+   ("Yiyi" ,(list (all-the-icons-faicon "heart" :height 0.6)) nil nil :ascent 0)
+   ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
+   ))
+#+end_src
+
+*** Org Super Agenda
+
+#+begin_src emacs-lisp
+(setq org-super-agenda-groups
+      '(;; Each group has an implicit boolean OR operator between its selectors.
+        (:name "Today"  ; Optionally specify section name
+         :time-grid t  ; Items that appear on the time grid
+         :scheduled today
+         :order 0)  ; Items scheduled for today
+        (:name "Important"
+         :priority "A"
+         :order 1)
+        (:name "Yiyi"
+         :tag "yiyi"
+         :order 2)  ; Set order of this section
+        (:name "Maybe"
+         :tag "maybe"
+         :order 6)
+        (:name "This Week"
+         :tag "thisweek"
+         :order 4)
+        (:name "Weekend"
+         :tag "weekend"
+         :order 4)
+        (:name "Waiting"
+         :todo "WAIT"
+         :order 5)
+        ;; After the last group, the agenda will display items that didn't
+        ;; match any of these groups, with the default order position of 99
+        ))
+
+(map! :after org-super-agenda :map org-super-agenda-header-map "f" #'origami-toggle-node)
+
+;; Automatically fold specific groups in agenda views
+;; This isn't working yet
+(defvar my/org-super-agenda-auto-show-groups
+    '("Today" "Bills" "Yiyi" "Waiting" "Important"))
+
+  (defun my/org-super-agenda-origami-fold-default ()
+    "Fold certain groups by default in Org Super Agenda buffer."
+    (forward-line 3)
+    (cl-loop do (origami-forward-toggle-node (current-buffer) (point))
+             while (origami-forward-fold-same-level (current-buffer) (point)))
+    (--each my/org-super-agenda-auto-show-groups
+      (goto-char (point-min))
+      (when (re-search-forward (rx-to-string `(seq bol " " ,it)) nil t)
+        (origami-show-node (current-buffer) (point)))))
+
+(add-hook! 'org-agenda-mode-hook #'origami-mode)
+(add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
+#+end_src
+
 ** Org-Protocol
 
    #+begin_src emacs-lisp
@@ -579,37 +824,6 @@ Avoid problems from using fish shell, but still allow Emacs terminal emulators t
   '(org-level-7 :height 1.0 :weight bold)
   '(org-level-8 :height 1.0 :weight bold)
   ;; '(org-indent :height 1.2 :weight bold)
-  )
-#+end_src
-
-** Org Setup
-
-#+begin_src emacs-lisp
-(after! org
-  (setq org-directory "~/org"
-        org-ellipsis " >"
-        org-auto-align-tags nil
-        org-cycle-separator-lines 1
-        org-pretty-entities t
-        org-startup-indented nil
-        org-startup-truncated nil
-        org-adapt-indentation t
-        org-special-ctrl-a/e nil
-        org-M-RET-may-split-line '((item . nil))
-        org-fold-catch-invisible-edits 'smart
-        org-edit-src-content-indentation 0
-        org-src-preserve-indentation t
-        org-fontify-quote-and-verse-blocks t
-        org-fontify-done-headline nil
-        org-fontify-whole-heading-line t
-        org-src-fontify-natively t
-        org-src-tab-acts-natively t
-        org-edit-src-content-indentation 0
-        org-hide-emphasis-markers t
-        org-startup-with-inline-images t
-        org-blank-before-new-entry '((heading . t) (plain-list-item . nil))
-        org-archive-location "~/org/--org-archive@@20250917T103324.org::* From %s"
-        )
   )
 #+end_src
 
@@ -713,158 +927,6 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
 ;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
     #+end_src
 
-** Agenda
-
-*** Agenda Files
-
-#+begin_src emacs-lisp
-(setq org-agenda-files (list (concat org-directory "/agenda")))
-#+end_src
-
-*** Agenda View Settings
- Some settings taken from [[https:www.youtube.com/watch?v=a_WNtuefREM][this YouTube video]]
-
-#+begin_src emacs-lisp
-(after! org-agenda
-  (setq org-agenda-start-day "+0d"
-        org-agenda-span 'day
-        org-agenda-timegrid-use-ampm t
-        org-agenda-tags-column 0
-        org-agenda-todo-ignore-scheduled 'future
-        org-agenda-todo-ignore-deadlines 'far
-        org-agenda-skip-deadline-prewarning-if-scheduled t
-        org-deadline-warning-days 2
-        org-agenda-tags-todo-honor-ignore-options nil
-        org-agenda-dim-blocked-tasks nil
-        org-agenda-use-tag-inheritance t
-        org-agenda-inhibit-startup t
-        org-agenda-ignore-properties '(stats)
-        org-agenda-window-setup 'current-window
-        org-agenda-restore-windows-after-quit nil
-        org-log-done 'time
-        org-log-into-drawer t
-        org-agenda-include-deadlines t
-        org-agenda-breadcrumbs-separator " ❱ "
-        org-agenda-todo-keyword-format "%-1s"
-        org-agenda-use-time-grid t
-        org-agenda-skip-timestamp-if-done t
-        org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
-        org-agenda-skip-deadline-if-done t
-        org-agenda-show-future-repeats nil
-        org-agenda-block-separator nil
-        org-agenda-current-time-string "<──────── now"
-        org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")
-
-        org-agenda-prefix-format
-        '((agenda . " %-12:c%?-16t% s")
-          (todo . " %?-12c ")
-          (tags . " %?-12c ")
-          (search . " %?-12:c "))
-
-        org-agenda-custom-commands
-        '(
-          ("A" "Focused agenda"
-           ((agenda ""
-                    (
-                     (org-agenda-todo-keyword-format "")
-                     (org-deadline-warning-days 0)
-                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
-                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
-                     (org-agenda-overriding-header "Calendar")
-                     (org-agenda-time-grid '((today require-timed remove-match) (800 1000 1200 1400 1600 1800 2000) "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))))
-           ((org-agenda-tag-filter-preset '("-yiyi"))))
-          ("w" "This Week"
-           ((agenda ""
-                    (
-                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
-                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
-                     (org-agenda-overriding-header "Calendar")
-                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
-                     ))
-            (tags-todo "+thisweek-maybe"
-                       ((org-agenda-overriding-header "\nThis Week")))
-            (tags-todo "+thisweek+maybe"
-                       ((org-agenda-overriding-header "\nMaybe")))
-            ))
-          ("W" "Weekend"
-           ((agenda ""
-                    (
-                     (org-agenda-scheduled-leaders '("" "Sched.%2dx: "))
-                     (org-agenda-deadline-leaders '("Deadline:  " "In %3d d.: " "%2d d. ago: "))
-                     (org-agenda-overriding-header "Calendar")
-                     (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
-                     ))
-            (tags-todo "+weekend-maybe"
-                       ((org-agenda-overriding-header "\nWeekend")))
-            (tags-todo "+weekend+maybe"
-                       ((org-agenda-overriding-header "\nMaybe")))
-            ))
-          ("i" "Inbox"
-           ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
-                      (org-agenda-overriding-header "Inbox Items")))))
-          ("y" "Yiyi Tasks"
-           ((tags-todo "yiyi")))
-          )
-
-        org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
-                                      (todo priority-down)
-                                      (tags priority-down)
-                                      (search category-keep))
-        )
-
-  (custom-set-faces!
-    `(org-agenda-structure :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
-    `(org-agenda-date :inherit org-level-2 :foreground ,(catppuccin-color 'lavender) :weight bold)
-    `(org-agenda-date-weekend-today :inherit org-level-2 :foreground ,(catppuccin-color 'lavender))
-    `(org-agenda-date-today :inherit org-level-3 :foreground ,(catppuccin-color 'mauve))
-    '(org-scheduled-today :inherit default :foreground nil :weight regular)
-    '(org-scheduled :inherit default :foreground nil :weight regular)
-    `(org-scheduled-previously :inherit default :weight bold :foreground ,(catppuccin-color 'red))
-    `(org-upcoming-deadline :inherit default :foreground ,(catppuccin-color 'peach))
-    '(org-agenda-current-time :inherit org-meta-line)
-    '(org-time-grid :inherit org-meta-line)
-    )
-  )
-
-(map! :after org-super-agenda
-      :map org-agenda-mode-map
-      "[" #'org-agenda-earlier
-      "]" #'org-agenda-later)
-
-(map! :after org-super-agenda
-      :desc "Next line"
-      :map org-super-agenda-header-map
-      "j" 'org-agenda-next-line)
-
-(map! :after org-super-agenda
-      :desc "Next line"
-      :map org-super-agenda-header-map
-      "k" 'org-agenda-previous-line)
-#+end_src
-
-*** Category Icons
-
-#+begin_src emacs-lisp
-(use-package! all-the-icons)
-
-(customize-set-value
- 'org-agenda-category-icon-alist
- `(
-   ("Projects" ,(list (all-the-icons-faicon "tasks" :height 0.6)) nil nil :ascent 0)
-   ("Home" ,(list (all-the-icons-faicon "home" :v-adjust 0.6)) nil nil :ascent 0)
-   ("Errands" ,(list (all-the-icons-material "drive_eta" :height 0.6)) nil nil :ascent 0)
-   ("Inbox" ,(list (all-the-icons-faicon "inbox" :height 0.6)) nil nil :ascent 0)
-   ("Computer" ,(list (all-the-icons-fileicon "arch-linux" :height 0.6)) nil nil :ascent 0)
-   ("Coding" ,(list (all-the-icons-faicon "code-fork" :height 0.6)) nil nil :ascent 0)
-   ("Emacs" ,(list (all-the-icons-fileicon "emacs" :height 0.6)) nil nil :ascent 0)
-   ("Routines" ,(list (all-the-icons-faicon "repeat" :height 0.6)) nil nil :ascent 0)
-   ("Yiyi" ,(list (all-the-icons-faicon "heart" :height 0.6)) nil nil :ascent 0)
-   ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
-   ))
-#+end_src
-
-
 ** Org Auto Tangle (Commented Out)
 
 #+begin_src emacs-lisp
@@ -940,7 +1002,7 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
   `(denote-faces-date :foreground ,(catppuccin-color 'subtext0))
   `(denote-faces-title :foreground ,(catppuccin-color 'white))
   `(denote-faces-keywords :foreground ,(catppuccin-color 'red))
-  `(denote-faces-link :inherit link :foreground ,(catppuccin-color 'lavender))
+  `(denote-faces-link :inherit link :foreground ,(catppuccin-color 'blue))
   )
 #+end_src
 
