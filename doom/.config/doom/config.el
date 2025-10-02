@@ -611,16 +611,16 @@
 
 (custom-set-faces!
   ;; Font sizes
-  '(org-document-title :height 1.8 :weight black)
+  '(org-document-title :height 1.9 :weight black)
   '(org-date :inherit org-meta-line)
-  '(org-level-1 :height 1.7 :weight bold)
-  '(org-level-2 :height 1.5 :weight bold)
-  '(org-level-3 :height 1.3 :weight bold)
-  '(org-level-4 :height 1.1 :weight bold)
-  '(org-level-5 :height 1.0 :weight bold)
-  '(org-level-6 :height 1.0 :weight bold)
-  '(org-level-7 :height 1.0 :weight bold)
-  '(org-level-8 :height 1.0 :weight bold)
+  '(org-level-1 :height 1.9 :weight bold)
+  '(org-level-2 :height 1.8 :weight bold)
+  '(org-level-3 :height 1.7 :weight bold)
+  '(org-level-4 :height 1.6 :weight bold)
+  '(org-level-5 :height 1.5 :weight bold)
+  '(org-level-6 :height 1.4 :weight bold)
+  '(org-level-7 :height 1.3 :weight bold)
+  '(org-level-8 :height 1.2 :weight bold)
   ;; '(org-indent :height 1.2 :weight bold)
   )
 
@@ -681,8 +681,9 @@
 (after! org-modern
   (setq org-modern-list '((43 . "•")
                           (45 . "•")))
-  (setq org-modern-star 'replace)
   (setq org-modern-tag nil)
+  (setq org-modern-todo nil)
+  (setq org-modern-star 'replace)
   ;; (setq org-modern-block-fringe nil)
   )
 ;; (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
