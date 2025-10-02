@@ -47,7 +47,7 @@
 
 ;; Increase line spacing
 ;; org-modern-mode tries to adjust the tag label display based on the value of line-spacing. This looks best if line-spacing has a value between 0.1 and 0.4 in the Org buffer. Larger values of line-spacing are not recommended, since Emacs does not center the text vertically
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 ;; Fallbacks to ensure that all-the-icons display appropriately
 (set-fontset-font t 'unicode "file-icons" nil 'append)
@@ -611,16 +611,16 @@
 
 (custom-set-faces!
   ;; Font sizes
-  '(org-document-title :height 1.9 :weight black)
+  '(org-document-title :height 1.9 :weight bold)
   '(org-date :inherit org-meta-line)
-  '(org-level-1 :height 1.9 :weight bold)
-  '(org-level-2 :height 1.8 :weight bold)
-  '(org-level-3 :height 1.7 :weight bold)
-  '(org-level-4 :height 1.6 :weight bold)
-  '(org-level-5 :height 1.5 :weight bold)
-  '(org-level-6 :height 1.4 :weight bold)
-  '(org-level-7 :height 1.3 :weight bold)
-  '(org-level-8 :height 1.2 :weight bold)
+  ;; '(org-level-1 :height 1.9 :weight bold)
+  ;; '(org-level-2 :height 1.8 :weight bold)
+  ;; '(org-level-3 :height 1.7 :weight bold)
+  ;; '(org-level-4 :height 1.6 :weight bold)
+  ;; '(org-level-5 :height 1.5 :weight bold)
+  ;; '(org-level-6 :height 1.4 :weight bold)
+  ;; '(org-level-7 :height 1.3 :weight bold)
+  ;; '(org-level-8 :height 1.2 :weight bold)
   ;; '(org-indent :height 1.2 :weight bold)
   )
 
@@ -684,6 +684,7 @@
   (setq org-modern-tag nil)
   (setq org-modern-todo nil)
   (setq org-modern-star 'replace)
+  (setq org-modern-timestamp nil)
   ;; (setq org-modern-block-fringe nil)
   )
 ;; (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
