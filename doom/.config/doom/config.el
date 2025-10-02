@@ -387,7 +387,7 @@
         org-auto-align-tags nil
         org-cycle-separator-lines 1
         org-pretty-entities t
-        org-startup-indented t
+        org-startup-indented nil
         org-startup-truncated nil
         org-adapt-indentation t
         org-special-ctrl-a/e nil
@@ -613,14 +613,14 @@
   ;; Font sizes
   '(org-document-title :height 1.9 :weight bold)
   '(org-date :inherit org-meta-line)
-  ;; '(org-level-1 :height 1.9 :weight bold)
-  ;; '(org-level-2 :height 1.8 :weight bold)
-  ;; '(org-level-3 :height 1.7 :weight bold)
-  ;; '(org-level-4 :height 1.6 :weight bold)
-  ;; '(org-level-5 :height 1.5 :weight bold)
-  ;; '(org-level-6 :height 1.4 :weight bold)
-  ;; '(org-level-7 :height 1.3 :weight bold)
-  ;; '(org-level-8 :height 1.2 :weight bold)
+  '(org-level-1 :height 1.9 :weight bold)
+  '(org-level-2 :height 1.8 :weight bold)
+  '(org-level-3 :height 1.7 :weight bold)
+  '(org-level-4 :height 1.6 :weight bold)
+  '(org-level-5 :height 1.5 :weight bold)
+  '(org-level-6 :height 1.4 :weight bold)
+  '(org-level-7 :height 1.3 :weight bold)
+  '(org-level-8 :height 1.2 :weight bold)
   ;; '(org-indent :height 1.2 :weight bold)
   )
 
@@ -683,20 +683,21 @@
                           (45 . "•")))
   (setq org-modern-tag nil)
   (setq org-modern-todo nil)
-  (setq org-modern-star 'replace)
+  ;; (setq org-modern-star 'replace)
+  (setq org-modern-hide-stars t)
   (setq org-modern-timestamp nil)
   ;; (setq org-modern-block-fringe nil)
   )
 ;; (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
 
-(use-package! org-modern-indent
-  :ensure t
-  :config
-  :hook
-  (org-mode . org-modern-indent-mode)
-  )
+;; (use-package! org-modern-indent
+;;   :ensure t
+;;   :config
+;;   :hook
+;;   (org-mode . org-modern-indent-mode)
+;;   )
 
-(set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
+;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
 
 ;; (after! org-auto-tangle
 ;;   (add-hook 'org-mode 'org-auto-tangle-mode)
