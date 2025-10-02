@@ -682,7 +682,6 @@
   (setq org-modern-list '((43 . "•")
                           (45 . "•")))
   (setq org-modern-star 'replace)
-  (setq org-modern-hide-stars t)
   (setq org-modern-tag nil)
   (setq org-modern-block-fringe nil)
   )
