@@ -20,7 +20,7 @@
   `(org-level-7 :foreground ,(catppuccin-color 'peach))
   `(org-level-8 :foreground ,(catppuccin-color 'rosewater))
   `(org-todo :foreground ,(catppuccin-color 'green))
-  `(org-quote :foreground ,(catppuccin-color 'lavender))
+  `(org-quote :extend t :background ,(catppuccin-color 'mantle) :foreground ,(catppuccin-color 'lavender))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
   `(org-link :inherit link :foreground ,(catppuccin-color 'sky))
@@ -686,9 +686,9 @@
   ;; (setq org-modern-star 'replace)
   (setq org-modern-hide-stars t)
   (setq org-modern-timestamp nil)
-  ;; (setq org-modern-block-fringe nil)
+  (setq org-modern-block-fringe nil)
   )
-;; (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
+(add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
 
 ;; (use-package! org-modern-indent
 ;;   :ensure t
