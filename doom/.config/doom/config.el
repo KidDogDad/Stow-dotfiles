@@ -387,7 +387,7 @@
         org-auto-align-tags nil
         org-cycle-separator-lines 1
         org-pretty-entities t
-        org-startup-indented nil
+        org-startup-indented t
         org-startup-truncated nil
         org-adapt-indentation t
         org-special-ctrl-a/e nil
@@ -683,18 +683,18 @@
                           (45 . "•")))
   (setq org-modern-star 'replace)
   (setq org-modern-tag nil)
-  (setq org-modern-block-fringe nil)
+  ;; (setq org-modern-block-fringe nil)
   )
-(add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
+;; (add-hook! 'org-mode-hook #'adaptive-wrap-prefix-mode)
 
-;; (use-package! org-modern-indent
-;;   :ensure t
-;;   :config
-;;   :hook
-;;   (org-mode . org-modern-indent-mode)
-;;   )
+(use-package! org-modern-indent
+  :ensure t
+  :config
+  :hook
+  (org-mode . org-modern-indent-mode)
+  )
 
-;; (set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
+(set-face-attribute 'fixed-pitch nil :family "iA Writer Mono S" :height 1.0)
 
 ;; (after! org-auto-tangle
 ;;   (add-hook 'org-mode 'org-auto-tangle-mode)
