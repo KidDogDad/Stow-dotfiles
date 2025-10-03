@@ -705,6 +705,9 @@
 
 (add-hook 'org-mode-hook #'org-appear-mode)
 
+(add-hook! 'before-save-hook #'org-update-all-dblocks)
+(add-hook! 'org-mode-hook #'org-update-all-dblocks)
+
 (after! denote
   ;; Make Denote links clickable
   (add-hook 'text-mode-hook #'denote-fontify-links-mode-maybe)

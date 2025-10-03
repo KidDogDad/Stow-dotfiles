@@ -944,6 +944,13 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
 (add-hook 'org-mode-hook #'org-appear-mode)
 #+end_src
 
+** Auto-Update Dynamic Blocks
+
+#+begin_src emacs-lisp
+(add-hook! 'before-save-hook #'org-update-all-dblocks)
+(add-hook! 'org-mode-hook #'org-update-all-dblocks)
+#+end_src
+
 * Denote
 
 ** Denote Base Package
