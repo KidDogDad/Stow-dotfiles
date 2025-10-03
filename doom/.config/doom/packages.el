@@ -48,6 +48,7 @@
 (package! xclip)
 (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
 (package! origami)
+(package! magit-delta)
 
 ;; Things that I gave up on
 ;; (package! org-outer-indent

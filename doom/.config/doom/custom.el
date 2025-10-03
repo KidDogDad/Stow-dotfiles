@@ -5,7 +5,32 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-ql-views
-   '(("Today's Todos" :buffers-files
+   '(("Emacs Todos" :buffers-files
+      ("/home/josh/org/agenda/--become-a-developer__open_project@@20250830T070422.org"
+       "/home/josh/org/agenda/--child-support-modification-request__divorce_key_open_project@@20250526T000002.org"
+       "/home/josh/org/agenda/--deca-calendar@@20250917T094620.org"
+       "/home/josh/org/agenda/--emacs-todos__emacs@@20250811T110445.org"
+       "/home/josh/org/agenda/--errands__agenda_errands@@20250807T000001.org"
+       "/home/josh/org/agenda/--get-a-loan-2025__key_open_project@@20250814T160044.org"
+       "/home/josh/org/agenda/--healthcaregov-2025-special-enrollment__open_project@@20250907T110550.org"
+       "/home/josh/org/agenda/--home-todos__agenda@@20250809T104602.org"
+       "/home/josh/org/agenda/--inbox@@20250814T155838.org"
+       "/home/josh/org/agenda/--job-search-25__key_meta_open_project@@20250806T153544.org"
+       "/home/josh/org/agenda/--main-calendar@@20250912T090330.org"
+       "/home/josh/org/agenda/--make-short-term-income__finances_key_open_project@@20250908T135046.org"
+       "/home/josh/org/agenda/--misc@@20250805T000001.org"
+       "/home/josh/org/agenda/--org-mode-migration__emacs_open_project@@20250808T094638.org"
+       "/home/josh/org/agenda/--routines@@20250814T095847.org"
+       "/home/josh/org/agenda/--save-money__finances_open_project@@20250908T152915.org"
+       "/home/josh/org/agenda/--someday@@20250815T104118.org"
+       "/home/josh/org/agenda/--video-omarchy-first-impressions__kickish_linux_next_tech@@20250815T163657.sync-conflict-20250930-122240-4TW3Y6V.org"
+       "/home/josh/org/agenda/--yiyi-at-moms-calendar@@20250910T235357.org"
+       "/home/josh/org/agenda/--yiyi-calendar@@20250910T232108.org"
+       "/home/josh/org/agenda/--yiyi-school-calendar@@20250910T235442.org"
+       "/home/josh/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
+      :query (and (todo) (tags "emacs")) :sort (priority) :narrow nil
+      :super-groups nil :title "Emacs Todos")
+     ("Today's Todos" :buffers-files
       ("/home/josh/org/agenda/--become-a-developer__open_project@@20250830T070422.org"
        "/home/josh/org/agenda/--child-support-modification-request__divorce_key_open_project@@20250526T000002.org"
        "/home/josh/org/agenda/--deca-calendar@@20250917T094620.org"
