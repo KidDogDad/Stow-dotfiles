@@ -93,7 +93,7 @@
 (add-hook 'org-mode-hook #'my/org-olivetti-maybe)
 
 (after! olivetti
-  (setq olivetti-body-width 100)
+  (setq olivetti-body-width 110)
   ;; (setq olivetti-style 'margins)
   (setq olivetti-style 'fancy)
   )
@@ -611,17 +611,17 @@
 
 (custom-set-faces!
   ;; Font sizes
-  '(org-document-title :height 1.9 :weight bold)
+  '(org-document-title :height 1.5 :weight bold)
   '(org-date :inherit org-meta-line)
-  ;; '(org-level-1 :height 1.9 :weight bold)
-  ;; '(org-level-2 :height 1.7 :weight bold)
-  ;; '(org-level-3 :height 1.5 :weight bold)
-  ;; '(org-level-4 :height 1.3 :weight bold)
-  ;; '(org-level-5 :height 1.1 :weight bold)
-  ;; '(org-level-6 :height 1.0 :weight bold)
-  ;; '(org-level-7 :height 1.0 :weight bold)
-  ;; '(org-level-8 :height 1.0 :weight bold)
-  ;; '(org-indent :height 1.2 :weight bold)
+  '(org-level-1 :height 1.2 :weight bold)
+  '(org-level-2 :height 1.2 :weight bold)
+  '(org-level-3 :height 1.2 :weight bold)
+  '(org-level-4 :height 1.2 :weight bold)
+  '(org-level-5 :height 1.2 :weight bold)
+  '(org-level-6 :height 1.2 :weight bold)
+  '(org-level-7 :height 1.2 :weight bold)
+  '(org-level-8 :height 1.2 :weight bold)
+  '(org-indent :height 1.2 :weight bold)
   )
 
 (after! org-capture
