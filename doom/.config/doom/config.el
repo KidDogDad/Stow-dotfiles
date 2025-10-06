@@ -20,7 +20,7 @@
   `(org-level-7 :foreground ,(catppuccin-color 'peach))
   `(org-level-8 :foreground ,(catppuccin-color 'rosewater))
   `(org-todo :foreground ,(catppuccin-color 'green))
-  `(org-quote :extend t :background ,(catppuccin-color 'mantle) :foreground ,(catppuccin-color 'lavender))
+  `(org-quote :extend t :background ,(catppuccin-color 'mantle) :foreground ,(catppuccin-color 'rosewater))
   `(italic :slant italic :foreground ,(catppuccin-color 'pink))
   `(bold :weight bold :foreground ,(catppuccin-color 'sapphire))
   `(org-link :inherit link :foreground ,(catppuccin-color 'sky))
@@ -47,7 +47,7 @@
 
 ;; Increase line spacing
 ;; org-modern-mode tries to adjust the tag label display based on the value of line-spacing. This looks best if line-spacing has a value between 0.1 and 0.4 in the Org buffer. Larger values of line-spacing are not recommended, since Emacs does not center the text vertically
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0)
 
 ;; Fallbacks to ensure that all-the-icons display appropriately
 (set-fontset-font t 'unicode "file-icons" nil 'append)
@@ -321,6 +321,7 @@
            ("o" "~/org/" "Org")
            ("H" "~/.config/hypr/" "hypr")
            ("O" "~/.local/share/omarchy/" "Omarchy")
+           ("/" "/" "/")
            ("c" "~/.config/" ".config")
            ("s" "~/stow/" "Stow")
            ("C" "~/code/" "Code")
@@ -523,21 +524,6 @@
     )
   )
 
-(map! :after org-super-agenda
-      :map org-agenda-mode-map
-      "[" #'org-agenda-earlier
-      "]" #'org-agenda-later)
-
-(map! :after org-super-agenda
-      :desc "Next line"
-      :map org-super-agenda-header-map
-      "j" 'org-agenda-next-line)
-
-(map! :after org-super-agenda
-      :desc "Next line"
-      :map org-super-agenda-header-map
-      "k" 'org-agenda-previous-line)
-
 (use-package! all-the-icons)
 
 (customize-set-value
@@ -557,19 +543,22 @@
 
 (setq org-super-agenda-groups
       '(;; Each group has an implicit boolean OR operator between its selectors.
-        (:name "Today"  ; Optionally specify section name
-         :time-grid t  ; Items that appear on the time grid
+        (:name "Today"  
+         :time-grid t  
          :scheduled today
-         :order 0)  ; Items scheduled for today
+         :order 0)  
         (:name "Important"
          :priority "A"
          :order 1)
-        (:name "Yiyi"
-         :tag "yiyi"
-         :order 2)  ; Set order of this section
+        (:name "Fun"
+         :tag "fun"
+         :order 19)
         (:name "Maybe"
          :tag "maybe"
-         :order 6)
+         :order 20)
+        (:name "Yiyi"
+         :tag "yiyi"
+         :order 2)
         (:name "This Week"
          :tag "thisweek"
          :order 4)
@@ -583,7 +572,14 @@
         ;; match any of these groups, with the default order position of 99
         ))
 
-(map! :after org-super-agenda :map org-super-agenda-header-map "f" #'origami-toggle-node)
+(map! :after org-super-agenda :map org-super-agenda-header-map 
+      :desc "Fold node" "f" #'origami-toggle-node
+      :desc "Previous line" "k" 'org-agenda-previous-line
+      :desc "Next line" "j" 'org-agenda-next-line)
+
+(map! :after org-super-agenda :map org-agenda-mode-map
+      "[" #'org-agenda-earlier
+      "]" #'org-agenda-later)
 
 ;; Automatically fold specific groups in agenda views
 ;; This isn't working yet
@@ -621,7 +617,7 @@
   '(org-level-6 :height 1.2 :weight bold)
   '(org-level-7 :height 1.2 :weight bold)
   '(org-level-8 :height 1.2 :weight bold)
-  '(org-indent :height 1.2 :weight bold)
+  ;; '(org-indent :height 1.2 :weight bold)
   )
 
 (after! org-capture
@@ -706,7 +702,6 @@
 (add-hook 'org-mode-hook #'org-appear-mode)
 
 (add-hook! 'before-save-hook #'org-update-all-dblocks)
-(add-hook! 'org-mode-hook #'org-update-all-dblocks)
 
 (after! denote
   ;; Make Denote links clickable

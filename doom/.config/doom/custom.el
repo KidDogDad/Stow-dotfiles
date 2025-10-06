@@ -23,7 +23,6 @@
        "/home/josh/org/agenda/--routines@@20250814T095847.org"
        "/home/josh/org/agenda/--save-money__finances_open_project@@20250908T152915.org"
        "/home/josh/org/agenda/--someday@@20250815T104118.org"
-       "/home/josh/org/agenda/--video-omarchy-first-impressions__kickish_linux_next_tech@@20250815T163657.sync-conflict-20250930-122240-4TW3Y6V.org"
        "/home/josh/org/agenda/--yiyi-at-moms-calendar@@20250910T235357.org"
        "/home/josh/org/agenda/--yiyi-calendar@@20250910T232108.org"
        "/home/josh/org/agenda/--yiyi-school-calendar@@20250910T235442.org"
@@ -48,7 +47,6 @@
        "/home/josh/org/agenda/--routines@@20250814T095847.org"
        "/home/josh/org/agenda/--save-money__finances_open_project@@20250908T152915.org"
        "/home/josh/org/agenda/--someday@@20250815T104118.org"
-       "/home/josh/org/agenda/--video-omarchy-first-impressions__kickish_linux_next_tech@@20250815T163657.sync-conflict-20250930-122240-4TW3Y6V.org"
        "/home/josh/org/agenda/--yiyi-at-moms-calendar@@20250910T235357.org"
        "/home/josh/org/agenda/--yiyi-calendar@@20250910T232108.org"
        "/home/josh/org/agenda/--yiyi-school-calendar@@20250910T235442.org"
@@ -84,11 +82,12 @@
        "/home/josh/org/agenda/--yiyi-calendar@@20250910T232108.org"
        "/home/josh/org/agenda/--yiyi-school-calendar@@20250910T235442.org"
        "/home/josh/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
-      :query (and (todo) (or (scheduled :to today) (tags "thisweek"))) :sort
-      (priority) :narrow nil :super-groups
+      :query (and (or (scheduled :to today) (tags "thisweek"))) :sort (priority)
+      :narrow nil :super-groups
       ((:name "Today" :time-grid t :scheduled today :order 0)
        (:name "Important" :priority "A" :order 1)
-       (:name "Yiyi" :tag "yiyi" :order 2) (:name "Maybe" :tag "maybe" :order 6)
+       (:name "Fun" :tag "fun" :order 19) (:name "Maybe" :tag "maybe" :order 20)
+       (:name "Yiyi" :tag "yiyi" :order 2)
        (:name "This Week" :tag "thisweek" :order 4)
        (:name "Weekend" :tag "weekend" :order 4)
        (:name "Waiting" :todo "WAIT" :order 5))
@@ -116,10 +115,11 @@
        "/home/josh/org/agenda/--yiyi-school-calendar@@20250910T235442.org"
        "/home/josh/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
       :query (and (todo) (or (scheduled :to today) (tags "weekend"))) :sort
-      (date) :narrow nil :super-groups
+      (priority) :narrow nil :super-groups
       ((:name "Today" :time-grid t :scheduled today :order 0)
        (:name "Important" :priority "A" :order 1)
-       (:name "Yiyi" :tag "yiyi" :order 2) (:name "Maybe" :tag "maybe" :order 6)
+       (:name "Fun" :tag "fun" :order 19) (:name "Maybe" :tag "maybe" :order 20)
+       (:name "Yiyi" :tag "yiyi" :order 2)
        (:name "This Week" :tag "thisweek" :order 4)
        (:name "Weekend" :tag "weekend" :order 4)
        (:name "Waiting" :todo "WAIT" :order 5))
