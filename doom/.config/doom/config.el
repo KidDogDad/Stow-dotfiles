@@ -47,7 +47,7 @@
 
 ;; Increase line spacing
 ;; org-modern-mode tries to adjust the tag label display based on the value of line-spacing. This looks best if line-spacing has a value between 0.1 and 0.4 in the Org buffer. Larger values of line-spacing are not recommended, since Emacs does not center the text vertically
-(setq-default line-spacing 0)
+(setq-default line-spacing 0.2)
 
 ;; Fallbacks to ensure that all-the-icons display appropriately
 (set-fontset-font t 'unicode "file-icons" nil 'append)
@@ -466,6 +466,7 @@
 
 (add-hook! 'org-agenda-mode-hook #'origami-mode)
 (add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
+(add-hook! 'org-agenda-mode-hook #'org-super-agenda-mode)
 
 (setq org-agenda-files (list (concat org-directory "/agenda")))
 
@@ -493,7 +494,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech"))
+        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
@@ -524,8 +525,8 @@
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (org-ql-block '(and (todo) (tags "thisweek")))
-            ((org-ql-block-header "This Week"))
+            (org-ql-block '(and (todo) (tags "thisweek"))
+                          ((org-ql-block-header "\nThis Week")))
             ;; (tags-todo "+thisweek-maybe"
             ;;            ((org-agenda-overriding-header "\nThis Week")))
             ;; (tags-todo "+thisweek+maybe"
