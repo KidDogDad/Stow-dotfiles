@@ -158,6 +158,12 @@
  :prefix "o"
  :desc "re-builder" "B" #'re-builder)
 
+(map!
+ :leader
+ :prefix "s"
+ :desc "Consult-fd" "f" #'consult-fd
+ :desc "Locate file" "F" #'consult-locate)
+
 (add-hook! 'doom-first-buffer-hook #'global-auto-revert-mode)
 
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -174,6 +180,9 @@
 ;;   (ws-butler-mode -1))
 
 ;; (dired-hide-details-mode 1)
+(map! :after dired :map dired-mode-map
+      :n "o" #'dired-do-open
+      :n "H" #'dired-do-kill-lines)
 
 (setq scroll-conservatively 5)
 (pixel-scroll-precision-mode 1)
@@ -452,7 +461,7 @@
 ;; Automatically fold specific groups in agenda views
 ;; This isn't working yet
 (defvar my/org-super-agenda-auto-show-groups
-    '("Today" "Bills" "Yiyi" "Waiting" "Important"))
+    '("Calendar" "Today" "Bills" "Yiyi" "Waiting" "Important"))
 
   (defun my/org-super-agenda-origami-fold-default ()
     "Fold certain groups by default in Org Super Agenda buffer."
@@ -465,7 +474,7 @@
         (origami-show-node (current-buffer) (point)))))
 
 (add-hook! 'org-agenda-mode-hook #'origami-mode)
-(add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
+;; (add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
 (add-hook! 'org-agenda-mode-hook #'org-super-agenda-mode)
 
 (setq org-agenda-files (list (concat org-directory "/agenda")))
@@ -514,7 +523,6 @@
           ("f" "Focused agenda"
            ((agenda ""
                     (
-                     (org-agenda-todo-keyword-format "")
                      (org-deadline-warning-days 0)
                      (org-agenda-overriding-header "Calendar")
                      )))
