@@ -1,7 +1,8 @@
 ## Set values
 # Remove annoying stuff from PATH that won't freaking go away 
-set PATH (string match -v "/home/josh/Github stuff not in AUR" $PATH)
-set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
+# set PATH (string match -v "/home/josh/Github stuff not in AUR" $PATH)
+# set PATH (string match -v "/home/josh/.emacs.d/bin" $PATH)
+fish_add_path /home/josh/.config/doom-emacs/bin
 
 #######################
 ### My custom stuff ###
