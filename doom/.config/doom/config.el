@@ -335,6 +335,8 @@
            ("s" "~/stow/" "Stow")
            ("C" "~/code/" "Code")
            ("d" "~/Downloads/" "Downloads")
+           ("g" "~/Documents/Geek stuff" "Geek stuff")
+           ("D" "~/Documents/" "Documents")
            ("m" "/mnt/" "Mounted drives")
            ("t" "~/.local/share/Trash/files/" "Trash")))
   (setq dirvish-hide-details t)
@@ -347,17 +349,13 @@
          '(file-size))
         )
   (setq dirvish-override-dired-mode t)
-  (setq dirvish-layout-recipes '((0 0 0.4) (0 0 0.8) (1 0.11 0.55)))
-
+  (setq dirvish-default-layout '(1 0.15 0.5))
+  (setq dirvish-layout-recipes '((0 0 0.8) (1 0.15 0.5) (1 0.11 0.7)))
+  
   (map! :after dirvish
         :map dirvish-mode-map
-        :n  "L"   #'dirvish-layout-switch
-        )
+        :n "F"   #'dirvish-layout-switch)
   )
-
-;; (custom-set-faces!
-;;   '(dirvish-hl-line :weight bold)
-;;   )
 
 (use-package! casual-suite)
 (map! :after calc
@@ -433,8 +431,8 @@
         (:name "Maybe"
          :tag "maybe"
          :order 20)
-        (:name "Yiyi"
-         :tag "yiyi"
+        (:name "People"
+         :tag "people"
          :order 2)
         (:name "This Week"
          :tag "thisweek"
@@ -461,7 +459,7 @@
 ;; Automatically fold specific groups in agenda views
 ;; This isn't working yet
 (defvar my/org-super-agenda-auto-show-groups
-    '("Calendar" "Today" "Bills" "Yiyi" "Waiting" "Important"))
+    '("Calendar" "Today" "Bills" "People" "Waiting" "Important"))
 
   (defun my/org-super-agenda-origami-fold-default ()
     "Fold certain groups by default in Org Super Agenda buffer."
@@ -503,7 +501,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
+        org-agenda-hide-tags-regexp (regexp-opt '("people" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
@@ -526,7 +524,7 @@
                      (org-deadline-warning-days 0)
                      (org-agenda-overriding-header "Calendar")
                      )))
-           ((org-agenda-tag-filter-preset '("-yiyi"))))
+           ((org-agenda-tag-filter-preset '("-people"))))
           ("w" "This Week"
            ((agenda ""
                     (
@@ -554,8 +552,8 @@
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
-          ("y" "Yiyi Tasks"
-           ((tags-todo "yiyi")))
+          ("p" "People Tasks"
+           ((tags-todo "people")))
           )
 
         org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
@@ -577,23 +575,6 @@
     '(org-time-grid :inherit org-meta-line)
     )
   )
-
-(use-package! all-the-icons)
-
-(customize-set-value
- 'org-agenda-category-icon-alist
- `(
-   ("Projects" ,(list (all-the-icons-faicon "tasks" :height 0.6)) nil nil :ascent 0)
-   ("Home" ,(list (all-the-icons-faicon "home" :v-adjust 0.6)) nil nil :ascent 0)
-   ("Errands" ,(list (all-the-icons-material "drive_eta" :height 0.6)) nil nil :ascent 0)
-   ("Inbox" ,(list (all-the-icons-faicon "inbox" :height 0.6)) nil nil :ascent 0)
-   ("Computer" ,(list (all-the-icons-fileicon "arch-linux" :height 0.6)) nil nil :ascent 0)
-   ("Coding" ,(list (all-the-icons-faicon "code-fork" :height 0.6)) nil nil :ascent 0)
-   ("Emacs" ,(list (all-the-icons-fileicon "emacs" :height 0.6)) nil nil :ascent 0)
-   ("Routines" ,(list (all-the-icons-faicon "repeat" :height 0.6)) nil nil :ascent 0)
-   ("Yiyi" ,(list (all-the-icons-faicon "heart" :height 0.6)) nil nil :ascent 0)
-   ("Misc" ,(list (all-the-icons-material "widgets" :height 0.6)) nil nil :ascent 0)
-   ))
 
 (require 'org-protocol)
 (require 'org-web-tools)
@@ -629,8 +610,8 @@
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
           ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
            "* TODO %? :emacs:\n")
-          ("y" "Yiyi Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
-           "* TODO Yiyi: %? :yiyi:\n")
+          ("p" "People Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
+           "* TODO %? :people:\n")
           ;; Not working fully yet
           ;; ("W" "Web Page (With Content)" plain
           ;;  (file denote-last-path)
