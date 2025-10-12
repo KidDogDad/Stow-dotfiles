@@ -209,8 +209,8 @@
 ;;                           (string-match-p "pinyin" (symbol-name fn)))
 ;;                         orderless-style-dispatchers))))
 
-(setq evil-escape-key-sequence "jk")
-(setq evil-escape-unordered-key-sequence t)
+;; (setq evil-escape-key-sequence "jk")
+;; (setq evil-escape-unordered-key-sequence t)
 
 (after! gptel
   (setq gptel-default-mode 'org-mode)

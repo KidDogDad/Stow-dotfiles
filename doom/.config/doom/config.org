@@ -320,8 +320,8 @@
 ** Evil-Escape
 
 #+begin_src emacs-lisp
-(setq evil-escape-key-sequence "jk")
-(setq evil-escape-unordered-key-sequence t)
+;; (setq evil-escape-key-sequence "jk")
+;; (setq evil-escape-unordered-key-sequence t)
 #+end_src
 
 ** GPTel
