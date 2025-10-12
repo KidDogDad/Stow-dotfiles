@@ -164,6 +164,11 @@
  :desc "Consult-fd" "f" #'consult-fd
  :desc "Locate file" "F" #'consult-locate)
 
+(map!
+ :leader
+ :prefix "h"
+ :desc "Consult-info" "c" #'consult-info)
+
 (add-hook! 'doom-first-buffer-hook #'global-auto-revert-mode)
 
 (add-hook! 'prog-mode-hook #'rainbow-delimiters-mode)
@@ -357,6 +362,13 @@
         :n "F"   #'dirvish-layout-switch)
   )
 
+(defun dirvish-pre-redisplay-h (window)
+  "Record root WINDOW and redisplay sessions in selected frame."
+  (when (eq (frame-selected-window) window)
+    (setq dirvish--selected-window (frame-selected-window))
+    (when-let* ((dv (dirvish-curr))) (setf (dv-root-window dv) window))
+    (dirvish--redisplay)))
+
 (use-package! casual-suite)
 (map! :after calc
       :map calc-mode-map
@@ -533,21 +545,15 @@
                      ))
             (org-ql-block '(and (todo) (tags "thisweek"))
                           ((org-ql-block-header "\nThis Week")))
-            ;; (tags-todo "+thisweek-maybe"
-            ;;            ((org-agenda-overriding-header "\nThis Week")))
-            ;; (tags-todo "+thisweek+maybe"
-            ;;            ((org-agenda-overriding-header "\nMaybe")))
             ))
-          ("W" "Weekend"
+          ("e" "Weekend"
            ((agenda ""
                     (
                      (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (tags-todo "+weekend-maybe"
-                       ((org-agenda-overriding-header "\nWeekend")))
-            (tags-todo "+weekend+maybe"
-                       ((org-agenda-overriding-header "\nMaybe")))
+            (org-ql-block '(and (todo) (tags "weekend"))
+                          ((org-ql-block-header "\nWeekend")))
             ))
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
