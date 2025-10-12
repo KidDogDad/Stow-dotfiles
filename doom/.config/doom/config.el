@@ -538,7 +538,7 @@
                      (org-deadline-warning-days 0)
                      (org-agenda-overriding-header "Calendar")
                      )))
-           ((org-agenda-tag-filter-preset '("-people"))))
+           ((org-agenda-tag-filter-preset '("-people" "-calendar"))))
           ("w" "This Week"
            ((agenda ""
                     (
