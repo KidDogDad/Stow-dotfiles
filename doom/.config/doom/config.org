@@ -193,6 +193,12 @@
 
 * Behavior
 
+** Treat =.kbd= Files As Lisp Files
+
+#+begin_src emacs-lisp
+(add-to-list 'auto-mode-alist '("\\.kbd\\'" . lisp-mode))
+#+end_src
+
 ** Keybindings & Keyboard
 
  #+begin_src emacs-lisp

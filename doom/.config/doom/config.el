@@ -131,6 +131,8 @@
 ;; ;; Set a key binding if you need to toggle spacious padding.
 ;; (define-key global-map (kbd "<f8>") #'spacious-padding-mode)
 
+(add-to-list 'auto-mode-alist '("\\.kbd\\'" . lisp-mode))
+
 ;; Save my pinkies
 (map! :after evil :map general-override-mode-map
       :nv "zj" #'evil-scroll-down
