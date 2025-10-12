@@ -5,7 +5,7 @@
 (defsrc
     s d f
     j k l
-    caps
+    caps lctl
     )
 
 (defvar
@@ -22,10 +22,11 @@
   k-mod (tap-hold $tap-time $hold-time k rmet)
   l-mod (tap-hold $tap-time $hold-time l ralt)
   esc-ctl (tap-hold $tap-time $hold-time esc lctl)
+  ctl-comp (tap-hold $tap-time $hold-time caps lctl)
   )
 
 (deflayer base
     @s-mod @d-mod @f-mod
     @j-mod @k-mod @l-mod 
-    @esc-ctl
+    @esc-ctl @ctl-comp
     )
