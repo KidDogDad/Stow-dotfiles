@@ -3,10 +3,10 @@
   )
 
 (defsrc
-    s d f
-    j k l
-    caps lctl
-    )
+    d f
+  j k
+  caps lctl
+  )
 
 (defvar
     tap-time 200
@@ -15,18 +15,16 @@
 
 (defalias
     ;; tap-hold parameters: tap timeout (ms), hold timeout (ms), tap action, hold action
-    s-mod (tap-hold $tap-time $hold-time s lalt)
-  d-mod (tap-hold $tap-time $hold-time d lmet)
+    d-mod (tap-hold $tap-time $hold-time d lmet)
   f-mod (tap-hold $tap-time $hold-time f lctl)
   j-mod (tap-hold $tap-time $hold-time j rctl)
   k-mod (tap-hold $tap-time $hold-time k rmet)
-  l-mod (tap-hold $tap-time $hold-time l ralt)
   esc-ctl (tap-hold $tap-time $hold-time esc lctl)
   ctl-comp (tap-hold $tap-time $hold-time caps lctl)
   )
 
 (deflayer base
-    @s-mod @d-mod @f-mod
-    @j-mod @k-mod @l-mod 
+    @d-mod @f-mod
+    @j-mod @k-mod
     @esc-ctl @ctl-comp
     )
