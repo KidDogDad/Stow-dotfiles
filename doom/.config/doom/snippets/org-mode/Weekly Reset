@@ -4,7 +4,7 @@
 # --
 #+transclude: [[file:--2025-q3-quarterly-goals__2025goals@@20250702T164500.org]] :lines 6-10
 
-#+BEGIN: denote-files :regexp "202x-xx-xx.*_priorities" :no-front-matter t
+#+BEGIN: denote-files :regexp "`(ts-year (ts-now))`.*`(ts-week (ts-now))`.*_priorities" :no-front-matter t
 #+END
 
 * Grades On Last Week's Priorities

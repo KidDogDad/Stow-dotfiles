@@ -2,5 +2,5 @@
 # name: Weekly Priorities
 # key: wkpp
 # --
-#+BEGIN: denote-files :regexp "_priorities.*_thisweek" :no-front-matter t
+#+BEGIN: denote-files :regexp "`(ts-year (ts-now))`.*`(ts-week (ts-now))`.*_priorities" :no-front-matter t
 #+END:
