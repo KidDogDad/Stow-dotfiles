@@ -156,6 +156,11 @@
  )
 
 (map!
+:leader
+:prefix "o"
+:desc "eshell" "s" #'eshell)
+
+(map!
  :leader
  :prefix "o"
  :desc "re-builder" "B" #'re-builder)
