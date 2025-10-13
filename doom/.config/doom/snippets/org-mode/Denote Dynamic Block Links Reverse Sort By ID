@@ -1,5 +1,0 @@
-# key: ddbid
-# name: Denote Dynamic Block: Links Reverse Sort By ID
-# --
-#+BEGIN: denote-links :regexp "" :sort-by-component identifier :reverse-sort t
-#+END:

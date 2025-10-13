@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Denote Dynamic Block: Basic Links
-# key: ddbli
-# --
-#+BEGIN: denote-links :regexp ""
-#+END:
