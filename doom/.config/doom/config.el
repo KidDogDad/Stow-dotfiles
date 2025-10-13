@@ -502,7 +502,7 @@
         org-deadline-warning-days 2
         org-agenda-tags-todo-honor-ignore-options nil
         org-agenda-dim-blocked-tasks nil
-        org-agenda-use-tag-inheritance t
+        org-agenda-use-tag-inheritance nil
         org-agenda-inhibit-startup t
         org-agenda-ignore-properties '(stats)
         org-agenda-window-setup 'current-window
@@ -515,7 +515,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("people" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
+        org-agenda-hide-tags-regexp (regexp-opt '("people" "yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
