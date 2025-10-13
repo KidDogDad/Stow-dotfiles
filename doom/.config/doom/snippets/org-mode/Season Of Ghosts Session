@@ -1,0 +1,25 @@
+# key: sogsesh
+# name: Season Of Ghosts Session
+# --
+* Pagelinks
+[[denote:20240706T092719][TTRPG]]
+
+* Info
+
+** Enemies
+
+** Locations
+
+** NPCs
+
+* Open Cases
+#+BEGIN: denote-links :regexp "_case.*_open"
+#+END:
+
+* Objectives
+#+BEGIN: denote-links :regexp "_objective.*_open"
+#+END:
+
+* Open Questions
+#+BEGIN: denote-links :regexp "_open.*_question"
+#+END
