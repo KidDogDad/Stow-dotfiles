@@ -1,4 +1,0 @@
-# key: www
-# name: Current Week
-# --
-Week `(ts-week (ts-now))`

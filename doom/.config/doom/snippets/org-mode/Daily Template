@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: Daily Template
-# key: ddte
-# --
-#+BEGIN: denote-files :regexp "_priorities.*_thisweek" :no-front-matter t
-#+END:
