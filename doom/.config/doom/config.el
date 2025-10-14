@@ -444,6 +444,9 @@
         (:name "Important"
          :priority "A"
          :order 1)
+        (:name "Habits"
+         :tag "habit"
+         :order 4)
         (:name "Fun"
          :tag "fun"
          :order 19)
@@ -453,15 +456,19 @@
         (:name "People"
          :tag "people"
          :order 2)
-        (:name "This Week"
+        (:name "Other Week Tasks"
          :tag "thisweek"
-         :order 4)
-        (:name "Weekend"
+         :order 10)
+        (:name "Other Weekend Tasks"
          :tag "weekend"
-         :order 4)
+         :order 10)
         (:name "Waiting"
          :todo "WAIT"
          :order 5)
+        (:name "Other"
+         :time-grid t
+         :scheduled t
+         :order 3)
         ;; After the last group, the agenda will display items that didn't
         ;; match any of these groups, with the default order position of 99
         ))
@@ -550,18 +557,16 @@
                      ;; (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (org-ql-block '(and (todo) (tags "thisweek"))
-                          ((org-ql-block-header "\nThis Week")))
-            ))
+            (org-ql-block '(and (todo) (tags "thisweek") (not (tags "fun")) (not (tags "maybe")))
+                          ((org-ql-block-header "\nThis Week")))))
           ("e" "Weekend"
            ((agenda ""
                     (
                      ;; (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
-            (org-ql-block '(and (todo) (tags "weekend"))
-                          ((org-ql-block-header "\nWeekend")))
-            ))
+            (org-ql-block '(and (todo) (tags "weekend") (not (tags "fun")) (not (tags "maybe")))
+                          ((org-ql-block-header "\nWeekend")))))
           ("p" "Planning"
            ((agenda ""
                     (
@@ -578,6 +583,10 @@
                       (org-agenda-overriding-header "Inbox Items")))))
           ("P" "People Tasks"
            ((tags-todo "people")))
+          ("F" "Fun"
+           ((tags-todo "fun")))
+          ("m" "Maybes"
+           ((tags-todo "maybe")))
           )
 
         org-agenda-sorting-strategy '((agenda time-up ts-up urgency-down)
