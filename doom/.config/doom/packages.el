@@ -7,7 +7,7 @@
 (package! all-the-icons)
 (package! org-modern-indent :recipe (:host github :repo "jdtsmith/org-modern-indent"))
 (package! diredfl :disable t)
-(package! spacious-padding)
+(package! spacious-padding) 
 ;;(package! mixed-pitch)
 
 ;; Functional packages ;;
@@ -49,6 +49,7 @@
 (package! org-ql :recipe (:host github :repo "alphapapa/org-ql"))
 (package! origami)
 (package! magit-delta)
+(package! ts)
 
 ;; Things that I gave up on
 ;; (package! org-outer-indent

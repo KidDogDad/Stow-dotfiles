@@ -431,12 +431,16 @@
         )
   )
 
+(setq org-habit-preceding-days 14)
+(setq org-habit-following-days 1)
+(setq org-habit-show-habits-only-for-today nil)
+
 (setq org-super-agenda-groups
       '(;; Each group has an implicit boolean OR operator between its selectors.
-        (:name "Today"  
-         :time-grid t  
-         :scheduled today
-         :order 0)  
+        ;; (:name "Today"  
+        ;;  :time-grid t  
+        ;;  :scheduled today
+        ;;  :order 0)  
         (:name "Important"
          :priority "A"
          :order 1)
@@ -516,7 +520,7 @@
         org-agenda-use-time-grid t
         org-agenda-skip-timestamp-if-done t
         org-agenda-skip-scheduled-if-done t
-        org-agenda-hide-tags-regexp (regexp-opt '("people" "yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now"))
+        org-agenda-hide-tags-regexp (regexp-opt '("people" "yiyi" "finances" "key" "open" "project" "meta" "maybe" "weekend" "thisweek" "computer" "agenda" "emacs" "kickish" "linux" "next" "tech" "actualplay" "now" "habit"))
         org-agenda-skip-deadline-if-done t
         org-agenda-show-future-repeats nil
         org-agenda-block-separator nil
@@ -537,13 +541,13 @@
            ((agenda ""
                     (
                      (org-deadline-warning-days 0)
-                     (org-agenda-overriding-header "Calendar")
+                     ;; (org-agenda-overriding-header "Calendar")
                      )))
-           ((org-agenda-tag-filter-preset '("-people" "-calendar"))))
+           ((org-agenda-tag-filter-preset '("-people" "-calendar" "-habit"))))
           ("w" "This Week"
            ((agenda ""
                     (
-                     (org-agenda-overriding-header "Calendar")
+                     ;; (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
             (org-ql-block '(and (todo) (tags "thisweek"))
@@ -552,16 +556,27 @@
           ("e" "Weekend"
            ((agenda ""
                     (
-                     (org-agenda-overriding-header "Calendar")
+                     ;; (org-agenda-overriding-header "Calendar")
                      (org-agenda-time-grid (quote ((today require-timed remove-match) () "      " "┈┈┈┈┈┈┈┈┈┈┈┈┈")))
                      ))
+            (org-ql-block '(and (todo) (tags "weekend"))
+                          ((org-ql-block-header "\nWeekend")))
+            ))
+          ("p" "Planning"
+           ((agenda ""
+                    (
+                     ;; (org-agenda-overriding-header "Calendar")
+                     (org-agenda-use-time-grid nil)
+                     ))
+            (org-ql-block '(and (todo) (tags "thisweek"))
+                          ((org-ql-block-header "\nThis Week")))
             (org-ql-block '(and (todo) (tags "weekend"))
                           ((org-ql-block-header "\nWeekend")))
             ))
           ("i" "Inbox"
            ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
-          ("p" "People Tasks"
+          ("P" "People Tasks"
            ((tags-todo "people")))
           )
 
