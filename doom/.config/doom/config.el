@@ -156,14 +156,10 @@
  )
 
 (map!
-:leader
-:prefix "o"
-:desc "eshell" "s" #'eshell)
-
-(map!
  :leader
  :prefix "o"
- :desc "re-builder" "B" #'re-builder)
+ :desc "re-builder" "B" #'re-builder
+ :desc "eshell" "s" #'eshell)
 
 (map!
  :leader
@@ -830,6 +826,13 @@
        :desc "Consult Denote Grep" "g" #'consult-denote-grep
        )
       ))
+
+(map!
+ :leader
+ :prefix ("S" . "Sly")
+ :desc "Sly" "s" #'sly
+ :desc "Quit" "q" #'sly-quit-lisp
+ )
 
 (add-hook! 'magit-mode-hook (magit-delta-mode +1))
 

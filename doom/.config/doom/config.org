@@ -225,14 +225,10 @@
  )
 
 (map!
-:leader
-:prefix "o"
-:desc "eshell" "s" #'eshell)
-
-(map!
  :leader
  :prefix "o"
- :desc "re-builder" "B" #'re-builder)
+ :desc "re-builder" "B" #'re-builder
+ :desc "eshell" "s" #'eshell)
 
 (map!
  :leader
@@ -1121,6 +1117,17 @@ Other commands to mess around with:
 - denote-org-dblock-insert-files-as-headings
 
 * Apps
+
+** Sly
+
+#+begin_src emacs-lisp
+(map!
+ :leader
+ :prefix ("S" . "Sly")
+ :desc "Sly" "s" #'sly
+ :desc "Quit" "q" #'sly-quit-lisp
+ )
+#+end_src
 
 ** Org Magit
 
