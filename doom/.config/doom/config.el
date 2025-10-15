@@ -431,9 +431,11 @@
         )
   )
 
-(setq org-habit-preceding-days 14)
-(setq org-habit-following-days 1)
-(setq org-habit-show-habits-only-for-today nil)
+(after! org
+  (setq org-habit-preceding-days 14)
+  (setq org-habit-following-days 1)
+  (setq org-habit-show-habits-only-for-today nil)
+  )
 
 (setq org-super-agenda-groups
       '(;; Each group has an implicit boolean OR operator between its selectors.
@@ -446,6 +448,9 @@
          :order 1)
         (:name "Habits"
          :tag "habit"
+         :order 4)
+        (:name "Routines"
+         :file-path "routines"
          :order 4)
         (:name "Fun"
          :tag "fun"
@@ -550,7 +555,7 @@
                      (org-deadline-warning-days 0)
                      ;; (org-agenda-overriding-header "Calendar")
                      )))
-           ((org-agenda-tag-filter-preset '("-people" "-calendar" "-habit"))))
+           ((org-agenda-tag-filter-preset '("-people" "-lowprio" "-calendar" "-habit"))))
           ("w" "This Week"
            ((agenda ""
                     (
