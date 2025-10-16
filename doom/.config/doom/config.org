@@ -617,7 +617,7 @@ From [[https://github.com/alexluigit/dirvish/issues/353][this dirvish github iss
 ** Org Habits
 
 #+begin_src emacs-lisp
-(after! org
+(after! org-agenda
   (setq org-habit-preceding-days 14)
   (setq org-habit-following-days 1)
   (setq org-habit-show-habits-only-for-today nil)
@@ -1083,7 +1083,7 @@ javascript:location.href='org-protocol://capture?template=w&ref='+encodeURICompo
                          :desc "Files" "f" #'denote-org-dblock-insert-files
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
-                         :desc "Files as headings" "h" #'org-dblock-insert-files-as-headings
+                         :desc "Files as headings" "h" #'denote-org-dblock-insert-files-as-headings
                          ))))
 
 (map! :leader

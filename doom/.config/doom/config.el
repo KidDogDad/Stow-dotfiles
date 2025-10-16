@@ -433,7 +433,7 @@
         )
   )
 
-(after! org
+(after! org-agenda
   (setq org-habit-preceding-days 14)
   (setq org-habit-following-days 1)
   (setq org-habit-show-habits-only-for-today nil)
@@ -812,7 +812,7 @@
                          :desc "Files" "f" #'denote-org-dblock-insert-files
                          :desc "Links" "l" #'denote-org-dblock-insert-links
                          :desc "Update" "u" #'org-dblock-update
-                         :desc "Files as headings" "h" #'org-dblock-insert-files-as-headings
+                         :desc "Files as headings" "h" #'denote-org-dblock-insert-files-as-headings
                          ))))
 
 (map! :leader
