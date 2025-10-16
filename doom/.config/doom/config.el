@@ -4,7 +4,8 @@
 
 (setq doom-theme 'catppuccin)
 (setq catppuccin-flavor 'mocha)
-(setq display-line-numbers-type nil)
+(setq display-line-numbers-type 'visual)
+(add-hook! 'org-mode-hook (display-line-numbers-mode -1))
 (setq global-hl-line-modes nil)
 (remove-hook 'prog-mode-hook #'hl-line-mode)
 (remove-hook 'text-mode-hook #'hl-line-mode)
