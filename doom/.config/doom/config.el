@@ -334,19 +334,20 @@
 (after! dirvish
   (setq! dirvish-quick-access-entries
          `(("h" "~/" "Home")
-           ("e" ,user-emacs-directory "Emacs user directory")
-           ("o" "~/org/" "Org")
-           ("H" "~/.config/hypr/" "hypr")
-           ("O" "~/.local/share/omarchy/" "Omarchy")
            ("/" "/" "/")
            ("c" "~/.config/" ".config")
-           ("s" "~/stow/" "Stow")
            ("C" "~/code/" "Code")
            ("d" "~/Downloads/" "Downloads")
-           ("g" "~/Documents/Geek stuff" "Geek stuff")
            ("D" "~/Documents/" "Documents")
+           ("e" ,user-emacs-directory "Emacs user directory")
+           ("g" "~/Documents/Geek stuff" "Geek stuff")
+           ("H" "~/.config/hypr/" "hypr")
            ("m" "/mnt/" "Mounted drives")
-           ("t" "~/.local/share/Trash/files/" "Trash")))
+           ("o" "~/org/" "Org")
+           ("O" "~/.local/share/omarchy/" "Omarchy")
+           ("s" "~/stow/" "Stow")
+           ("t" "~/.local/share/Trash/files/" "Trash")
+           ))
   (setq dirvish-hide-details t)
   (setq dirvish-attributes
         (append
@@ -506,7 +507,7 @@
 ;; (add-hook! 'org-agenda-finalize-hook #'my/org-super-agenda-origami-fold-default)
 (add-hook! 'org-agenda-mode-hook #'org-super-agenda-mode)
 
-(setq org-agenda-files (list (concat org-directory "/agenda")))
+(setq org-agenda-files (list (concat org-directory "/notes/agenda")))
 
 (after! org-agenda
   (setq org-agenda-start-day "+0d"
@@ -584,7 +585,7 @@
                           ((org-ql-block-header "\nWeekend")))
             ))
           ("i" "Inbox"
-           ((todo "" ((org-agenda-files '("~/org/agenda/--inbox@@20250814T155838.org"))
+           ((todo "" ((org-agenda-files '("~/org/notes/agenda/--inbox@@20250814T155838.org"))
                       (org-agenda-overriding-header "Inbox Items")))))
           ("P" "People Tasks"
            ((tags-todo "people")))
@@ -640,15 +641,15 @@
             (lambda nil
               (setq-local header-line-format nil)))
   (setq org-capture-templates
-        '(("t" "Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+        '(("t" "Todo" entry (file "~/org/notes/agenda/--inbox@@20250814T155838.org")
            "* TODO %?")
-          ("c" "Clipboard Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+          ("c" "Clipboard Todo" entry (file "~/org/notes/agenda/--inbox@@20250814T155838.org")
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))")
-          ("o" "bin/org-capture Todo" entry (file "~/org/agenda/--inbox@@20250814T155838.org")
+          ("o" "bin/org-capture Todo" entry (file "~/org/notes/agenda/--inbox@@20250814T155838.org")
            "* TODO %?\n%(string-trim (shell-command-to-string \"wl-paste -n\"))\n")
-          ("e" "Emacs Todo" entry (file "~/org/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
+          ("e" "Emacs Todo" entry (file "~/org/notes/agenda/--emacs-todos__agenda_emacs@@20250811T110445.org")
            "* TODO %? :emacs:\n")
-          ("p" "People Todo" entry (file "~/org/agenda/--yiyi-todos__agenda@@20250814T095858.org")
+          ("p" "People Todo" entry (file "~/org/notes/agenda/--yiyi-todos__agenda@@20250814T095858.org")
            "* TODO %? :people:\n")
           ;; Not working fully yet
           ;; ("W" "Web Page (With Content)" plain
@@ -724,7 +725,7 @@
   ;; Apply colors to Denote names in Dired
   (add-hook 'dired-mode-hook #'denote-dired-mode)
   (add-hook 'dirvish-setup-hook #'denote-dired-mode)
-  (setq denote-directory (expand-file-name "~/org/"))
+  (setq denote-directory (expand-file-name "~/org/notes/"))
   (setq denote-file-type 'org)
   (setq denote-dired-directories-include-subdirectories t)
   (setq denote-save-buffers t)
