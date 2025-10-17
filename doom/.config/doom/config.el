@@ -463,10 +463,10 @@
         (:name "People"
          :tag "people"
          :order 2)
-        (:name "Other Week Tasks"
+        (:name "Other"
          :tag "thisweek"
          :order 10)
-        (:name "Other Weekend Tasks"
+        (:name "Other"
          :tag "weekend"
          :order 10)
         (:name "Waiting"
@@ -864,17 +864,17 @@
  :desc "Sly" "s" #'sly
  )
 
-(map!
-:map sly-mode-map
-:leader
-:prefix "m"
-:desc "sly-apropos" "a" #'sly-apropos
-:desc "sly-apropos-all" "A" #'sly-apropos-all
-:desc "sly-apropos-package" "p" #'sly-apropos-package
-:desc "sly-trace-dialog" "t" #'sly-trace-dialog
-:desc "sly-trace-dialog-toggle-trace" "T" #'sly-trace-dialog-toggle-trace
-:desc "sly-mrepl" "T" #'sly-mrepl
-)
+(map! :after sly
+      :map sly-mode-map
+      :leader
+      :prefix "m"
+      :desc "sly-apropos" "a" #'sly-apropos
+      :desc "sly-apropos-all" "A" #'sly-apropos-all
+      :desc "sly-apropos-package" "p" #'sly-apropos-package
+      :desc "sly-trace-dialog" "t" #'sly-trace-dialog
+      :desc "sly-trace-dialog-toggle-trace" "T" #'sly-trace-dialog-toggle-trace
+      :desc "sly-mrepl" "T" #'sly-mrepl
+      )
 
 (add-hook! 'magit-mode-hook (magit-delta-mode +1))
 
