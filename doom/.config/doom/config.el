@@ -160,7 +160,7 @@
  :leader
  :prefix "o"
  :desc "re-builder" "B" #'re-builder
- :desc "eshell" "s" #'eshell)
+ :desc "eshell" "e" #'eshell)
 
 (map!
  :leader
@@ -860,10 +860,21 @@
 
 (map!
  :leader
- :prefix ("S" . "Sly")
+ :prefix "o"
  :desc "Sly" "s" #'sly
- :desc "Quit" "q" #'sly-quit-lisp
  )
+
+(map!
+:map sly-mode-map
+:leader
+:prefix "m"
+:desc "sly-apropos" "a" #'sly-apropos
+:desc "sly-apropos-all" "A" #'sly-apropos-all
+:desc "sly-apropos-package" "p" #'sly-apropos-package
+:desc "sly-trace-dialog" "t" #'sly-trace-dialog
+:desc "sly-trace-dialog-toggle-trace" "T" #'sly-trace-dialog-toggle-trace
+:desc "sly-mrepl" "T" #'sly-mrepl
+)
 
 (add-hook! 'magit-mode-hook (magit-delta-mode +1))
 
@@ -903,10 +914,10 @@
 
 (setq rmh-elfeed-org-files '("/home/josh/org/--elfeed-feeds__elfeed@@20250824T113650.org"))
 
-(map!
- :leader
- :prefix "o"
- :desc "Elfeed" "e" #'elfeed)
+;; (map!
+;;  :leader
+;;  :prefix "o"
+;;  :desc "Elfeed" "e" #'elfeed)
 
 (add-hook 'elfeed-search-mode-hook #'elfeed-update)
 
